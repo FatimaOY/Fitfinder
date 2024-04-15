@@ -23,6 +23,7 @@ namespace Fitfinder
         public MainWindow()
         {
             InitializeComponent();
+            Console.WriteLine("First line");
         }
     }
 }

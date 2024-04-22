@@ -11,6 +11,10 @@ namespace Fitfinder
         Weightlifting,
         Cardio,
         Stretching,
+        Yoga,
+        Pilates,
+        CrossFit,
+        Calinistics,
         Swimming
     }
 }

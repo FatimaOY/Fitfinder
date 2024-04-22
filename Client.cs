@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Fitfinder
 {
-    public enum Gender
-    {   
-        Female,
-        Male,
-        X
+    public class Client: User
+    {
+        public string preffered_location { get; set; }
+        public Gender preffered_gender {  get; set; }
+
+
     }
 }

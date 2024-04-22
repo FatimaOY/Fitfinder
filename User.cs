@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Fitfinder
 {
-    public class Person
+    public class User
     {
         //Properties 
         public string Name { get; set; }

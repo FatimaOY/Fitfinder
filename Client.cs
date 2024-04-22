@@ -8,9 +8,30 @@ namespace Fitfinder
 {
     public class Client: User
     {
-        public string preffered_location { get; set; }
-        public Gender preffered_gender {  get; set; }
+        public string PrefferedLocation { get; set; }
+        public Gender PrefferedGender { get; set; }
+        public WorkoutTypes PrefferedWorkout { get; set; }
+        public PriceRange PrefferedPrice { get; set; }
 
+        public Client(int id, string name, string surname, string emailAdress, string prefferedLocation, Gender prefferedGender, WorkoutTypes prefferedWorkout, PriceRange prefferedPrice)
+            : base(id, name, surname, emailAdress)
+        {
+            PrefferedLocation = prefferedLocation;
+            PrefferedGender = prefferedGender;
+            PrefferedWorkout = prefferedWorkout;
+            PrefferedPrice = prefferedPrice;
+        }
 
+    }
+    public struct PriceRange
+    {
+        public decimal MinPrice { get; set; }
+        public decimal MaxPrice { get; set; }
+
+        public PriceRange(decimal minPrice, decimal maxPrice)
+        {
+            MinPrice = minPrice;
+            MaxPrice = maxPrice;
+        }
     }
 }

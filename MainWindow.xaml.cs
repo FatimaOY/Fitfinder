@@ -24,6 +24,7 @@ namespace Fitfinder
         {
             InitializeComponent();
             Console.WriteLine("First line");
+            Console.Write("Helloooo");
         }
     }
 }

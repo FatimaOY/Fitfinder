@@ -10,6 +10,7 @@ namespace Fitfinder
     {
         Weightlifting,
         Cardio,
-        Stretching
+        Stretching,
+        Swimming
     }
 }

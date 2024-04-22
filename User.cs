@@ -16,9 +16,21 @@ namespace Fitfinder
         public string EmailAdress { get; set; }
         private string Password { get; set; }
 
-        public Role UserRole { get; set; }  
+        public Role UserRole { get; set; }
 
+        // Constructor for initialization
+        public User(int userId, string name, string surname, string emailAdress)
+        {
+            ID = userId;
+            Name = name;
+            Surname = surname;
+            EmailAdress = emailAdress;
+        }
 
+        public override string ToString()
+        {
+            return $"User: {Name} {Surname} ({EmailAdress})";
+        }
 
 
     }

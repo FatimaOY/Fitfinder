@@ -23,10 +23,18 @@ namespace Fitfinder
         public MainWindow()
         {
             InitializeComponent();
-            Console.WriteLine("First line");
-            Console.Write("Helloooo");
-            Console.WriteLine("This is another test");
-            Console.WriteLine("hiiiiii");
+
         }
+        private void RegisterButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Add code for the Register button click event
+            //NavigationService.Navigate(new RegisterPage());
+        }
+
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Add code for the Login button click event
+        }
+
     }
 }

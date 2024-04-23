@@ -7,6 +7,17 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Image Source="images/fitfinder_logo_bicep.png" HorizontalAlignment="Left" VerticalAlignment="Top" Height="72" Width="76" Margin="227,72,0,0"/>
+        <TextBlock Text="FitFinder" Foreground="#FF6700" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,84,0,0"
+           FontSize="36" FontWeight="Bold"/>
 
+        <!-- Title -->
+        <TextBlock Text="Start your fitness journey now!" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,170,0,0" FontSize="24" FontWeight="Bold"/>
+
+        <!-- Register Button -->
+        <Button Content="Start now!" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,273,0,0" Width="148" Click="RegisterButton_Click"/>
+
+        <!-- Login Button -->
+        <Button Content="I'm already registered" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,324,0,0" Width="148" Click="LoginButton_Click"/>
     </Grid>
 </Window>

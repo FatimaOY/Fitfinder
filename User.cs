@@ -18,12 +18,15 @@ namespace Fitfinder
 
         public Role UserRole { get; set; }
 
+        public Data data = new Data();
+
         // Constructor for initialization
-        public User(int userId, string name, string surname, string emailAdress)
+        public User(int userId, string name, string surname, string password, string emailAdress)
         {
             ID = userId;
             Name = name;
             Surname = surname;
+            Password = password;
             EmailAdress = emailAdress;
         }
 

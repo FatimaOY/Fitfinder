@@ -28,7 +28,8 @@ namespace Fitfinder
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
             // Add code for the Register button click event
-            //NavigationService.Navigate(new RegisterPage());
+            RegisterPage registerPage = new RegisterPage();
+            registerPage.ShowDialog();
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)

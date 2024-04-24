@@ -1,0 +1,30 @@
+﻿<Window x:Class="Fitfinder.RegisterPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Fitfinder"
+        mc:Ignorable="d"
+        Title="RegisterPage" Height="450" Width="800">
+    <Grid>
+        <!-- Button to toggle between trainee and trainer registration -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Button Content="Register as Trainee" Click="RegisterTraineeButton_Click" Margin="10"/>
+            <Button Content="Register as Trainer" Click="RegisterTrainerButton_Click" Margin="10"/>
+        </StackPanel>
+
+        <!-- Trainee registration form -->
+        <StackPanel x:Name="TraineeRegistrationForm" Visibility="Collapsed">
+            <!-- Add trainee registration form fields here -->
+            <TextBlock Text="Trainee Registration Form" FontSize="18" FontWeight="Bold" Margin="0,20,0,10" HorizontalAlignment="Center"/>
+            <!-- Add trainee registration form fields here -->
+        </StackPanel>
+
+        <!-- Trainer registration form -->
+        <StackPanel x:Name="TrainerRegistrationForm" Visibility="Collapsed">
+            <!-- Add trainer registration form fields here -->
+            <TextBlock Text="Trainer Registration Form" FontSize="18" FontWeight="Bold" Margin="0,20,0,10" HorizontalAlignment="Center"/>
+            <!-- Add trainer registration form fields here -->
+        </StackPanel>
+    </Grid>
+</Window>

@@ -35,11 +35,11 @@ namespace Fitfinder
         
     }
 
-    public int InsertClient(User user)
+    /*public int InsertClient(User user)
     {
         string query = $"INSERT INTO person(ID,Name,Surname,password,profile_pic) " +
             $"VALUES (NULL, '{user.Name}','{user.Surname}',NULL,{user.EmailAdress});";
 
         return this.Insert(query);
-    }
+    }*/
 }

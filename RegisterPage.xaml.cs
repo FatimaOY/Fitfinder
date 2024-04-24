@@ -37,5 +37,52 @@ namespace Fitfinder
             TrainerRegistrationForm.Visibility = Visibility.Visible;
             TraineeRegistrationForm.Visibility = Visibility.Collapsed;
         }
+
+        private void TraineeRegisterButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Get trainee registration information
+            string name = txtTraineeName.Text;
+            string surname = txtTraineeSurname.Text;
+            string password = txtTraineePassword.Password;
+            string confirmPassword = txtTraineeConfirmPassword.Password;
+
+            // Validate input (for example, check if passwords match)
+            if (password != confirmPassword)
+            {
+                MessageBox.Show("Passwords do not match.");
+                return;
+            }
+
+            // Process trainee registration (e.g., save to database)
+            // Here, you would typically handle the registration logic
+            // For now, let's just display a message
+            MessageBox.Show($"Trainee Registration\nName: {name}\nSurname: {surname}\nPassword: {password}");
+        }
+
+        private void TrainerNextButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Get trainer registration information
+            string name = txtTrainerName.Text;
+            string surname = txtTrainerSurname.Text;
+            string password = txtTrainerPassword.Password;
+            string confirmPassword = txtTrainerConfirmPassword.Password;
+
+            // Validate input (for example, check if passwords match)
+            if (password != confirmPassword)
+            {
+                MessageBox.Show("Passwords do not match.");
+                return;
+            }
+
+            // Process trainer registration (e.g., save to database)
+            // Here, you would typically handle the registration logic
+            // For now, let's just display a message
+            MessageBox.Show($"Trainer Registration\nName: {name}\nSurname: {surname}\nPassword: {password}");
+
+            // Navigate to the next step (e.g., additional trainer registration information)
+            // For demonstration purposes, let's assume there's another page for additional registration steps
+            // Replace "NextPage" with the actual name of the page
+            // NavigationService.Navigate(new NextPage());
+        }
     }
 }

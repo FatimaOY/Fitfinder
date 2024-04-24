@@ -13,8 +13,9 @@ namespace Fitfinder
         public double Price { get; set; }
         public string Education { get; set; }
 
-        public Trainer(int userId, string name, string surname, string emailAdress, string location, WorkoutTypes workout, double price, string education)
-            : base(userId, name, surname, emailAdress)
+        // Updated constructor to include the password parameter
+        public Trainer(int userId, string name, string surname, string password, string emailAdress, string location, WorkoutTypes workout, double price, string education)
+            : base(userId, name, surname, password, emailAdress) // Correctly pass all required parameters
         {
             Location = location;
             Workout = workout;
@@ -22,7 +23,5 @@ namespace Fitfinder
             Education = education;
             UserRole = Role.Trainer; // Setting the UserRole to Trainer
         }
-
-        
     }
 }

@@ -13,8 +13,8 @@ namespace Fitfinder
         public WorkoutTypes PrefferedWorkout { get; set; }
         public PriceRange PrefferedPrice { get; set; }
 
-        public Client(int id, string name, string surname, string emailAdress, string prefferedLocation, Gender prefferedGender, WorkoutTypes prefferedWorkout, PriceRange prefferedPrice)
-            : base(id, name, surname, emailAdress)
+        public Client(int id, string name, string surname, string password, string emailAdress, string prefferedLocation, Gender prefferedGender, WorkoutTypes prefferedWorkout, PriceRange prefferedPrice)
+            : base(id, name, surname,password, emailAdress)
         {
             PrefferedLocation = prefferedLocation;
             PrefferedGender = prefferedGender;

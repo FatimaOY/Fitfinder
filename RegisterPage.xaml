@@ -14,17 +14,64 @@
         </StackPanel>
 
         <!-- Trainee registration form -->
-        <StackPanel x:Name="TraineeRegistrationForm" Visibility="Collapsed">
-            <!-- Add trainee registration form fields here -->
-            <TextBlock Text="Trainee Registration Form" FontSize="18" FontWeight="Bold" Margin="0,20,0,10" HorizontalAlignment="Center"/>
-            <!-- Add trainee registration form fields here -->
-        </StackPanel>
+        <!-- Trainee registration form -->
+        <Border x:Name="TraineeRegistrationForm" Visibility="Collapsed" BorderBrush="Black" BorderThickness="1" Margin="20">
+            <StackPanel>
+                <TextBlock Text="Trainee Registration Form" FontSize="18" FontWeight="Bold" Margin="0,20,0,10" HorizontalAlignment="Center"/>
+
+                <!-- Trainee registration fields -->
+                <StackPanel Margin="0,0,0,10">
+                    <TextBlock Text="Name:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <TextBox x:Name="txtTraineeName" Width="150" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Margin="0,0,0,10">
+                    <TextBlock Text="Surname:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <TextBox x:Name="txtTraineeSurname" Width="150" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Margin="0,0,0,10">
+                    <TextBlock Text="Password:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <PasswordBox x:Name="txtTraineePassword" Width="150" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Margin="0,0,0,10">
+                    <TextBlock Text="Confirm Password:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <PasswordBox x:Name="txtTraineeConfirmPassword" Width="150" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <Button Content="Register" Click="TraineeRegisterButton_Click" Margin="0,10,0,0" HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Border>
 
         <!-- Trainer registration form -->
-        <StackPanel x:Name="TrainerRegistrationForm" Visibility="Collapsed">
-            <!-- Add trainer registration form fields here -->
-            <TextBlock Text="Trainer Registration Form" FontSize="18" FontWeight="Bold" Margin="0,20,0,10" HorizontalAlignment="Center"/>
-            <!-- Add trainer registration form fields here -->
-        </StackPanel>
+        <Border x:Name="TrainerRegistrationForm" Visibility="Collapsed" BorderBrush="Black" BorderThickness="1" Margin="20">
+            <StackPanel>
+                <TextBlock Text="Trainer Registration Form" FontSize="18" FontWeight="Bold" Margin="0,20,0,10" HorizontalAlignment="Center"/>
+
+                <!-- Trainer registration fields -->
+                <StackPanel Margin="0,0,0,10">
+                    <TextBlock Text="Name:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <TextBox x:Name="txtTrainerName" Width="150" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Margin="0,0,0,10">
+                    <TextBlock Text="Surname:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <TextBox x:Name="txtTrainerSurname" Width="150" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Margin="0,0,0,10">
+                    <TextBlock Text="Password:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <PasswordBox x:Name="txtTrainerPassword" Width="150" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Margin="0,0,0,10">
+                    <TextBlock Text="Confirm Password:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <PasswordBox x:Name="txtTrainerConfirmPassword" Width="150" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <Button Content="Next" Click="TrainerNextButton_Click" Margin="0,10,0,0" HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Fitfinder"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Grid Margin="10,10,0,0">
         <Image Source="images/fitfinder_logo_bicep.png" HorizontalAlignment="Left" VerticalAlignment="Top" Height="72" Width="76" Margin="227,72,0,0"/>
         <TextBlock Text="FitFinder" Foreground="#FF6700" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,84,0,0"
            FontSize="36" FontWeight="Bold"/>
@@ -19,5 +19,6 @@
 
         <!-- Login Button -->
         <Button Content="I'm already registered" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,324,0,0" Width="148" Click="LoginButton_Click"/>
+        <Frame x:Name="MainFrame"/>
     </Grid>
 </Window>

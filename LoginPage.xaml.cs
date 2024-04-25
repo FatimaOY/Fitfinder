@@ -16,34 +16,26 @@ using System.Windows.Shapes;
 namespace Fitfinder
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for LoginPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class LoginPage : Page
     {
-        public MainWindow()
+        public LoginPage()
         {
             InitializeComponent();
-
         }
-        private void RegisterButton_Click(object sender, RoutedEventArgs e)
+
+        private void ForgotPassword_Click(object sender, RoutedEventArgs e)
         {
-            // Create an instance of the RegisterWindom page
-
-            // Navigate to the RegisterWindom page within the MainFrame
-            MainFrame.Navigate(new Uri("RegisterWindom.xaml", UriKind.Relative));
+            MessageBox.Show("Password reset instructions will be sent to your email.", "Forgot Password");
         }
-
-
-
-
-
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            // Navigate to the LoginPage
-            MainFrame.Navigate(new Uri("LoginPage.xaml", UriKind.Relative));
+            // Add code to validate and navigate to the next page
+            MessageBox.Show("Login successful!", "Login");
+            // Example: Navigate to another page after successful login
+            // NavigationService.Navigate(new NextPage());
         }
-
-
     }
 }

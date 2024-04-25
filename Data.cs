@@ -1,53 +1,18 @@
-﻿using MySqlConnector;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
+using MySql.Data.MySqlClient;
 
 namespace Fitfinder
 {
-    /*public class Data
-    {
-        private string connectionString = "datasource=127.0.0.1; port=3306; username = root; password=; database = fitfinder1;";
-
-        private const int _trainee = 1;
-        private const int _personal_trainer = 2;
-        private const int _admin = 3;
-
-        //opening the connection
-        private int Insert(string query)
-        {
-            MySqlConnection connection = new MySqlConnection(connectionString);
-            MySqlCommand commandDatabase = new MySqlCommand(query, connection);
-            try
-            {
-                connection.Open();
-                int result = commandDatabase.ExecuteNonQuery();
-                return (int)commandDatabase.LastInsertedId;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            return -1;
-        }
-        
-    }
-
-    /*public int InsertClient(User user)
-    {
-        string query = $"INSERT INTO person(ID,Name,Surname,password,profile_pic) " +
-            $"VALUES (NULL, '{user.Name}','{user.Surname}',NULL,{user.EmailAdress});";
-
-        return this.Insert(query);
-    }
-    }
-    }*/
     public class Data
     {
         // Connection string to connect to MySQL
-        private string connectionString = "datasource=127.0.0.1; port=3306; username=root; password=; database=fitfinder1;";
+        /*private string connectionString = "datasource=127.0.0.1; port=3306; username=root; password=; database=fitfinder1;";
 
         // Utility function to execute an INSERT query
         private int Insert(string query)
@@ -90,6 +55,73 @@ namespace Fitfinder
 
             // Execute the INSERT query
             return this.Insert(query);
+        }*/
+
+        private string connectionString;
+        private MySqlConnection connection;
+
+        public Data()
+        {
+            connectionString =
+                "datasource=127.0.0.1;" +
+                "port=3306;" +
+                "username=root;" +
+                "password=;" +
+                "database=fitfinder1"; // Update the database name here
+            connection = new MySqlConnection(connectionString);
+
         }
+
+        public void OpenConnection()
+        {
+            if (connection.State == System.Data.ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+        }
+
+        public void CloseConnection()
+        {
+            if (connection.State == System.Data.ConnectionState.Open)
+            {
+                connection.Close();
+            }
+        }
+
+        public void InsertUser(User user)
+        {
+            OpenConnection();
+
+            string query = "INSERT INTO Users (Name, Surname, Email, Password, ProfilePic, GenderId) VALUES (@Name, @Surname, @Email, @Password, @ProfilePic, @GenderId)";
+
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+
+            // Use the data from the User object to set the query parameters
+            cmd.Parameters.AddWithValue("@Name", user.Name);
+            cmd.Parameters.AddWithValue("@Surname", user.Surname);
+            cmd.Parameters.AddWithValue("@Email", user.Email);
+            cmd.Parameters.AddWithValue("@Password", user.Password);
+            cmd.Parameters.AddWithValue("@ProfilePic", user.ProfilePic); // Assuming it's a byte array
+            cmd.Parameters.AddWithValue("@GenderId", user.GenderId);
+
+            try
+            {
+                cmd.ExecuteNonQuery(); // Execute the SQL command to insert the new user
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error executing query: " + ex.Message); // Log any exceptions
+            }
+            finally
+            {
+                CloseConnection(); // Ensure the connection is closed
+            }
+        }
+
     }
-    }
+}
+
+
+    
+
+

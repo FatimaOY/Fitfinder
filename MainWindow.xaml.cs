@@ -27,15 +27,23 @@ namespace Fitfinder
         }
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
-            // Add code for the Register button click event
-            RegisterPage registerPage = new RegisterPage();
-            registerPage.ShowDialog();
+            // Create an instance of the RegisterWindom page
+
+            // Navigate to the RegisterWindom page within the MainFrame
+            MainFrame.Navigate(new Uri("RegisterWindom.xaml", UriKind.Relative));
         }
+
+
+
+
+
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            // Add code for the Login button click event
+            // Navigate to the LoginPage
+            MainFrame.Navigate(new Uri("LoginPage.xaml", UriKind.Relative));
         }
+
 
     }
 }

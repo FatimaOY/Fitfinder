@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Fitfinder
 {
     /// <summary>
-    /// Interaction logic for RegisterPage.xaml
+    /// Interaction logic for RegisterWindom.xaml
     /// </summary>
-    public partial class RegisterPage : Window
+    public partial class RegisterWindom : Page
     {
-        public RegisterPage()
+        public RegisterWindom()
         {
             InitializeComponent();
         }

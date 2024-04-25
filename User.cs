@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Fitfinder
 {
-    public class User
+    /*public class User
     {
         //Properties 
         public string Name { get; set; }
@@ -42,6 +42,27 @@ namespace Fitfinder
     {
         Client,
         Trainer
+    }*/
+    public class User
+    {
+        public int UserId { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string Password { get; set; }
+        public string Email { get; set; }
+        public byte[] ProfilePic { get; set; }
+        public int GenderId { get; set; }
+
+        public User(int userId, string name, string surname, string email, string password, byte[] profilePic, int genderId)
+        {
+            UserId = userId;
+            Name = name;
+            Surname = surname;
+            Email = email;
+            Password = password;
+            ProfilePic = profilePic;
+            GenderId = genderId;
+        }
     }
 
 }

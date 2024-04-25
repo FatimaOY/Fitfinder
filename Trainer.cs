@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Fitfinder
 {
-    public class Trainer : User
+    /*public class Trainer : User
     {
         public string Location { get; set; }
         public WorkoutTypes Workout { get; set; }
@@ -22,6 +23,47 @@ namespace Fitfinder
             Price = price;
             Education = education;
             UserRole = Role.Trainer; // Setting the UserRole to Trainer
+        }
+    }*/
+
+    public class PersonalTrainer : User
+    {
+        public string Description { get; set; }
+        public string Location { get; set; }
+        public decimal Price { get; set; }
+        public int Experience { get; set; }
+        public string Certifications { get; set; }
+
+        public List<TrainerWorkout> TrainerWorkouts { get; set; }
+        public List<Availability> Availabilities { get; set; }
+        public List<Appointment> Appointments { get; set; }
+        public List<Message> Messages { get; set; }
+
+        public PersonalTrainer(
+            int userId,
+            string name,
+            string surname,
+            string email,
+            string password,
+            byte[] profilePic,
+            int genderId,  // Added parameter
+            string description,
+            string location,
+            decimal price,
+            int experience,
+            string certifications
+        ) : base(userId, name, surname,email, password, profilePic, genderId)  // Correct base constructor call
+        {
+            Description = description;
+            Location = location;
+            Price = price;
+            Experience = experience;
+            Certifications = certifications;
+
+            TrainerWorkouts = new List<TrainerWorkout>();
+            Availabilities = new List<Availability>();
+            Appointments = new List<Appointment>();
+            Messages = new List<Message>();
         }
     }
 }

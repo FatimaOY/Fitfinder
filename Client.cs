@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Fitfinder
 {
-    public class Client: User
+    /*public class Client: User
     {
         public string PrefferedLocation { get; set; }
         public Gender PrefferedGender { get; set; }
@@ -22,16 +22,33 @@ namespace Fitfinder
             PrefferedPrice = prefferedPrice;
         }
 
-    }
-    public struct PriceRange
+    }*/
+    public class Trainee : User
     {
-        public decimal MinPrice { get; set; }
-        public decimal MaxPrice { get; set; }
+        public string Description { get; set; }
+        public string Goals { get; set; }
 
-        public PriceRange(decimal minPrice, decimal maxPrice)
+        public List<Message> Messages { get; set; }
+        public List<Appointment> Appointments { get; set; }
+
+        // Constructor for Trainee, calls the base constructor
+        public Trainee(
+            int userId,
+            string name,
+            string surname,
+            string email,
+            string password,
+            byte[] profilePic,
+            int genderId,
+            string description,
+            string goals) : base(userId, name, surname,email, password, profilePic, genderId)
         {
-            MinPrice = minPrice;
-            MaxPrice = maxPrice;
+            Description = description;
+            Goals = goals;
+
+            Messages = new List<Message>();
+            Appointments = new List<Appointment>();
         }
     }
+
 }

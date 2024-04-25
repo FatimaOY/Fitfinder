@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Fitfinder
 {
-    public class Appointment
+    /*public class Appointment
     {
         public int TrainerID { get; set; }
         public int ClientID { get; set; }
@@ -38,6 +38,38 @@ namespace Fitfinder
         public override string ToString()
         {
             return $"Appointment with Trainer {TrainerID} and Client {ClientID} at {Location} on {Date}. Duration: {Duration}.";
+        }
+    }*/
+    public class Appointment
+    {
+        public int AppointmentId { get; set; }
+        public int TraineeId { get; set; }
+        public int TrainerId { get; set; }
+        public int TrainerWorkoutId { get; set; }
+        public int Duration { get; set; }
+        public DateTime Date { get; set; }
+        public bool Status { get; set; }
+
+        public Trainee Trainee { get; set; }
+        public PersonalTrainer PersonalTrainer { get; set; }
+        public TrainerWorkout TrainerWorkout { get; set; }
+
+        public Appointment(
+            int appointmentId,
+            int traineeId,
+            int trainerId,
+            int trainerWorkoutId,
+            int duration,
+            DateTime date,
+            bool status)
+        {
+            AppointmentId = appointmentId;
+            TraineeId = traineeId;
+            TrainerId = trainerId;
+            TrainerWorkoutId = trainerWorkoutId;
+            Duration = duration;
+            Date = date;
+            Status = status;
         }
     }
 }

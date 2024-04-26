@@ -92,4 +92,4 @@ namespace Fitfinder
             return this.Insert(query);
         }
     }
-    }
+}

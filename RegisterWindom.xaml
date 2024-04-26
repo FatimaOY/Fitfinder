@@ -18,7 +18,7 @@
 
         <!-- Trainee registration form -->
         <!-- Trainee registration form -->
-        <Border x:Name="TraineeRegistrationForm" Visibility="Collapsed" BorderBrush="Black" BorderThickness="1" Margin="20">
+        <Border x:Name="TraineeRegistrationForm" Visibility="Collapsed" BorderThickness="1" Margin="20">
             <StackPanel>
                 <TextBlock Text="Trainee Registration Form" FontSize="18" FontWeight="Bold" Margin="0,20,0,10" HorizontalAlignment="Center"/>
 
@@ -31,6 +31,11 @@
                 <StackPanel Margin="0,0,0,10">
                     <TextBlock Text="Surname:" VerticalAlignment="Center" Margin="0,0,5,0"/>
                     <TextBox x:Name="txtTraineeSurname" Width="150" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Margin="0,0,0,10">
+                    <TextBlock Text="Email:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <TextBox x:Name="txtTraineeEmail" Width="150" VerticalAlignment="Center"/>
                 </StackPanel>
 
                 <StackPanel Margin="0,0,0,10">
@@ -48,7 +53,7 @@
         </Border>
 
         <!-- Trainer registration form -->
-        <Border x:Name="TrainerRegistrationForm" Visibility="Collapsed" BorderBrush="Black" BorderThickness="1" Margin="20">
+        <Border x:Name="TrainerRegistrationForm" Visibility="Collapsed"  BorderThickness="1" Margin="20">
             <StackPanel>
                 <TextBlock Text="Trainer Registration Form" FontSize="18" FontWeight="Bold" Margin="0,20,0,10" HorizontalAlignment="Center"/>
 
@@ -61,6 +66,11 @@
                 <StackPanel Margin="0,0,0,10">
                     <TextBlock Text="Surname:" VerticalAlignment="Center" Margin="0,0,5,0"/>
                     <TextBox x:Name="txtTrainerSurname" Width="150" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Margin="0,0,0,10">
+                    <TextBlock Text="Email:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <TextBox x:Name="txtTrainerEmail" Width="150" VerticalAlignment="Center"/>
                 </StackPanel>
 
                 <StackPanel Margin="0,0,0,10">

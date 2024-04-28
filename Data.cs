@@ -68,7 +68,7 @@ namespace Fitfinder
                 "port=3306;" +
                 "username=root;" +
                 "password=;" +
-                "database=fitfinder2"; // Update the database name here
+                "database=fitfinder4"; // Update the database name here
             connection = new MySqlConnection(connectionString);
 
         }
@@ -89,11 +89,11 @@ namespace Fitfinder
             }
         }
 
-        public void InsertUser(User user)
+        public int InsertUser(User user)
         {
             OpenConnection();
 
-            string query = "INSERT INTO Users (Name, Surname, Email, Password, ProfilePic, GenderId) VALUES (@Name, @Surname, @Email, @Password, @ProfilePic, @GenderId)";
+            string query = "INSERT INTO User (Name, Surname, Email, Password, ProfilePic, GenderId) VALUES (@Name, @Surname, @Email, @Password, @ProfilePic, @GenderId)";
 
             MySqlCommand cmd = new MySqlCommand(query, connection);
 
@@ -109,6 +109,64 @@ namespace Fitfinder
 
             if (rowsAffected > 0)
             {
+                int userId = (int)cmd.LastInsertedId; // Cast to int if necessary
+                return userId; // Return the UserId
+            }
+
+            return -1; // Indicate failure to insert
+        }
+
+        //INSERTING A CLIENT
+
+        public void InsertClient(int userId, Client client)
+        {
+            OpenConnection();
+
+            // Assuming UserId is a foreign key in the Clients table
+            string query = "INSERT INTO Client (PersonId, Description) VALUES (@PersonId, @Description)";
+
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+
+            // Use the data from the Client object to set the query parameters
+            cmd.Parameters.AddWithValue("@PersonId", userId); // Use the UserId from InsertUser
+            cmd.Parameters.AddWithValue("@Description", client.Description);
+
+
+            int rowsAffected = cmd.ExecuteNonQuery();
+
+            if (rowsAffected > 0)
+            {
+                MessageBox.Show("Client registered successfully.");
+            }
+            else
+            {
+                MessageBox.Show("Failed to register client.");
+            }
+        }
+
+        //INSERTING A TRAINER
+        public void InsertTrainer(int userId, Trainer trainer)
+        {
+            OpenConnection();
+
+            // Assuming UserId is a foreign key in the Trainers table
+            string query = "INSERT INTO Trainer (PersonId, Description, Location, Price) VALUES (@PersonId, @Description, @Location, @Price)";
+
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+
+            // Use the data from the Trainer object to set the query parameters
+            cmd.Parameters.AddWithValue("@PersonId", userId); // Use the UserId from InsertUser
+            cmd.Parameters.AddWithValue("@Description", trainer.Description);
+            cmd.Parameters.AddWithValue("@Location", trainer.Location);
+            cmd.Parameters.AddWithValue("@Price", trainer.Price);
+            cmd.Parameters.AddWithValue("@Experience", trainer.Experience);
+            cmd.Parameters.AddWithValue("@Certifications", trainer.Certifications);
+            cmd.Parameters.AddWithValue("@IsActive", trainer.IsActive);
+
+            int rowsAffected = cmd.ExecuteNonQuery();
+
+            if (rowsAffected > 0)
+            {
                 MessageBox.Show("Trainer registered successfully.");
             }
             else
@@ -116,7 +174,6 @@ namespace Fitfinder
                 MessageBox.Show("Failed to register trainer.");
             }
         }
-
     }
 }
 

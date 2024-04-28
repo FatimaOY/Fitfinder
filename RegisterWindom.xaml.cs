@@ -10,12 +10,14 @@ namespace Fitfinder
 {
     public partial class RegisterWindom : Page
     {
-        // Connection string to your MySQL database
-        private Data database = new Data(); // Assuming Data class has the InsertUser method
+        private MyViewModel _viewModel; // Declare the ViewModel
+        private Data _database; // You can keep your Data class instance if needed
 
         public RegisterWindom()
         {
             InitializeComponent();
+            _viewModel = new MyViewModel(); // Initialize the ViewModel
+            _database = new Data(); // Initialize the Data class if needed
         }
 
         private void RegisterTraineeButton_Click(object sender, RoutedEventArgs e)
@@ -39,21 +41,20 @@ namespace Fitfinder
             string password = txtTraineePassword.Password;
             string confirmPassword = txtTraineeConfirmPassword.Password;
 
-            // Validate input (for example, check if passwords match)
+            // Validate input (check if passwords match)
             if (password != confirmPassword)
             {
                 MessageBox.Show("Passwords do not match.");
                 return;
             }
 
-            // Create a User object for a trainee
-            User trainee = new Client(1,name, surname, email, password, null, 1, null, null); // GenderId as example
+            // Create a Client object
+            Client client = new Client(0, name, surname, email, password, null, 1, "Trainee description", null);
 
-
-            // Insert into the database
+            // Insert into the database using the ViewModel
             try
             {
-                database.InsertUser(trainee); // Use InsertUser to insert the trainee
+                _viewModel.AddNewClient(client); // Adding a client
                 MessageBox.Show("Trainee registered successfully.");
             }
             catch (Exception ex)
@@ -64,27 +65,26 @@ namespace Fitfinder
 
         private void TrainerNextButton_Click(object sender, RoutedEventArgs e)
         {
-            // Get trainer registration information
             string name = txtTrainerName.Text;
             string surname = txtTrainerSurname.Text;
             string email = txtTrainerEmail.Text;
             string password = txtTrainerPassword.Password;
             string confirmPassword = txtTrainerConfirmPassword.Password;
 
-            // Validate input (for example, check if passwords match)
+            // Validate input (check if passwords match)
             if (password != confirmPassword)
             {
                 MessageBox.Show("Passwords do not match.");
                 return;
             }
 
-            // Create a User object for a trainer
-            User trainer = new User(name, surname,email,password, null, 1); // Example GenderId
+            // Create a Trainer object
+            Trainer trainer = new Trainer(0, name, surname, email, password, null, 1, "Trainer description", "Trainer location", 100, 5, "Trainer certifications", true);
 
-            // Insert into the database
+            // Insert into the database using the ViewModel
             try
             {
-                database.InsertUser(trainer); // Insert the trainer into the database
+                _viewModel.AddNewTrainer(trainer); // Adding a trainer
                 MessageBox.Show("Trainer registered successfully.");
             }
             catch (Exception ex)

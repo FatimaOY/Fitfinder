@@ -15,22 +15,31 @@ using System.Windows.Shapes;
 
 namespace Fitfinder
 {
-    /// <summary>
-    /// Interaction logic for RegistrationPageTrainer.xaml
-    /// </summary>
     public partial class RegistrationPageTrainer : Page
     {
-        private Data database = new Data();
+        private string name;
+        private string surname;
+        private string email;
+        private string password;
+        private MyViewModel _viewModel; // Declare _viewModel here
 
-        public RegistrationPageTrainer()
+        public RegistrationPageTrainer(string name, string surname, string email, string password, MyViewModel viewModel)
         {
             InitializeComponent();
+
+            // Store the trainer information received from the first page
+            this.name = name;
+            this.surname = surname;
+            this.email = email;
+            this.password = password;
+
+            _viewModel = viewModel; // Assign the ViewModel
         }
 
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
-            // Get trainer registration information
-            string location = txtTraineeLocation.Text;
+            // Get additional trainer registration information from the second page
+            string location = txtTrainerLocation.Text;
             int genderId = 0; // Initialize with 0 which means no gender selected
             if (rbFemale.IsChecked == true)
                 genderId = 1; // Female
@@ -63,21 +72,19 @@ namespace Fitfinder
                 MessageBox.Show("Please select at least one workout type.");
                 return;
             }
+
+            // Create a Trainer object using all information
+            Trainer trainer = new Trainer(0, name, surname, email, password, null, genderId, "Trainer description", location, price, 5, "Trainer certifications", true);
+
             try
             {
-                // Assuming you have a method to insert a trainer
-                //database.InsertTrainer(new Trainer(location, genderId, price, workouts));
-                //MessageBox.Show("Trainer registered successfully.");
+                _viewModel.AddNewTrainer(trainer); // Adding a trainer
+                MessageBox.Show("Trainer registered successfully.");
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred: {ex.Message}");
+                MessageBox.Show("An error occurred: " + ex.Message); // Handle exceptions
             }
-            // Process trainer registration (e.g., save to database)
-            // Here, you would typically handle the registration logic
-            // For now, let's just display a message
-            MessageBox.Show($"Trainer Registration\nLocation: {location}\nGender: {genderId}\nPrice: {price}\nWorkouts: {workouts}");
         }
-
     }
 }

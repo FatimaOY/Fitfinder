@@ -13,7 +13,7 @@
         <TextBlock Text="Setting up your account" FontSize="18" FontWeight="Bold" Margin="0,20,0,400" HorizontalAlignment="Center"/>
         <TextBlock HorizontalAlignment="Left" Height="21" Margin="261,50,0,0" TextWrapping="Wrap" Text="Complete the questionare to get matched with our users" VerticalAlignment="Top" Width="364"/>
         <TextBlock Text="1. What is your prefered Location?" VerticalAlignment="Top" Margin="28,97,-23,0"/>
-        <TextBox x:Name="txtTraineeLocation" VerticalAlignment="Top" Margin="28,118,597,0" Height="16"/>
+        <TextBox x:Name="txtTrainerLocation" VerticalAlignment="Top" Margin="28,118,597,0" Height="16"/>
         <TextBlock Text="2. What is your gender?" VerticalAlignment="Top" Margin="28,150,-23,0"/>
         <RadioButton x:Name="rbFemale" Content="Female" VerticalAlignment="Top" Margin="28,171,-23,0"/>
         <RadioButton x:Name="rbMale" Content="Male" VerticalAlignment="Top" Margin="28,192,-23,0"/>

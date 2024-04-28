@@ -65,6 +65,7 @@ namespace Fitfinder
 
         private void TrainerNextButton_Click(object sender, RoutedEventArgs e)
         {
+            // Gather trainer information from the first page
             string name = txtTrainerName.Text;
             string surname = txtTrainerSurname.Text;
             string email = txtTrainerEmail.Text;
@@ -78,20 +79,9 @@ namespace Fitfinder
                 return;
             }
 
-            // Create a Trainer object
-            Trainer trainer = new Trainer(0, name, surname, email, password, null, 1, "Trainer description", "Trainer location", 100, 5, "Trainer certifications", true);
-
-            // Insert into the database using the ViewModel
-            try
-            {
-                _viewModel.AddNewTrainer(trainer); // Adding a trainer
-                MessageBox.Show("Trainer registered successfully.");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("An error occurred: " + ex.Message); // Handle exceptions
-            }
+            // Pass trainer information and ViewModel to the second page
+            RegistrationPageTrainer registrationPageTrainer = new RegistrationPageTrainer(name, surname, email, password, _viewModel);
+            this.NavigationService.Navigate(registrationPageTrainer);
         }
-
     }
 }

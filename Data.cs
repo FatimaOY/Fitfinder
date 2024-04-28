@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using MySql.Data.MySqlClient;
+using System.Windows;
 
 namespace Fitfinder
 {
@@ -67,7 +68,7 @@ namespace Fitfinder
                 "port=3306;" +
                 "username=root;" +
                 "password=;" +
-                "database=fitfinder1"; // Update the database name here
+                "database=fitfinder2"; // Update the database name here
             connection = new MySqlConnection(connectionString);
 
         }
@@ -99,22 +100,20 @@ namespace Fitfinder
             // Use the data from the User object to set the query parameters
             cmd.Parameters.AddWithValue("@Name", user.Name);
             cmd.Parameters.AddWithValue("@Surname", user.Surname);
-            cmd.Parameters.AddWithValue("@Email", user.Email);
+            cmd.Parameters.AddWithValue("Email", user.Email);
             cmd.Parameters.AddWithValue("@Password", user.Password);
             cmd.Parameters.AddWithValue("@ProfilePic", user.ProfilePic); // Assuming it's a byte array
             cmd.Parameters.AddWithValue("@GenderId", user.GenderId);
 
-            try
+            int rowsAffected = cmd.ExecuteNonQuery(); // Execute command and get affected rows
+
+            if (rowsAffected > 0)
             {
-                cmd.ExecuteNonQuery(); // Execute the SQL command to insert the new user
+                MessageBox.Show("Trainer registered successfully.");
             }
-            catch (Exception ex)
+            else
             {
-                Console.WriteLine("Error executing query: " + ex.Message); // Log any exceptions
-            }
-            finally
-            {
-                CloseConnection(); // Ensure the connection is closed
+                MessageBox.Show("Failed to register trainer.");
             }
         }
 

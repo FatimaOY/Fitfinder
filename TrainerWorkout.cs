@@ -13,7 +13,7 @@ namespace Fitfinder
         public int TrainerId { get; set; }
 
         public WorkoutType WorkoutType { get; set; }
-        public PersonalTrainer PersonalTrainer { get; set; }
+        public Trainer PersonalTrainer { get; set; }
 
         public TrainerWorkout(int trainerWorkoutId, int workoutTypeId, int trainerId)
         {

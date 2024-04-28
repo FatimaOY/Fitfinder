@@ -50,8 +50,8 @@ namespace Fitfinder
         public DateTime Date { get; set; }
         public bool Status { get; set; }
 
-        public Trainee Trainee { get; set; }
-        public PersonalTrainer PersonalTrainer { get; set; }
+        public Client Client { get; set; }
+        public Trainer Trainer { get; set; }
         public TrainerWorkout TrainerWorkout { get; set; }
 
         public Appointment(

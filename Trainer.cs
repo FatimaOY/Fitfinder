@@ -26,20 +26,21 @@ namespace Fitfinder
         }
     }*/
 
-    public class PersonalTrainer : User
+    public class Trainer : User
     {
         public string Description { get; set; }
         public string Location { get; set; }
         public decimal Price { get; set; }
         public int Experience { get; set; }
         public string Certifications { get; set; }
+        public bool IsActive { get; set; }
 
         public List<TrainerWorkout> TrainerWorkouts { get; set; }
         public List<Availability> Availabilities { get; set; }
         public List<Appointment> Appointments { get; set; }
         public List<Message> Messages { get; set; }
 
-        public PersonalTrainer(
+        public Trainer(
             int userId,
             string name,
             string surname,
@@ -51,19 +52,23 @@ namespace Fitfinder
             string location,
             decimal price,
             int experience,
-            string certifications
-        ) : base(name, surname,email, password, profilePic, genderId)  // Correct base constructor call
+            string certifications,
+            bool isActive
+ 
+        ) : base(name, surname, email, password, profilePic, genderId)  // Correct base constructor call
         {
             Description = description;
             Location = location;
             Price = price;
             Experience = experience;
             Certifications = certifications;
+            IsActive = isActive;
 
             TrainerWorkouts = new List<TrainerWorkout>();
             Availabilities = new List<Availability>();
             Appointments = new List<Appointment>();
             Messages = new List<Message>();
+            IsActive = isActive;
         }
     }
 }

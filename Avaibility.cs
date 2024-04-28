@@ -14,7 +14,7 @@ namespace Fitfinder
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
 
-        public PersonalTrainer PersonalTrainer { get; set; }
+        public Trainer Trainer { get; set; }
 
         public Availability(
             int availabilityId,

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Org.BouncyCastle.Bcpg;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +24,7 @@ namespace Fitfinder
         }
 
     }*/
-    public class Trainee : User
+    public class Client : User
     {
         public string Description { get; set; }
         public string Goals { get; set; }
@@ -32,7 +33,7 @@ namespace Fitfinder
         public List<Appointment> Appointments { get; set; }
 
         // Constructor for Trainee, calls the base constructor
-        public Trainee(
+        public Client(
             int userId,
             string name,
             string surname,

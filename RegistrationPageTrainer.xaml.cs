@@ -20,6 +20,8 @@ namespace Fitfinder
     /// </summary>
     public partial class RegistrationPageTrainer : Page
     {
+        private Data database = new Data();
+
         public RegistrationPageTrainer()
         {
             InitializeComponent();
@@ -29,13 +31,13 @@ namespace Fitfinder
         {
             // Get trainer registration information
             string location = txtTraineeLocation.Text;
-            string gender = "";
+            int genderId = 0; // Initialize with 0 which means no gender selected
             if (rbFemale.IsChecked == true)
-                gender = "Female";
+                genderId = 1; // Female
             else if (rbMale.IsChecked == true)
-                gender = "Male";
+                genderId = 2; // Male
             else if (rbOther.IsChecked == true)
-                gender = "Other";
+                genderId = 3; // Other
             else
             {
                 MessageBox.Show("Please select a gender.");
@@ -61,11 +63,20 @@ namespace Fitfinder
                 MessageBox.Show("Please select at least one workout type.");
                 return;
             }
-
+            try
+            {
+                // Assuming you have a method to insert a trainer
+                //database.InsertTrainer(new Trainer(location, genderId, price, workouts));
+                //MessageBox.Show("Trainer registered successfully.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}");
+            }
             // Process trainer registration (e.g., save to database)
             // Here, you would typically handle the registration logic
             // For now, let's just display a message
-            MessageBox.Show($"Trainer Registration\nLocation: {location}\nGender: {gender}\nPrice: {price}\nWorkouts: {workouts}");
+            MessageBox.Show($"Trainer Registration\nLocation: {location}\nGender: {genderId}\nPrice: {price}\nWorkouts: {workouts}");
         }
 
     }

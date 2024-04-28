@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MySql.Data.MySqlClient;
 
 namespace Fitfinder
 {
@@ -23,6 +24,7 @@ namespace Fitfinder
         public MainWindow()
         {
             InitializeComponent();
+            TestDatabaseConnection();
 
         }
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
@@ -45,5 +47,22 @@ namespace Fitfinder
         }
 
 
+
+        private void TestDatabaseConnection()
+        {
+            string connectionString = "Server=127.0.0.1;Port=3306;Database=fitfinder1;Uid=root;Pwd=;";
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open(); // Attempt to open the connection
+                    MessageBox.Show("Database connection successful.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error connecting to the database: " + ex.Message, "Database Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }

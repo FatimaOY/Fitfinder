@@ -15,8 +15,8 @@ namespace Fitfinder
         public string MessageContent { get; set; }
 
         public Room Room { get; set; }
-        public Trainee Sender { get; set; }
-        public PersonalTrainer Receiver { get; set; }
+        public Client Sender { get; set; }
+        public Trainer Receiver { get; set; }
 
         public Message(
             int messageId,

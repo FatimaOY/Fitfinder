@@ -24,5 +24,18 @@ namespace Fitfinder
         {
             InitializeComponent();
         }
+
+        private void ForgotPassword_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Password reset instructions will be sent to your email.", "Forgot Password");
+        }
+
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Add code to validate and navigate to the next page
+            MessageBox.Show("Login successful!", "Login");
+            // Example: Navigate to another page after successful login
+            // NavigationService.Navigate(new NextPage());
+        }
     }
 }

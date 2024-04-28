@@ -53,9 +53,8 @@ namespace Fitfinder
         public byte[] ProfilePic { get; set; }
         public int GenderId { get; set; }
 
-        public User(int userId, string name, string surname, string email, string password, byte[] profilePic, int genderId)
+        public User(string name, string surname, string email, string password, byte[] profilePic, int genderId)
         {
-            UserId = userId;
             Name = name;
             Surname = surname;
             Email = email;

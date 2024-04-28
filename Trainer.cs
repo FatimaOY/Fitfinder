@@ -52,7 +52,7 @@ namespace Fitfinder
             decimal price,
             int experience,
             string certifications
-        ) : base(userId, name, surname,email, password, profilePic, genderId)  // Correct base constructor call
+        ) : base(name, surname,email, password, profilePic, genderId)  // Correct base constructor call
         {
             Description = description;
             Location = location;

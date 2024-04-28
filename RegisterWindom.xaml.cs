@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data.SqlClient;
 
 namespace Fitfinder
 {
@@ -20,6 +21,9 @@ namespace Fitfinder
     /// </summary>
     public partial class RegisterWindom : Page
     {
+        // Connection string to your SQL Server database
+        private string connectionString = "Server=127.0.0.1:3306;Database=fitfinder1;Uid=root;Pwd=;";
+
         public RegisterWindom()
         {
             InitializeComponent();
@@ -55,6 +59,9 @@ namespace Fitfinder
             }
 
             // Process trainee registration (e.g., save to database)
+            // Insert trainee registration information into the database
+            InsertTraineeIntoDatabase(name, surname, password);
+
             // Here, you would typically handle the registration logic
             // For now, let's just display a message
             MessageBox.Show($"Trainee Registration\nName: {name}\nSurname: {surname}\nPassword: {password}");
@@ -85,5 +92,44 @@ namespace Fitfinder
             // Replace "NextPage" with the actual name of the page
             // NavigationService.Navigate(new NextPage());
         }
+
+        private void InsertTraineeIntoDatabase(string name, string surname, string password)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // SQL command to insert trainee registration information into the database
+                    string sql = "INSERT INTO User (Name, Surname, Password) VALUES (@Name, @Surname, @Password)";
+
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        // Add parameters to the SQL command
+                        command.Parameters.AddWithValue("@Name", name);
+                        command.Parameters.AddWithValue("@Surname", surname);
+                        command.Parameters.AddWithValue("@Password", password);
+
+                        // Execute the SQL command
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Trainee registered successfully.");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Failed to register trainee.");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message);
+            }
+        }
+
     }
 }

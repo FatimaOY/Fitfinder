@@ -9,8 +9,26 @@
       Title="LoginPage"
       Background="White">
 
-    <Grid>
-        
-        
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel Width="300">
+            <TextBlock Text="Logging in" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+            <!-- Name Input -->
+            <Label Content="Email:" Margin="0,0,0,5"/>
+            <TextBox x:Name="NameInput" Width="250" Margin="0,0,0,10"/>
+
+            
+
+            <!-- Password Input -->
+            <Label Content="Password:" Margin="0,0,0,5"/>
+            <PasswordBox x:Name="PasswordInput" Width="250" Margin="0,0,0,10"/>
+
+            <!-- Forgot Password Link -->
+            <TextBlock HorizontalAlignment="Right" Margin="0,0,0,10">
+                <Hyperlink Click="ForgotPassword_Click">Forgot Password?</Hyperlink>
+            </TextBlock>
+
+            <!-- Login Button -->
+            <Button Content="Login" Width="100" HorizontalAlignment="Center" Click="LoginButton_Click"/>
+        </StackPanel>
     </Grid>
 </Page>

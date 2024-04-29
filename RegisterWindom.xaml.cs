@@ -70,7 +70,7 @@ namespace Fitfinder
             }
         }
 
-        private void RegisterButton_Click(object sender, RoutedEventArgs e)
+        private void TrainerRegisterButton_Click(object sender, RoutedEventArgs e)
         {
             // Get additional trainer registration information from the second page
             string location = txtTrainerLocation.Text;

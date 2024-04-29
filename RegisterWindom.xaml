@@ -103,7 +103,7 @@
                         <ListBoxItem>Yoga</ListBoxItem>
                         <!-- Add more ListBoxItems for additional workout options -->
                     </ListBox>
-                    <Button Content="Register" HorizontalAlignment="Left" Height="24" Margin="28,10,0,0" VerticalAlignment="Top" Width="98"/>
+                    <Button Content="Register" Click="TrainerRegisterButton_Click" HorizontalAlignment="Left" Height="24" Margin="28,10,0,0" VerticalAlignment="Top" Width="98"/>
                 </StackPanel>
             </ScrollViewer>
         </Border>

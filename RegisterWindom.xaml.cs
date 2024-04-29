@@ -20,6 +20,15 @@ namespace Fitfinder
             _database = new Data(); // Initialize the Data class if needed
         }
 
+        // Method to determine the gender based on the selected radio button
+        private int GetGenderId()
+        {
+            if (rbFemale.IsChecked == true) return 1; // Female
+            if (rbMale.IsChecked == true) return 2; // Male
+            if (rbOther.IsChecked == true) return 3; // Other
+            return 0; // Default or unknown
+        }
+
         private void RegisterTraineeButton_Click(object sender, RoutedEventArgs e)
         {
             TraineeRegistrationForm.Visibility = Visibility.Visible;
@@ -31,6 +40,7 @@ namespace Fitfinder
             TrainerRegistrationForm.Visibility = Visibility.Visible;
             TraineeRegistrationForm.Visibility = Visibility.Collapsed;
         }
+
 
         private void TraineeRegisterButton_Click(object sender, RoutedEventArgs e)
         {
@@ -47,9 +57,10 @@ namespace Fitfinder
                 MessageBox.Show("Passwords do not match.");
                 return;
             }
+            int genderId = GetGenderId();
 
             // Create a Client object
-            Client client = new Client(0, name, surname, email, password, null, 1, "Trainee description", null);
+            Client client = new Client(0, name, surname, email, password, null, genderId, "Trainee description", null);
 
             // Insert into the database using the ViewModel
             try
@@ -63,13 +74,16 @@ namespace Fitfinder
             }
         }
 
-        private void TrainerNextButton_Click(object sender, RoutedEventArgs e)
+        private void Trainer_final_register_click(object sender, RoutedEventArgs e)
         {
             string name = txtTrainerName.Text;
             string surname = txtTrainerSurname.Text;
             string email = txtTrainerEmail.Text;
             string password = txtTrainerPassword.Password;
             string confirmPassword = txtTrainerConfirmPassword.Password;
+            string location = txtTrainerLocation.Text; //ADD HERE GEDER ID WHEN READY
+            int price = Convert.ToInt32(txtTraineePrice.Text);
+
 
             // Validate input (check if passwords match)
             if (password != confirmPassword)
@@ -77,9 +91,10 @@ namespace Fitfinder
                 MessageBox.Show("Passwords do not match.");
                 return;
             }
+            int genderId = GetGenderId();
 
             // Create a Trainer object
-            Trainer trainer = new Trainer(0,name, surname, email, password, null, 1, "Trainer description", "Trainer location", 100);
+            Trainer trainer = new Trainer(0,name, surname, email, password, null, genderId, "Trainer description", location, price);
 
             // Insert into the database using the ViewModel
             try

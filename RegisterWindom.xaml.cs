@@ -5,25 +5,18 @@ using MySql.Data.MySqlClient; // Change to use MySQL
 using Fitfinder;
 using System.Windows.Controls;
 using MySqlX.XDevAPI;
-using System.Xml.Linq;
 
 namespace Fitfinder
 {
     public partial class RegisterWindom : Page
     {
-        private string name;
-        private string surname;
-        private string email;
-        private string password;
+        private MyViewModel _viewModel; // Declare the ViewModel
         private Data _database; // You can keep your Data class instance if needed
 
         public RegisterWindom()
         {
             InitializeComponent();
-            this.name = name;
-            this.surname = surname;
-            this.email = email;
-            this.password = password;
+            _viewModel = new MyViewModel(); // Initialize the ViewModel
             _database = new Data(); // Initialize the Data class if needed
         }
 
@@ -47,7 +40,6 @@ namespace Fitfinder
             string email = txtTraineeEmail.Text;
             string password = txtTraineePassword.Password;
             string confirmPassword = txtTraineeConfirmPassword.Password;
-            
 
             // Validate input (check if passwords match)
             if (password != confirmPassword)
@@ -62,6 +54,7 @@ namespace Fitfinder
             // Insert into the database using the ViewModel
             try
             {
+                _viewModel.AddNewClient(client); // Adding a client
                 MessageBox.Show("Trainee registered successfully.");
             }
             catch (Exception ex)
@@ -70,48 +63,28 @@ namespace Fitfinder
             }
         }
 
-        private void TrainerRegisterButton_Click(object sender, RoutedEventArgs e)
+        private void TrainerNextButton_Click(object sender, RoutedEventArgs e)
         {
-            // Get additional trainer registration information from the second page
-            string location = txtTrainerLocation.Text;
-            int genderId = 0; // Initialize with 0 which means no gender selected
-            if (rbFemale.IsChecked == true)
-                genderId = 1; // Female
-            else if (rbMale.IsChecked == true)
-                genderId = 2; // Male
-            else if (rbOther.IsChecked == true)
-                genderId = 3; // Other
-            else
+            string name = txtTrainerName.Text;
+            string surname = txtTrainerSurname.Text;
+            string email = txtTrainerEmail.Text;
+            string password = txtTrainerPassword.Password;
+            string confirmPassword = txtTrainerConfirmPassword.Password;
+
+            // Validate input (check if passwords match)
+            if (password != confirmPassword)
             {
-                MessageBox.Show("Please select a gender.");
-                return;
-            }
-            int price;
-            if (!int.TryParse(txtTraineePrice.Text, out price))
-            {
-                MessageBox.Show("Price must be a valid integer.");
-                return;
-            }
-            string workouts = "";
-            foreach (ListBoxItem item in lstWorkouts.SelectedItems)
-            {
-                workouts += item.Content.ToString() + ", ";
-            }
-            if (workouts.Length > 0)
-            {
-                workouts = workouts.Substring(0, workouts.Length - 2); // Remove trailing comma and space
-            }
-            else
-            {
-                MessageBox.Show("Please select at least one workout type.");
+                MessageBox.Show("Passwords do not match.");
                 return;
             }
 
-            // Create a Trainer object using all information
-            Trainer trainer = new Trainer(0, name, surname, email, password, null, genderId, "Trainer description", location, price, 5, "Trainer certifications", true);
+            // Create a Trainer object
+            Trainer trainer = new Trainer(0, name, surname, email, password, null, 1, "Trainer description", "Trainer location", 100);
 
+            // Insert into the database using the ViewModel
             try
             {
+                _viewModel.AddNewTrainer(trainer); // Adding a trainer
                 MessageBox.Show("Trainer registered successfully.");
             }
             catch (Exception ex)
@@ -119,5 +92,6 @@ namespace Fitfinder
                 MessageBox.Show("An error occurred: " + ex.Message); // Handle exceptions
             }
         }
+
     }
 }

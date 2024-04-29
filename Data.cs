@@ -150,8 +150,7 @@ namespace Fitfinder
             OpenConnection();
 
             // Assuming UserId is a foreign key in the Trainers table
-            string query = "INSERT INTO Trainer (PersonId, Description, Location, Price, Experience, Certifications, IsActive) " +
-                           "VALUES (@PersonId, @Description, @Location, @Price, @Experience, @Certifications, @IsActive)";
+            string query = "INSERT INTO Trainer (PersonId, Description, Location, Price) VALUES (@PersonId, @Description, @Location, @Price)";
 
             MySqlCommand cmd = new MySqlCommand(query, connection);
 
@@ -160,9 +159,6 @@ namespace Fitfinder
             cmd.Parameters.AddWithValue("@Description", trainer.Description);
             cmd.Parameters.AddWithValue("@Location", trainer.Location);
             cmd.Parameters.AddWithValue("@Price", trainer.Price);
-            cmd.Parameters.AddWithValue("@Experience", trainer.Experience);
-            cmd.Parameters.AddWithValue("@Certifications", trainer.Certifications);
-            cmd.Parameters.AddWithValue("@IsActive", trainer.IsActive);
 
             int rowsAffected = cmd.ExecuteNonQuery();
 
@@ -179,6 +175,6 @@ namespace Fitfinder
 }
 
 
-    
+
 
 

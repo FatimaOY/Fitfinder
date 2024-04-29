@@ -50,7 +50,7 @@ namespace Fitfinder
 
         private void TestDatabaseConnection()
         {
-            string connectionString = "Server=127.0.0.1;Port=3306;Database=fitfinder1;Uid=root;Pwd=;";
+            string connectionString = "Server=127.0.0.1;Port=3306;Database=fitfinder4;Uid=root;Pwd=;";
             try
             {
                 using (MySqlConnection connection = new MySqlConnection(connectionString))

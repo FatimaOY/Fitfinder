@@ -50,25 +50,20 @@ namespace Fitfinder
             int genderId,  // Added parameter
             string description,
             string location,
-            decimal price,
-            int experience,
-            string certifications,
-            bool isActive
+            decimal price
  
         ) : base(name, surname, email, password, profilePic, genderId)  // Correct base constructor call
         {
             Description = description;
             Location = location;
             Price = price;
-            Experience = experience;
-            Certifications = certifications;
-            IsActive = isActive;
+
 
             TrainerWorkouts = new List<TrainerWorkout>();
             Availabilities = new List<Availability>();
             Appointments = new List<Appointment>();
             Messages = new List<Message>();
-            IsActive = isActive;
+         
         }
     }
 }

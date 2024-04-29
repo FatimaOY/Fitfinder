@@ -79,7 +79,7 @@ namespace Fitfinder
             }
 
             // Create a Trainer object
-            Trainer trainer = new Trainer(0, name, surname, email, password, null, 1, "Trainer description", "Trainer location", 100);
+            Trainer trainer = new Trainer(0,name, surname, email, password, null, 1, "Trainer description", "Trainer location", 100);
 
             // Insert into the database using the ViewModel
             try

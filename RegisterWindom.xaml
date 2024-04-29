@@ -54,37 +54,58 @@
 
         <!-- Trainer registration form -->
         <Border x:Name="TrainerRegistrationForm" Visibility="Collapsed"  BorderThickness="1" Margin="20">
-            <StackPanel>
-                <TextBlock Text="Trainer Registration Form" FontSize="18" FontWeight="Bold" Margin="0,20,0,10" HorizontalAlignment="Center"/>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
 
-                <!-- Trainer registration fields -->
-                <StackPanel Margin="0,0,0,10">
-                    <TextBlock Text="Name:" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                    <TextBox x:Name="txtTrainerName" Width="150" VerticalAlignment="Center"/>
+                <StackPanel>
+                    <TextBlock Text="Trainer Registration Form" FontSize="18" FontWeight="Bold" Margin="0,20,0,10" HorizontalAlignment="Center"/>
+
+                    <!-- Trainer registration fields -->
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="Name:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                        <TextBox x:Name="txtTrainerName" Width="150" VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="Surname:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                        <TextBox x:Name="txtTrainerSurname" Width="150" VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="Email:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                        <TextBox x:Name="txtTrainerEmail" Width="150" VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="Password:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                        <PasswordBox x:Name="txtTrainerPassword" Width="150" VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="Confirm Password:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                        <PasswordBox x:Name="txtTrainerConfirmPassword" Width="150" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <TextBlock Text="Complete the questionnaire to get matched with our users" FontWeight="Bold" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,20,0,10" />
+                    <TextBlock Text="1. What is your preferred Location?" VerticalAlignment="Top" Margin="28,20,0,0"/>
+                    <TextBox x:Name="txtTrainerLocation" VerticalAlignment="Top" Margin="28,5,597,0" Height="16"/>
+
+                    <TextBlock Text="2. What is your gender?" VerticalAlignment="Top" Margin="28,10,0,0"/>
+                    <RadioButton x:Name="rbFemale" Content="Female" VerticalAlignment="Top" Margin="28,5,0,0"/>
+                    <RadioButton x:Name="rbMale" Content="Male" VerticalAlignment="Top" Margin="28,5,0,0"/>
+                    <RadioButton x:Name="rbOther" Content="Other" VerticalAlignment="Top" Margin="28,5,0,0"/>
+
+                    <TextBlock Text="3. For what price do you offer training?" VerticalAlignment="Top" Margin="28,10,0,0"/>
+                    <TextBox x:Name="txtTraineePrice" VerticalAlignment="Top" Margin="28,5,597,0" Height="16"/>
+
+                    <TextBlock Text="4. What type of workouts do you offer?" VerticalAlignment="Top" Margin="28,10,0,0"/>
+                    <ListBox x:Name="lstWorkouts" SelectionMode="Multiple" Margin="28,5,28,69">
+                        <ListBoxItem>Cardio</ListBoxItem>
+                        <ListBoxItem>Lifting</ListBoxItem>
+                        <ListBoxItem>Yoga</ListBoxItem>
+                        <!-- Add more ListBoxItems for additional workout options -->
+                    </ListBox>
+                    <Button Content="Register" HorizontalAlignment="Left" Height="24" Margin="28,10,0,0" VerticalAlignment="Top" Width="98"/>
                 </StackPanel>
-
-                <StackPanel Margin="0,0,0,10">
-                    <TextBlock Text="Surname:" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                    <TextBox x:Name="txtTrainerSurname" Width="150" VerticalAlignment="Center"/>
-                </StackPanel>
-
-                <StackPanel Margin="0,0,0,10">
-                    <TextBlock Text="Email:" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                    <TextBox x:Name="txtTrainerEmail" Width="150" VerticalAlignment="Center"/>
-                </StackPanel>
-
-                <StackPanel Margin="0,0,0,10">
-                    <TextBlock Text="Password:" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                    <PasswordBox x:Name="txtTrainerPassword" Width="150" VerticalAlignment="Center"/>
-                </StackPanel>
-
-                <StackPanel Margin="0,0,0,10">
-                    <TextBlock Text="Confirm Password:" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                    <PasswordBox x:Name="txtTrainerConfirmPassword" Width="150" VerticalAlignment="Center"/>
-                </StackPanel>
-
-                <Button Content="Next" Click="TrainerNextButton_Click" Margin="0,10,0,0" HorizontalAlignment="Center"/>
-            </StackPanel>
+            </ScrollViewer>
         </Border>
     </Grid>
 </Page>

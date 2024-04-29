@@ -150,7 +150,8 @@ namespace Fitfinder
             OpenConnection();
 
             // Assuming UserId is a foreign key in the Trainers table
-            string query = "INSERT INTO Trainer (PersonId, Description, Location, Price) VALUES (@PersonId, @Description, @Location, @Price)";
+            string query = "INSERT INTO Trainer (PersonId, Description, Location, Price, Experience, Certifications, IsActive) " +
+                           "VALUES (@PersonId, @Description, @Location, @Price, @Experience, @Certifications, @IsActive)";
 
             MySqlCommand cmd = new MySqlCommand(query, connection);
 

@@ -21,11 +21,18 @@ namespace Fitfinder
         }
 
         // Method to determine the gender based on the selected radio button
-        private int GetGenderId()
+        private int GetGenderIdTrainer()
         {
             if (rbFemale.IsChecked == true) return 1; // Female
             if (rbMale.IsChecked == true) return 2; // Male
             if (rbOther.IsChecked == true) return 3; // Other
+            return 0; // Default or unknown
+        }
+        private int GetGenderIdClient()
+        {
+            if (Female.IsChecked == true) return 1; // Female
+            if (Male.IsChecked == true) return 2; // Male
+            if (Other.IsChecked == true) return 3; // Other
             return 0; // Default or unknown
         }
 
@@ -57,7 +64,7 @@ namespace Fitfinder
                 MessageBox.Show("Passwords do not match.");
                 return;
             }
-            int genderId = GetGenderId();
+            int genderId = GetGenderIdClient();
 
             // Create a Client object
             Client client = new Client(0, name, surname, email, password, null, genderId, "Trainee description", null);
@@ -91,7 +98,7 @@ namespace Fitfinder
                 MessageBox.Show("Passwords do not match.");
                 return;
             }
-            int genderId = GetGenderId();
+            int genderId = GetGenderIdTrainer();
 
             // Create a Trainer object
             Trainer trainer = new Trainer(0,name, surname, email, password, null, genderId, "Trainer description", location, price);

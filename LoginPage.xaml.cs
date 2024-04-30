@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MySql.Data.MySqlClient; // MySQL connection
+using System.Security.Cryptography; // For hashing
+using System.Text; // For converting byte arrays to strings
 
 namespace Fitfinder
 {
@@ -32,10 +36,69 @@ namespace Fitfinder
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            // Add code to validate and navigate to the next page
-            MessageBox.Show("Login successful!", "Login");
-            // Example: Navigate to another page after successful login
-            // NavigationService.Navigate(new NextPage());
+            string email = EmailInput.Text;
+            string password = PasswordInput.Password;
+
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+            {
+                lblError.Visibility = Visibility.Visible;
+                return;
+            }
+
+           
+            string connectionString =
+                                "datasource=127.0.0.1;" +
+                                "port=3306;" +
+                                "username=root;" +
+                                "password=;" +
+                                "database=fitfinder4";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT * FROM User WHERE email = @Email AND password = @Password";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+
+                    cmd.Parameters.AddWithValue("@Email", email);
+                    cmd.Parameters.AddWithValue("@Password", password);
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    Console.WriteLine(cmd.CommandText);
+
+                    if (reader.HasRows)
+                    {
+                        // Successful login
+                        MessageBox.Show("Login successful!", "Login");
+                        // Navigate to another page or perform some action
+                    }
+                    else
+                    {
+                        lblError.Visibility = Visibility.Visible; // Show error message
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+
         }
+
+        private string HashPassword(string password)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                StringBuilder builder = new StringBuilder();
+                foreach (byte b in bytes)
+                {
+                    builder.Append(b.ToString("x2"));
+                }
+                return builder.ToString();
+            }
+        }
+
     }
 }

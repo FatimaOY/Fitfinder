@@ -14,7 +14,7 @@
             <TextBlock Text="Logging in" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,20"/>
             <!-- Name Input -->
             <Label Content="Email:" Margin="0,0,0,5"/>
-            <TextBox x:Name="NameInput" Width="250" Margin="0,0,0,10"/>
+            <TextBox x:Name="EmailInput" Width="250" Margin="0,0,0,10"/>
 
             
 
@@ -26,6 +26,9 @@
             <TextBlock HorizontalAlignment="Right" Margin="0,0,0,10">
                 <Hyperlink Click="ForgotPassword_Click">Forgot Password?</Hyperlink>
             </TextBlock>
+            <!-- Error message TextBlock -->
+            <TextBlock x:Name="lblError" Text="Invalid login, please try again." Foreground="Red" Visibility="Collapsed" HorizontalAlignment="Center" Margin="0,10,0,0" />
+
 
             <!-- Login Button -->
             <Button Content="Login" Width="100" HorizontalAlignment="Center" Click="LoginButton_Click"/>

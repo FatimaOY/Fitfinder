@@ -56,6 +56,8 @@ namespace Fitfinder
             {
                 _viewModel.AddNewClient(client); // Adding a client
                 MessageBox.Show("Trainee registered successfully.");
+                BrowseTrainers browseTrainers = new BrowseTrainers();
+                this.NavigationService.Navigate(browseTrainers);
             }
             catch (Exception ex)
             {

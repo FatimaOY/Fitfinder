@@ -16,23 +16,13 @@ using System.Windows.Shapes;
 namespace Fitfinder
 {
     /// <summary>
-    /// Interaction logic for BrowseTrainers.xaml
+    /// Interaction logic for TrainerMainPage.xaml
     /// </summary>
-    public partial class BrowseTrainers : Page
+    public partial class TrainerMainPage : Page
     {
-        public BrowseTrainers()
+        public TrainerMainPage()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

@@ -1,0 +1,39 @@
+﻿<Page x:Class="Fitfinder.YourWorkouts"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Fitfinder"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="YourWorkouts"
+      Background="white">
+
+    <Grid>
+        <!-- Top Navigation Bar -->
+        <Button Content="Your Profile" Margin="0,0,583,405"/>
+        <Button Content="Browse Personal Trainer" Margin="217,0,347,405"/>
+        <Button Content="Your Workouts" Margin="453,0,152,405"/>
+        <Button Content="Messages" Margin="648,-1,0,405"/>
+
+        <!-- Table Header -->
+        <DataGrid x:Name="dataGrid" Height="248" Margin="35,101,34,101">
+            <!-- Column Header Text & Bindings
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Background" Value="Grey"/>
+                    <Setter Property="FontStyle" Value="SemiBold"/>
+                </Style>
+            </DataGrid.Resources> -->
+
+            <!-- Column Header Text & Bindings-->
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Trainer" Width="150"/>
+                <DataGridTextColumn Header="Types" Width="150"/>
+                <DataGridTextColumn Header="Date" Width="170"/>
+                <DataGridTextColumn Header="Duration" Width="150"/>
+                <DataGridTextColumn Header="Status" Width="150"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>

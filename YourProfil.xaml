@@ -11,10 +11,10 @@
 
     <Grid >
         <!-- Top Navigation Bar -->
-        <Button Content="Your Profile" Height="70" Margin="10,11,578,369"/>
-        <Button Content="Browse Personal Trainer" Margin="222,11,342,369"/>
-        <Button Content="Your Workouts" Margin="458,10,147,369"/>
-        <Button Content="Messages" Margin="653,10,10,369"/>
+        <Button Content="Your Profile" Margin="0,0,583,405"/>
+        <Button Content="Browse Personal Trainer" Margin="217,0,347,405"/>
+        <Button Content="Your Workouts" Margin="453,0,152,405"/>
+        <Button Content="Messages" Margin="648,-1,0,405"/>
         <Image Source="profile.jpg" Height="100" Margin="86,150,620,200"/>
         <Button Content="Change Photo" Height="30" Width="108" Margin="79,272,613,148"/>
 
@@ -26,7 +26,7 @@
             <TextBlock Text="Password: *********" Margin="0,0,0,5"/>
         </StackPanel>
         <Button Content="Change Password" Margin="346,261,327,166"/>
-        <Button Content="Delete Profile" Margin="340,337,207,80"/>
+        <Button Content="Delete Profile" Margin="340,337,207,80" Background="#AC4242"/>
 
     </Grid>
 </Page>

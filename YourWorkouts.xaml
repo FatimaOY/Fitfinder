@@ -10,14 +10,22 @@
       Background="white">
 
     <Grid>
-        <!-- Top Navigation Bar -->
-        <Button Content="Your Profile" Margin="0,0,583,405"/>
-        <Button Content="Browse Personal Trainer" Margin="217,0,347,405"/>
-        <Button Content="Your Workouts" Margin="453,0,152,405"/>
-        <Button Content="Messages" Margin="648,-1,0,405"/>
+        <!-- Top navigation bar -->
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Your Profile" Click="Profile_button" Grid.Column="0"/>
+            <Button Content="Browse Personal Trainer" Click="BrowseTrainer_button" Grid.Column="1"/>
+            <Button Content="Your Workouts" Click="YourWorkouts_button" Grid.Column="2"/>
+            <Button Content="Messages" Click="Messages_button" Grid.Column="3"/>
+        </Grid>
 
         <!-- Table Header -->
-        <DataGrid x:Name="dataGrid" Height="248" Margin="35,101,34,101">
+        <DataGrid x:Name="dataGrid" Height="248" VerticalAlignment="Center">
             <!-- Column Header Text & Bindings
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">

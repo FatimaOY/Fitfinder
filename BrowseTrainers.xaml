@@ -12,17 +12,21 @@
     <Grid>
         <!-- Top navigation bar -->
         <!-- Top navigation bar -->
-        <!-- Top Navigation Bar -->
-        <Button Content="Your Profile" Margin="0,0,583,405"/>
-        <Button Content="Browse Personal Trainer" Margin="217,0,347,405"/>
-        <Button Content="Your Workouts" Margin="453,0,152,405"/>
-        <Button Content="Messages" Margin="648,-1,0,405"/>
-
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Your Profile" Click="Profile_button" Grid.Column="0"/>
+            <Button Content="Browse Personal Trainer" Click="BrowseTrainer_button" Grid.Column="1"/>
+            <Button Content="Your Workouts" Click="YourWorkouts_button" Grid.Column="2"/>
+            <Button Content="Messages" Click="Messages_button" Grid.Column="3"/>
+        </Grid>
 
         <!-- Filtration section -->
-        <StackPanel Margin="10,45,10,0" VerticalAlignment="Top" Height="180">
-
-            <!-- Location filter -->
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Width="800" Height="208" Margin="0,25,0,0">
             <TextBlock Text="Filter By:" FontWeight="Bold" Height="29"/>
 
             <!-- Location filter -->
@@ -38,7 +42,7 @@
             </StackPanel>
 
             <!-- Workout type filter -->
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Width="782">
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Workout Type:" Margin="0,0,10,0"/>
                 <ComboBox Width="150"/>
             </StackPanel>
@@ -57,7 +61,7 @@
         </StackPanel>
 
         <!-- List of trainers -->
-        <ListBox Margin="10,247,10,10">
+        <ListBox Margin="10,306,0,0" >
             <!-- Trainers will be dynamically loaded here -->
             <ListBoxItem>Trainer 1</ListBoxItem>
             <ListBoxItem>Trainer 2</ListBoxItem>

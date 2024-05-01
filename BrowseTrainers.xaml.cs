@@ -25,12 +25,25 @@ namespace Fitfinder
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Profile_button(object sender, RoutedEventArgs e)
         {
-
+            YourProfil yourProfil = new YourProfil();
+            this.NavigationService.Navigate(yourProfil);
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void BrowseTrainer_button(object sender, RoutedEventArgs e)
+        {
+            BrowseTrainers browseTrainers = new BrowseTrainers();
+            this.NavigationService.Navigate(browseTrainers);
+        }
+
+        private void YourWorkouts_button(object sender, RoutedEventArgs e)
+        {
+            YourWorkouts yourWorkouts = new YourWorkouts();
+            this.NavigationService.Navigate(yourWorkouts);
+        }
+
+        private void Messages_button(object sender, RoutedEventArgs e)
         {
 
         }

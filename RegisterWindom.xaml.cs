@@ -96,7 +96,7 @@ namespace Fitfinder
             string location = txtTrainerLocation.Text; //ADD HERE GEDER ID WHEN READY
             int price = Convert.ToInt32(txtTraineePrice.Text);
 
-
+            
             // Validate input (check if passwords match)
             if (password != confirmPassword)
             {
@@ -113,6 +113,10 @@ namespace Fitfinder
             {
                 _viewModel.AddNewTrainer(trainer); // Adding a trainer
                 MessageBox.Show("Trainer registered successfully.");
+
+                //The navigation to the browseTrainers page
+                TrainerMainPage trainerMainPage = new TrainerMainPage();
+                this.NavigationService.Navigate(trainerMainPage);
             }
             catch (Exception ex)
             {

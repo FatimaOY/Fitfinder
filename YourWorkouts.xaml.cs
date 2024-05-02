@@ -16,15 +16,14 @@ using System.Windows.Shapes;
 namespace Fitfinder
 {
     /// <summary>
-    /// Interaction logic for YourProfil.xaml
+    /// Interaction logic for YourWorkouts.xaml
     /// </summary>
-    public partial class YourProfil : Page
+    public partial class YourWorkouts : Page
     {
-        public YourProfil()
+        public YourWorkouts()
         {
             InitializeComponent();
         }
-
         private void Profile_button(object sender, RoutedEventArgs e)
         {
             YourProfil yourProfil = new YourProfil();
@@ -48,5 +47,6 @@ namespace Fitfinder
             MessagesTrainee messagesTrainee = new MessagesTrainee();
             this.NavigationService.Navigate(messagesTrainee);
         }
+
     }
 }

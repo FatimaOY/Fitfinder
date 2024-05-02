@@ -1,0 +1,30 @@
+﻿<Page x:Class="Fitfinder.TrainerMainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Fitfinder"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="TrainerMainPage"
+      Background="White">
+
+    <Grid>
+        <!-- Header -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Your Profile" FontSize="24" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Center" Background="Gray"/>
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Width="520">
+            <!-- Messages Button -->
+            <Button Content="Messages" Width="120" Margin="10"/>
+            <!-- Appointment Requests Button -->
+            <Button Content="Appointment Requests" Width="180" Margin="10"/>
+            <!-- Your Calendar Button -->
+            <Button Content="Your Calendar" Width="140" Margin="10"/>
+        </StackPanel>
+    </Grid>
+</Page>

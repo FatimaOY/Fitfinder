@@ -1,0 +1,72 @@
+﻿<Page x:Class="Fitfinder.BrowseTrainers"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Fitfinder"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="BrowseTrainers"
+      Background="White">
+
+    <Grid>
+        <!-- Top navigation bar -->
+        <!-- Top navigation bar -->
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Your Profile" Click="Profile_button" Grid.Column="0"/>
+            <Button Content="Browse Personal Trainer" Click="BrowseTrainer_button" Grid.Column="1"/>
+            <Button Content="Your Workouts" Click="YourWorkouts_button" Grid.Column="2"/>
+            <Button Content="Messages" Click="Messages_button" Grid.Column="3"/>
+        </Grid>
+
+        <!-- Filtration section -->
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Width="800" Height="208" Margin="0,25,0,0">
+            <TextBlock Text="Filter By:" FontWeight="Bold" Height="29"/>
+
+            <!-- Location filter -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Location:" Margin="0,0,10,0"/>
+                <ComboBox Width="150"/>
+            </StackPanel>
+
+            <!-- Gender filter -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Gender:" Margin="0,0,10,0"/>
+                <ComboBox Width="150"/>
+            </StackPanel>
+
+            <!-- Workout type filter -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Workout Type:" Margin="0,0,10,0"/>
+                <ComboBox Width="150"/>
+            </StackPanel>
+
+            <!-- Education filter -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Education:" Margin="0,0,10,0"/>
+                <ComboBox Width="150"/>
+            </StackPanel>
+
+            <!-- Price range filter -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Price Range:" Margin="0,0,10,0" Height="30"/>
+                <ComboBox Width="150" Height="20"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- List of trainers -->
+        <ListBox Margin="10,306,0,0" >
+            <!-- Trainers will be dynamically loaded here -->
+            <ListBoxItem>Trainer 1</ListBoxItem>
+            <ListBoxItem>Trainer 2</ListBoxItem>
+            <ListBoxItem>Trainer 3</ListBoxItem>
+            <!-- Add more trainers as needed -->
+        </ListBox>
+    </Grid>
+</Page>

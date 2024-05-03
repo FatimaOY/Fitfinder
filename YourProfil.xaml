@@ -31,7 +31,7 @@
             <TextBlock Text="Email: john.doe@example.com" Margin="0,0,0,5"/>
             <TextBlock Text="Password: *********" Margin="0,0,0,5"/>
         </StackPanel>
-        <Button Content="Change Password" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="340,0,0,158"/>
+        <Button Content="Change Password" Click="change_password_button" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="340,0,0,158"/>
         <Button Content="Delete Profile" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="#AC4242"/>
 
     </Grid>

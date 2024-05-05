@@ -9,9 +9,19 @@
       Title="YourProfil"
       Background="White">
 
-    <Grid >
+    <Grid>
+        <!-- Define rows for separation -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Top navigation row -->
+            <RowDefinition Height="*"/>
+            <!-- Profile section row -->
+            <RowDefinition Height="Auto"/>
+            <!-- Bottom button row -->
+        </Grid.RowDefinitions>
+
         <!-- Top navigation bar -->
-        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top">
+        <Grid Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -25,14 +35,22 @@
         </Grid>
 
         <!-- Profile Section -->
-        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
             <TextBlock Text="Name: John" Margin="0,0,0,5"/>
             <TextBlock Text="Surname: Doe" Margin="0,0,0,5"/>
             <TextBlock Text="Email: john.doe@example.com" Margin="0,0,0,5"/>
             <TextBlock Text="Password: *********" Margin="0,0,0,5"/>
         </StackPanel>
-        <Button Content="Change Password" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="340,0,0,158"/>
-        <Button Content="Delete Profile" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="#AC4242"/>
 
+        <!-- Bottom Buttons -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Content="Change Password" HorizontalAlignment="Left" Margin="20,10,0,10"/>
+            <Button Content="Delete Profile" Background="#AC4242" HorizontalAlignment="Right" Margin="0,10,20,10"/>
+        </Grid>
     </Grid>
 </Page>

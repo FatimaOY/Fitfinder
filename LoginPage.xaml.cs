@@ -19,9 +19,23 @@ using System.Text; // For converting byte arrays to strings
 
 namespace Fitfinder
 {
+    public class UserInfo
+    {
+        public string Username { get; set; }
+        public string FirstName { get; set; }
+        public string Surname { get; set; }
+        public string Email { get; set; }
+    }
+
+    public static class UserSession
+    {
+        public static UserInfo CurrentUser { get; set; }
+    }
+
     /// <summary>
     /// Interaction logic for LoginPage.xaml
     /// </summary>
+    /// 
     public partial class LoginPage : Page
     {
         public LoginPage()
@@ -67,11 +81,18 @@ namespace Fitfinder
                     MySqlDataReader reader = cmd.ExecuteReader();
                     Console.WriteLine(cmd.CommandText);
 
-                    if (reader.HasRows)
-                    {
+                    if (reader.Read())
+                        {
+                        UserSession.CurrentUser = new UserInfo
+                        {
+                            Email = reader["email"].ToString(),
+                            FirstName = reader["name"].ToString(),
+                            Surname = reader["surname"].ToString(),
+                        };
                         // Successful login
                         MessageBox.Show("Login successful!", "Login");
                         // Navigate to another page or perform some action
+                       
                     }
                     else
                     {

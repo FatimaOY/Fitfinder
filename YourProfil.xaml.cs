@@ -23,6 +23,25 @@ namespace Fitfinder
         public YourProfil()
         {
             InitializeComponent();
+            LoadUserProfile();
+        }
+        private void LoadUserProfile()
+        {
+            var currentUser = UserSession.CurrentUser;
+
+            if (currentUser != null)
+            {
+                NameTextBlock.Text = $"Name: {currentUser.FirstName}";
+                SurnameTextBlock.Text = $"Surname: {currentUser.Surname}";
+                EmailTextBlock.Text = $"Email: {currentUser.Email}";
+                // If you have a password field, it's usually a placeholder for user interaction (e.g., change password)
+                // Avoid displaying plain-text passwords
+                PasswordTextBlock.Text = "Password: *********"; // Masked for security
+            }
+            else
+            {
+                MessageBox.Show("User information could not be loaded.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void Profile_button(object sender, RoutedEventArgs e)

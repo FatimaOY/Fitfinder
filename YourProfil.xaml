@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Fitfinder"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="YourProfil"
+      Title="YourProfile"
       Background="White">
 
     <Grid>
@@ -21,31 +21,25 @@
         </Grid.RowDefinitions>
 
         <!-- Top navigation bar -->
-        <Grid Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Button Content="Your Profile" Click="Profile_button" Grid.Column="0"/>
-            <Button Content="Browse Personal Trainer" Click="BrowseTrainer_button" Grid.Column="1"/>
-            <Button Content="Your Workouts" Click="YourWorkouts_button" Grid.Column="2"/>
-            <Button Content="Messages" Click="Messages_button" Grid.Column="3"/>
-        </Grid>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Your Profile" Click="Profile_button"/>
+            <Button Content="Browse Personal Trainer" Click="BrowseTrainer_button"/>
+            <Button Content="Your Workouts" Click="YourWorkouts_button"/>
+            <Button Content="Messages" Click="Messages_button"/>
+        </StackPanel>
 
         <!-- Profile Section -->
         <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock Text="Name: John" Margin="0,0,0,5"/>
-            <TextBlock Text="Surname: Doe" Margin="0,0,0,5"/>
-            <TextBlock Text="Email: john.doe@example.com" Margin="0,0,0,5"/>
-            <TextBlock Text="Password: *********" Margin="0,0,0,5"/>
+            <TextBlock x:Name="NameTextBlock" Margin="0,0,0,5"/>
+            <TextBlock x:Name="SurnameTextBlock" Margin="0,0,0,5"/>
+            <TextBlock x:Name="EmailTextBlock" Margin="0,0,0,5"/>
+            <TextBlock x:Name="PasswordTextBlock" Text="Password: *********" Margin="0,0,0,5"/>
         </StackPanel>
-        <Button Content="Change Password" Click="change_password_button" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="340,0,0,158"/>
-        <Button Content="Delete Profile" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="#AC4242"/>
 
-            <Button Content="Change Password" HorizontalAlignment="Left" Margin="20,10,0,10"/>
-            <Button Content="Delete Profile" Background="#AC4242" HorizontalAlignment="Right" Margin="0,10,20,10"/>
-        </Grid>
+        <!-- Bottom action buttons -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button Content="Change Password" Click="change_password_button" Margin="20,10,20,10"/>
+    <!--    <Button Content="Delete Profile" Click="delete_profile_button" Background="#AC4242" Margin="20,10,20,10"/> -->
+        </StackPanel>
     </Grid>
 </Page>

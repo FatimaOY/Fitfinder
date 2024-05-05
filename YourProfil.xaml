@@ -41,13 +41,8 @@
             <TextBlock Text="Email: john.doe@example.com" Margin="0,0,0,5"/>
             <TextBlock Text="Password: *********" Margin="0,0,0,5"/>
         </StackPanel>
-
-        <!-- Bottom Buttons -->
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+        <Button Content="Change Password" Click="change_password_button" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="340,0,0,158"/>
+        <Button Content="Delete Profile" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="#AC4242"/>
 
             <Button Content="Change Password" HorizontalAlignment="Left" Margin="20,10,0,10"/>
             <Button Content="Delete Profile" Background="#AC4242" HorizontalAlignment="Right" Margin="0,10,20,10"/>

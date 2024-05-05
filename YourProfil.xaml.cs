@@ -48,5 +48,11 @@ namespace Fitfinder
             MessagesTrainee messagesTrainee = new MessagesTrainee();
             this.NavigationService.Navigate(messagesTrainee);
         }
+
+        private void change_password_button(object sender, RoutedEventArgs e)
+        {
+            changePasswordPage changepasswordPage = new changePasswordPage();
+            this.NavigationService.Navigate(changepasswordPage);
+        }
     }
 }

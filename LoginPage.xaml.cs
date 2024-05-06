@@ -92,7 +92,9 @@ namespace Fitfinder
                         // Successful login
                         MessageBox.Show("Login successful!", "Login");
                         // Navigate to another page or perform some action
-                       
+                        BrowseTrainers browseTrainers = new BrowseTrainers();
+                        this.NavigationService.Navigate(browseTrainers);
+
                     }
                     else
                     {

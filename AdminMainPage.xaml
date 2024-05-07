@@ -1,0 +1,28 @@
+﻿<Page x:Class="Fitfinder.AdminMainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Fitfinder"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AdminMainPage"
+      Background="White">
+
+    <Grid Margin="0,50,0,0">
+        <!-- Wrap the DataGrid inside a ScrollViewer -->
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <DataGrid x:Name="dataGrid" Height="348" VerticalAlignment="Top" Margin="10,0,10,0">
+                <!-- Column Header Text & Bindings-->
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Width="150"/>
+                    <DataGridTextColumn Header="Surname" Width="150"/>
+                    <DataGridTextColumn Header="Email" Width="170"/>
+                    <DataGridTextColumn Header="Password" Width="150"/>
+                    <DataGridTextColumn Header="Type Of User" Width="150"/>
+                    <DataGridTextColumn Header="" Width="150"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </ScrollViewer>
+    </Grid>
+</Page>

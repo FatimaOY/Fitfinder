@@ -171,6 +171,44 @@ namespace Fitfinder
                 MessageBox.Show("Failed to register trainer.");
             }
         }
+
+        public List<User> GetUsers()
+        {
+            List<User> users = new List<User>();
+            try
+            {
+                OpenConnection();
+
+                string query = "SELECT Name, Surname, Email, Password, GenderId FROM User";
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        User user = new User(
+                            reader["Name"].ToString(),
+                            reader["Surname"].ToString(),
+                            reader["Email"].ToString(),
+                            reader["Password"].ToString(),
+                            (byte[])reader["ProfilePic"], // Assuming ProfilePic is a byte array
+                            Convert.ToInt32(reader["GenderId"])
+                        );
+                        users.Add(user);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error fetching users: {ex.Message}");
+            }
+            finally
+            {
+                CloseConnection();
+            }
+
+            return users;
+        }
     }
 }
 

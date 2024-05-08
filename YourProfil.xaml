@@ -33,11 +33,12 @@
             <TextBlock x:Name="NameTextBlock" Margin="0,0,0,5"/>
             <TextBlock x:Name="SurnameTextBlock" Margin="0,0,0,5"/>
             <TextBlock x:Name="EmailTextBlock" Margin="0,0,0,5"/>
-            <TextBlock x:Name="PasswordTextBlock" Text="Password: *********" Margin="0,0,0,5"/>
+            <TextBlock x:Name="PasswordTextBlock" Margin="0,0,0,5"/>
         </StackPanel>
 
         <!-- Bottom action buttons -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+           
             <Button Content="Change Password" Click="change_password_button" Margin="20,10,20,10"/>
     <!--    <Button Content="Delete Profile" Click="delete_profile_button" Background="#AC4242" Margin="20,10,20,10"/> -->
         </StackPanel>

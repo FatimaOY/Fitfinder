@@ -30,6 +30,7 @@ namespace Fitfinder
     public static class UserSession
     {
         public static UserInfo CurrentUser { get; set; }
+        public static string UserRole { get; set; }
     }
 
     /// <summary>
@@ -47,6 +48,8 @@ namespace Fitfinder
         {
             MessageBox.Show("Password reset instructions will be sent to your email.", "Forgot Password");
         }
+
+
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {

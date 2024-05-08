@@ -20,8 +20,11 @@ namespace Fitfinder
     /// </summary>
     public partial class changePasswordPage : Page
     {
+        private Data _data;
+
         public changePasswordPage()
         {
+            _data = new Data();
             InitializeComponent();
         }
 
@@ -32,6 +35,14 @@ namespace Fitfinder
             string newPassword = txtNewPassword.Password;
             string confirmNewPassword = txtConfirmNewPassword.Password;
 
+
+            if (string.IsNullOrEmpty(currentPassword) || string.IsNullOrEmpty(newPassword) || string.IsNullOrEmpty(confirmNewPassword))
+            {
+                MessageBox.Show("All fields are required.");
+                return;
+            }
+
+
             // Check if new password and confirm password match
             if (newPassword != confirmNewPassword)
             {
@@ -41,6 +52,10 @@ namespace Fitfinder
 
             // Here you can implement the logic to update the password in the database
             // For demonstration purposes, let's just display a message
+            if (_data != null)
+            {
+                _data.UpdatePassword(userId, newPassword, currentPassword); // Call the updatePassword method
+            }
             MessageBox.Show("Password updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
             // You can also navigate to another page after updating the password if needed

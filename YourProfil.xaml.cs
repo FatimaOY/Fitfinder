@@ -34,6 +34,7 @@ namespace Fitfinder
                 NameTextBlock.Text = $"Name: {currentUser.FirstName}";
                 SurnameTextBlock.Text = $"Surname: {currentUser.Surname}";
                 EmailTextBlock.Text = $"Email: {currentUser.Email}";
+                string savedEmail = currentUser.Email;
                 // If you have a password field, it's usually a placeholder for user interaction (e.g., change password)
                 // Avoid displaying plain-text passwords
                 PasswordTextBlock.Text = "Password: *********"; // Masked for security

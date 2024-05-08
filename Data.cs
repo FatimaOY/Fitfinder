@@ -260,34 +260,46 @@ namespace Fitfinder
             }
         }
 
-        public void UpdatePassword(int userId, string newPassword, string currentPassword)
+        public List<User> GetUsers()
         {
+            List<User> users = new List<User>();
+            try
+            {
                 OpenConnection();
-                string query = "SELECT Password FROM Users WHERE UserID = @UserID";
-                using (MySqlCommand command = new MySqlCommand(query, connection))
+
+                string query = "SELECT Name, Surname, Email, Password, GenderId FROM User";
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+
+                using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
-                    command.Parameters.AddWithValue("@UserID", userId);
-                    string storedPassword = command.ExecuteScalar()?.ToString();
-
-                    if (storedPassword != currentPassword)
+                    while (reader.Read())
                     {
-                        MessageBox.Show("Current password is incorrect.");
-                        return;
-                    }
-
-                    // If passwords match, update to the new password
-                    query = "UPDATE Users SET Password = @NewPassword WHERE UserID = @UserID";
-                    using (MySqlCommand updateCommand = new MySqlCommand(query, connection))
-                    {
-                        updateCommand.Parameters.AddWithValue("@NewPassword", newPassword);
-                        updateCommand.Parameters.AddWithValue("@UserID", userId);
-                        updateCommand.ExecuteNonQuery();
+                        User user = new User(
+                            reader["Name"].ToString(),
+                            reader["Surname"].ToString(),
+                            reader["Email"].ToString(),
+                            reader["Password"].ToString(),
+                            (byte[])reader["ProfilePic"], // Assuming ProfilePic is a byte array
+                            Convert.ToInt32(reader["GenderId"])
+                        );
+                        users.Add(user);
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error fetching users: {ex.Message}");
+            }
+            finally
+            {
+                CloseConnection();
+            }
+
+            return users;
         }
     }
-    
+}
+
 
 
 

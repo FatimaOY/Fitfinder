@@ -20,11 +20,12 @@ namespace Fitfinder
     /// </summary>
     public partial class changePasswordPage : Page
     {
-        private Data _data;
+        private MainWindow _data; // Ensure correct initialization
+        private int userId = 1; // Example userId; replace with actual logi
 
         public changePasswordPage()
         {
-            _data = new Data();
+            _data = new MainWindow(); // Ensure correct class with `UpdatePassword`
             InitializeComponent();
         }
 

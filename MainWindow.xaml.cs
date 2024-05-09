@@ -76,8 +76,8 @@ namespace Fitfinder
                         {
                             return new UserInfo
                             {
-                                Username = reader["Username"]?.ToString(),
-                                FirstName = reader["FirstName"]?.ToString(),
+                                userId = reader["UserID"]?.ToString(),
+                                Name = reader["Name"]?.ToString(),
                                 Surname = reader["Surname"]?.ToString(),
                                 Email = reader["Email"]?.ToString(),
                             };
@@ -163,6 +163,7 @@ namespace Fitfinder
                 {
                     command.Parameters.AddWithValue("@UserID", userId);
                     string storedPassword = command.ExecuteScalar()?.ToString();
+                    MessageBox.Show($"User ID: {userId}\nStored Password: {storedPassword}", "Debug Info", MessageBoxButton.OK, MessageBoxImage.Information);
 
                     if (storedPassword != currentPassword)
                     {

@@ -21,8 +21,8 @@ namespace Fitfinder
 {
     public class UserInfo
     {
-        public string Username { get; set; }
-        public string FirstName { get; set; }
+        public string userId { get; set; }
+        public string Name { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }
     }
@@ -125,9 +125,10 @@ namespace Fitfinder
                     {
                         userInfo = new UserInfo
                         {
-                            Email = reader["email"].ToString(),
-                            FirstName = reader["name"].ToString(),
-                            Surname = reader["surname"].ToString(),
+                            userId = reader["UserID"].ToString(),
+                            Email = reader["Email"].ToString(),
+                            Name = reader["Name"].ToString(),
+                            Surname = reader["Surname"].ToString(),
                         };
                     }
                 }

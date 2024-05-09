@@ -20,8 +20,9 @@ namespace Fitfinder
     /// </summary>
     public partial class changePasswordPage : Page
     {
+
         private MainWindow _data; // Ensure correct initialization
-        private int userId = 1; // Example userId; replace with actual logi
+
 
         public changePasswordPage()
         {
@@ -31,6 +32,10 @@ namespace Fitfinder
 
         private void UpdatePassword_Click(object sender, RoutedEventArgs e)
         {
+            var currentUser = UserSession.CurrentUser;
+            string currentEmail = currentUser.Email;
+            string current
+
             // Retrieve entered passwords from the PasswordBoxes
             string currentPassword = txtCurrentPassword.Password;
             string newPassword = txtNewPassword.Password;
@@ -55,7 +60,7 @@ namespace Fitfinder
             // For demonstration purposes, let's just display a message
             if (_data != null)
             {
-                _data.UpdatePassword(userId, newPassword, currentPassword); // Call the updatePassword method
+                _data.UpdatePassword(currentID, newPassword, currentPassword); // Call the updatePassword method
             }
             MessageBox.Show("Password updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 

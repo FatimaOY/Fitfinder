@@ -127,8 +127,9 @@ namespace Fitfinder
                         {
                             return new UserInfo
                             {
-                                Username = reader["Username"]?.ToString(),
-                                FirstName = reader["FirstName"]?.ToString(),
+
+                                Name = reader["Name"]?.ToString(),
+                                userId = reader["UserID"]?.ToString(),
                                 Surname = reader["Surname"]?.ToString(),
                                 Email = reader["Email"]?.ToString(),
                             };

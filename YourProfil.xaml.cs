@@ -31,13 +31,12 @@ namespace Fitfinder
 
             if (currentUser != null)
             {
-                NameTextBlock.Text = $"Name: {currentUser.FirstName}";
+                NameTextBlock.Text = $"Name: {currentUser.Name}";
                 SurnameTextBlock.Text = $"Surname: {currentUser.Surname}";
                 EmailTextBlock.Text = $"Email: {currentUser.Email}";
                 string savedEmail = currentUser.Email;
                 // If you have a password field, it's usually a placeholder for user interaction (e.g., change password)
                 // Avoid displaying plain-text passwords
-                PasswordTextBlock.Text = "Password: *********"; // Masked for security
             }
             else
             {

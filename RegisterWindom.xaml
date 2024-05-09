@@ -68,6 +68,15 @@
 
                     <!-- Trainer registration fields -->
                     <StackPanel Margin="0,0,0,10">
+                        <!-- Add a button for uploading profile picture -->
+                        <Border Background="Gray" Width="90" Height="100" HorizontalAlignment="Left">
+                            <Image x:Name="ProfilePicture" Stretch="Uniform" HorizontalAlignment="Left"/>
+                        </Border>
+                        <Button Content="Upload Profile Picture" Click="UploadProfilePicture_Click" HorizontalAlignment="Left"/>
+                        <!-- Add an Image control to display the selected profile picture -->
+                    </StackPanel>
+
+                    <StackPanel Margin="0,0,0,10">
                         <TextBlock Text="Name:" VerticalAlignment="Center" Margin="0,0,5,0"/>
                         <TextBox x:Name="txtTrainerName" Width="150" VerticalAlignment="Center"/>
                     </StackPanel>

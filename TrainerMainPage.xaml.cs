@@ -24,5 +24,11 @@ namespace Fitfinder
         {
             InitializeComponent();
         }
+
+        private void TrainerProfile_click(object sender, RoutedEventArgs e)
+        {
+            TrainerProfile trainerProfile = new TrainerProfile();
+            this.NavigationService.Navigate(trainerProfile);
+        }
     }
 }

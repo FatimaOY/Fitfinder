@@ -32,7 +32,7 @@
             <!-- Location filter -->
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Location:" Margin="0,0,10,0"/>
-                <ComboBox Width="150"/>
+                <TextBox x:Name="LocationInput" Width="150"/>
             </StackPanel>
 
             <!-- Gender filter -->
@@ -47,16 +47,12 @@
                 <ComboBox Width="150"/>
             </StackPanel>
 
-            <!-- Education filter -->
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBlock Text="Education:" Margin="0,0,10,0"/>
-                <ComboBox Width="150"/>
-            </StackPanel>
-
             <!-- Price range filter -->
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Price Range:" Margin="0,0,10,0" Height="30"/>
-                <ComboBox Width="150" Height="20"/>
+                <TextBox Width="70" Height="20" x:Name="MinPriceInput" Margin="0,0,5,0" TextAlignment="Center"/>
+                <TextBlock Text="-" Margin="0,0,5,0"/>
+                <TextBox Width="70" Height="20" x:Name="MaxPriceInput" TextAlignment="Center"/>
             </StackPanel>
         </StackPanel>
 

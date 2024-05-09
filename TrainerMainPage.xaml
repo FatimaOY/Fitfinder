@@ -11,12 +11,7 @@
 
     <Grid>
         <!-- Header -->
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <TextBlock Text="Your Profile" FontSize="24" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Center" Background="Gray"/>
-
+        <Button Content="Your Profile" Click="TrainerProfile_click" VerticalAlignment="Top" HorizontalAlignment="Left"></Button>
         <!-- Buttons -->
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Width="520">
             <!-- Messages Button -->

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Org.BouncyCastle.Bcpg;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,17 +33,21 @@ namespace Fitfinder
 
         private void UpdatePassword_Click(object sender, RoutedEventArgs e)
         {
+            var data = new Data();
             var currentUser = UserSession.CurrentUser;
             string currentEmail = currentUser.Email;
-            string current
+            string currentPassword = currentUser.Password;
+
+            int userId = data.GetUserId(currentEmail, currentPassword);
+            
 
             // Retrieve entered passwords from the PasswordBoxes
-            string currentPassword = txtCurrentPassword.Password;
+            string currentPasswordInput = txtCurrentPassword.Password;
             string newPassword = txtNewPassword.Password;
             string confirmNewPassword = txtConfirmNewPassword.Password;
 
 
-            if (string.IsNullOrEmpty(currentPassword) || string.IsNullOrEmpty(newPassword) || string.IsNullOrEmpty(confirmNewPassword))
+            if (string.IsNullOrEmpty(currentPasswordInput) || string.IsNullOrEmpty(newPassword) || string.IsNullOrEmpty(confirmNewPassword))
             {
                 MessageBox.Show("All fields are required.");
                 return;
@@ -60,7 +65,7 @@ namespace Fitfinder
             // For demonstration purposes, let's just display a message
             if (_data != null)
             {
-                _data.UpdatePassword(currentID, newPassword, currentPassword); // Call the updatePassword method
+                _data.UpdatePassword(userId, newPassword, currentPassword); // Call the updatePassword method
             }
             MessageBox.Show("Password updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 

@@ -163,7 +163,7 @@ namespace Fitfinder
                 {
                     command.Parameters.AddWithValue("@UserID", userId);
                     string storedPassword = command.ExecuteScalar()?.ToString();
-                    MessageBox.Show($"User ID: {userId}\nStored Password: {storedPassword}", "Debug Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                    
 
                     if (storedPassword != currentPassword)
                     {
@@ -172,7 +172,7 @@ namespace Fitfinder
                     }
 
                     // If passwords match, update to the new password
-                    query = "UPDATE Users SET Password = @NewPassword WHERE UserID = @UserID";
+                    query = "UPDATE User SET Password = @NewPassword WHERE UserID = @UserID";
                     using (MySqlCommand updateCommand = new MySqlCommand(query, connection))
                     {
                         updateCommand.Parameters.AddWithValue("@NewPassword", newPassword);

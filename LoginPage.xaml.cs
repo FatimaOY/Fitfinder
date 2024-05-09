@@ -25,6 +25,7 @@ namespace Fitfinder
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }
+        public string Password {  get; set; }
     }
 
     public static class UserSession
@@ -63,7 +64,8 @@ namespace Fitfinder
             }
 
             // Get user ID
-            int userId = GetUserId(email, password);
+            var data = new Data();
+            int userId = data.GetUserId(email, password);
 
             if (userId != -1)
             {
@@ -99,7 +101,7 @@ namespace Fitfinder
             }
         }
 
-        private UserInfo GetUserInformation(string email, string password)
+         UserInfo GetUserInformation(string email, string password)
         {
             UserInfo userInfo = null;
             string connectionString =
@@ -129,6 +131,7 @@ namespace Fitfinder
                             Email = reader["Email"].ToString(),
                             Name = reader["Name"].ToString(),
                             Surname = reader["Surname"].ToString(),
+                            Password = reader["Password"].ToString(),
                         };
                     }
                 }
@@ -141,42 +144,7 @@ namespace Fitfinder
             return userInfo;
         }
 
-        private int GetUserId(string email, string password)
-        {
-            string connectionString =
-                "datasource=127.0.0.1;" +
-                "port=3306;" +
-                "username=root;" +
-                "password=;" +
-                "database=fitfinder4";
-
-            int userId = -1; // Default value indicating user not found
-
-            string query = "SELECT UserId FROM user WHERE Email = @Email AND Password = @Password";
-
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                cmd.Parameters.AddWithValue("@Email", email);
-                cmd.Parameters.AddWithValue("@Password", password);
-
-                try
-                {
-                    connection.Open();
-                    object result = cmd.ExecuteScalar();
-                    if (result != null)
-                    {
-                        userId = Convert.ToInt32(result);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("An error occurred: " + ex.Message);
-                }
-            }
-
-            return userId;
-        }
+       
 
         private bool UserExistsInTable(string tableName, int userId)
         {

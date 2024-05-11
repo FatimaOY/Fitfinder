@@ -30,5 +30,11 @@ namespace Fitfinder
             TrainerProfile trainerProfile = new TrainerProfile();
             this.NavigationService.Navigate(trainerProfile);
         }
+
+        private void TrainerCalander_Button(object sender, RoutedEventArgs e)
+        {
+            CalendarTrainer calendarTrainer = new CalendarTrainer();
+            this.NavigationService.Navigate(calendarTrainer);
+        }
     }
 }

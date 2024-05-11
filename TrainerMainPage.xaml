@@ -19,7 +19,7 @@
             <!-- Appointment Requests Button -->
             <Button Content="Appointment Requests" Width="180" Margin="10"/>
             <!-- Your Calendar Button -->
-            <Button Content="Your Calendar" Width="140" Margin="10"/>
+            <Button Content="Your Calendar" Width="140" Margin="10" Click="TrainerCalander_Button"/>
         </StackPanel>
     </Grid>
 </Page>

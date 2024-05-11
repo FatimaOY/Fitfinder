@@ -31,7 +31,7 @@ namespace Fitfinder
             LoadUserProfile();
             LoadProfilePicture();
         }
-        private void LoadUserProfile()
+        public void LoadUserProfile()
         {
             var currentUser = UserSession.CurrentUser;
 
@@ -50,7 +50,7 @@ namespace Fitfinder
             }
         }
 
-        private void LoadProfilePicture()
+        public void LoadProfilePicture()
         {
             var currentUser = UserSession.CurrentUser;
 

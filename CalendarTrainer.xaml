@@ -10,7 +10,152 @@
       Background="White">
 
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Calendar" Grid.Row="0" Grid.Column="0" Margin="5"/>
+
+        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
+            <Border BorderBrush="Black" BorderThickness="1" Margin="5">
+                <StackPanel>
+                    <TextBlock Text="Monday" Margin="5"/>
+                    <ListBox x:Name="MondayTimeSlots" SelectionMode="Multiple" SelectionChanged="TimeSlot_Click">
+                        <ListBoxItem Content="8:00 AM - 9:00 AM"/>
+                        <ListBoxItem Content="9:00 AM - 10:00 AM"/>
+                        <ListBoxItem Content="10:00 AM - 11:00 AM"/>
+                        <ListBoxItem Content="11:00 AM - 12:00 PM"/>
+                        <ListBoxItem Content="12:00 PM - 1:00 PM"/>
+                        <ListBoxItem Content="1:00 PM - 2:00 PM"/>
+                        <ListBoxItem Content="2:00 PM - 3:00 PM"/>
+                        <ListBoxItem Content="3:00 PM - 4:00 PM"/>
+                        <ListBoxItem Content="4:00 PM - 5:00 PM"/>
+                        <ListBoxItem Content="5:00 PM - 6:00 PM"/>
+                        <ListBoxItem Content="6:00 PM - 7:00 PM"/>
+                        <ListBoxItem Content="7:00 PM - 8:00 PM"/>
+                    </ListBox>
+                </StackPanel>
+            </Border>
+            <Border BorderBrush="Black" BorderThickness="1" Margin="5">
+                <StackPanel>
+                    <TextBlock Text="Tuesday" Margin="5"/>
+                    <ListBox x:Name="TuesdayTimeSlots" SelectionMode="Multiple" SelectionChanged="TimeSlot_Click">
+                        <ListBoxItem Content="8:00 AM - 9:00 AM"/>
+                        <ListBoxItem Content="9:00 AM - 10:00 AM"/>
+                        <ListBoxItem Content="10:00 AM - 11:00 AM"/>
+                        <ListBoxItem Content="11:00 AM - 12:00 PM"/>
+                        <ListBoxItem Content="12:00 PM - 1:00 PM"/>
+                        <ListBoxItem Content="1:00 PM - 2:00 PM"/>
+                        <ListBoxItem Content="2:00 PM - 3:00 PM"/>
+                        <ListBoxItem Content="3:00 PM - 4:00 PM"/>
+                        <ListBoxItem Content="4:00 PM - 5:00 PM"/>
+                        <ListBoxItem Content="5:00 PM - 6:00 PM"/>
+                        <ListBoxItem Content="6:00 PM - 7:00 PM"/>
+                        <ListBoxItem Content="7:00 PM - 8:00 PM"/>
+                    </ListBox>
+                </StackPanel>
+            </Border>
+            <Border BorderBrush="Black" BorderThickness="1" Margin="5">
+                <StackPanel>
+                    <TextBlock Text="Wednesday" Margin="5"/>
+                    <ListBox x:Name="WednesdayTimeSlots" SelectionMode="Multiple" SelectionChanged="TimeSlot_Click">
+                        <ListBoxItem Content="8:00 AM - 9:00 AM"/>
+                        <ListBoxItem Content="9:00 AM - 10:00 AM"/>
+                        <ListBoxItem Content="10:00 AM - 11:00 AM"/>
+                        <ListBoxItem Content="11:00 AM - 12:00 PM"/>
+                        <ListBoxItem Content="12:00 PM - 1:00 PM"/>
+                        <ListBoxItem Content="1:00 PM - 2:00 PM"/>
+                        <ListBoxItem Content="2:00 PM - 3:00 PM"/>
+                        <ListBoxItem Content="3:00 PM - 4:00 PM"/>
+                        <ListBoxItem Content="4:00 PM - 5:00 PM"/>
+                        <ListBoxItem Content="5:00 PM - 6:00 PM"/>
+                        <ListBoxItem Content="6:00 PM - 7:00 PM"/>
+                        <ListBoxItem Content="7:00 PM - 8:00 PM"/>
+                    </ListBox>
+                </StackPanel>
+            </Border>
+            <Border BorderBrush="Black" BorderThickness="1" Margin="5">
+                <StackPanel>
+                    <TextBlock Text="Thursday" Margin="5"/>
+                    <ListBox x:Name="ThursdayTimeSlots" SelectionMode="Multiple" SelectionChanged="TimeSlot_Click">
+                        <ListBoxItem Content="8:00 AM - 9:00 AM"/>
+                        <ListBoxItem Content="9:00 AM - 10:00 AM"/>
+                        <ListBoxItem Content="10:00 AM - 11:00 AM"/>
+                        <ListBoxItem Content="11:00 AM - 12:00 PM"/>
+                        <ListBoxItem Content="12:00 PM - 1:00 PM"/>
+                        <ListBoxItem Content="1:00 PM - 2:00 PM"/>
+                        <ListBoxItem Content="2:00 PM - 3:00 PM"/>
+                        <ListBoxItem Content="3:00 PM - 4:00 PM"/>
+                        <ListBoxItem Content="4:00 PM - 5:00 PM"/>
+                        <ListBoxItem Content="5:00 PM - 6:00 PM"/>
+                        <ListBoxItem Content="6:00 PM - 7:00 PM"/>
+                        <ListBoxItem Content="7:00 PM - 8:00 PM"/>
+                    </ListBox>
+                </StackPanel>
+            </Border>
+            <Border BorderBrush="Black" BorderThickness="1" Margin="5">
+                <StackPanel>
+                    <TextBlock Text="Friday" Margin="5"/>
+                    <ListBox x:Name="FridayTimeSlots" SelectionMode="Multiple" SelectionChanged="TimeSlot_Click">
+                        <ListBoxItem Content="8:00 AM - 9:00 AM"/>
+                        <ListBoxItem Content="9:00 AM - 10:00 AM"/>
+                        <ListBoxItem Content="10:00 AM - 11:00 AM"/>
+                        <ListBoxItem Content="11:00 AM - 12:00 PM"/>
+                        <ListBoxItem Content="12:00 PM - 1:00 PM"/>
+                        <ListBoxItem Content="1:00 PM - 2:00 PM"/>
+                        <ListBoxItem Content="2:00 PM - 3:00 PM"/>
+                        <ListBoxItem Content="3:00 PM - 4:00 PM"/>
+                        <ListBoxItem Content="4:00 PM - 5:00 PM"/>
+                        <ListBoxItem Content="5:00 PM - 6:00 PM"/>
+                        <ListBoxItem Content="6:00 PM - 7:00 PM"/>
+                        <ListBoxItem Content="7:00 PM - 8:00 PM"/>
+                    </ListBox>
+                </StackPanel>
+            </Border>
+            <Border BorderBrush="Black" BorderThickness="1" Margin="5">
+                <StackPanel>
+                    <TextBlock Text="Saturday" Margin="5"/>
+                    <ListBox x:Name="SaturdayTimeSlots" SelectionMode="Multiple" SelectionChanged="TimeSlot_Click">
+                        <ListBoxItem Content="8:00 AM - 9:00 AM"/>
+                        <ListBoxItem Content="9:00 AM - 10:00 AM"/>
+                        <ListBoxItem Content="10:00 AM - 11:00 AM"/>
+                        <ListBoxItem Content="11:00 AM - 12:00 PM"/>
+                        <ListBoxItem Content="12:00 PM - 1:00 PM"/>
+                        <ListBoxItem Content="1:00 PM - 2:00 PM"/>
+                        <ListBoxItem Content="2:00 PM - 3:00 PM"/>
+                        <ListBoxItem Content="3:00 PM - 4:00 PM"/>
+                        <ListBoxItem Content="4:00 PM - 5:00 PM"/>
+                        <ListBoxItem Content="5:00 PM - 6:00 PM"/>
+                        <ListBoxItem Content="6:00 PM - 7:00 PM"/>
+                        <ListBoxItem Content="7:00 PM - 8:00 PM"/>
+                    </ListBox>
+                </StackPanel>
+            </Border>
+            <Border BorderBrush="Black" BorderThickness="1" Margin="5">
+                <StackPanel>
+                    <TextBlock Text="Sunday" Margin="5"/>
+                    <ListBox x:Name="SundayTimeSlots" SelectionMode="Multiple" SelectionChanged="TimeSlot_Click">
+                        <ListBoxItem Content="8:00 AM - 9:00 AM"/>
+                        <ListBoxItem Content="9:00 AM - 10:00 AM"/>
+                        <ListBoxItem Content="10:00 AM - 11:00 AM"/>
+                        <ListBoxItem Content="11:00 AM - 12:00 PM"/>
+                        <ListBoxItem Content="12:00 PM - 1:00 PM"/>
+                        <ListBoxItem Content="1:00 PM - 2:00 PM"/>
+                        <ListBoxItem Content="2:00 PM - 3:00 PM"/>
+                        <ListBoxItem Content="3:00 PM - 4:00 PM"/>
+                        <ListBoxItem Content="4:00 PM - 5:00 PM"/>
+                        <ListBoxItem Content="5:00 PM - 6:00 PM"/>
+                        <ListBoxItem Content="6:00 PM - 7:00 PM"/>
+                        <ListBoxItem Content="7:00 PM - 8:00 PM"/>
+                    </ListBox>
+                </StackPanel>
+            </Border>
+        </StackPanel>
     </Grid>
 </Page>

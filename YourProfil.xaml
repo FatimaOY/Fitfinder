@@ -40,6 +40,8 @@
             <TextBlock x:Name="SurnameTextBlock" Margin="0,0,0,5"/>
             <TextBlock x:Name="EmailTextBlock" Margin="0,0,0,5"/>
             <TextBlock x:Name="PasswordTextBlock" Margin="0,0,0,5"/>
+            <TextBlock x:Name="DescriptionTextBlock" Margin="0,0,0,5" Text="Description:"/>
+            <Button Content="Update Description" Click="UpdateDescription_Click" Margin="0,10,0,0"/>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left" Width="122" Margin="38,0,0,0">

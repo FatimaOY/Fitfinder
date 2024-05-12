@@ -37,12 +37,18 @@ namespace Fitfinder
 
             if (currentUser != null)
             {
-                NameTextBlock.Text = $"Name: {currentUser.Name}";
-                SurnameTextBlock.Text = $"Surname: {currentUser.Surname}";
-                EmailTextBlock.Text = $"Email: {currentUser.Email}";
-                string savedEmail = currentUser.Email;
-                // If you have a password field, it's usually a placeholder for user interaction (e.g., change password)
-                // Avoid displaying plain-text passwords
+                if (UserSession.UserRole == "Client")
+                {
+                    var currentClient = ClientSession.CurrentClient;
+                    NameTextBlock.Text = $"Name: {currentUser.Name}";
+                    SurnameTextBlock.Text = $"Surname: {currentUser.Surname}";
+                    EmailTextBlock.Text = $"Email: {currentUser.Email}";
+                    MessageBox.Show($"User role: {UserSession.UserRole}", "User Role", MessageBoxButton.OK, MessageBoxImage.Information);
+                    DescriptionTextBlock.Text = $"Description: {currentClient.Description}";
+                    string savedEmail = currentUser.Email;
+                    // If you have a password field, it's usually a placeholder for user interaction (e.g., change password)
+                    // Avoid displaying plain-text passwords
+                }
             }
             else
             {
@@ -125,6 +131,87 @@ namespace Fitfinder
         {
             changePasswordPage changepasswordPage = new changePasswordPage();
             this.NavigationService.Navigate(changepasswordPage);
+        }
+        private void UpdateDescription_Click(object sender, RoutedEventArgs e)
+        {
+            
+            Window updateDescriptionWindow = new Window();
+            updateDescriptionWindow.Title = "Update Description";
+            updateDescriptionWindow.Width = 300;
+            updateDescriptionWindow.Height = 200;
+
+            // Create a StackPanel to hold UI elements
+            StackPanel stackPanel = new StackPanel();
+            stackPanel.Margin = new Thickness(10);
+
+            // Add a TextBox for user input
+            TextBox descriptionTextBox = new TextBox();
+            descriptionTextBox.Margin = new Thickness(0, 0, 0, 10);
+            descriptionTextBox.Width = 200;
+            descriptionTextBox.Height = 100;
+            descriptionTextBox.TextWrapping = TextWrapping.Wrap;
+            descriptionTextBox.AcceptsReturn = true;
+            stackPanel.Children.Add(descriptionTextBox);
+
+            // Add a Button to confirm the description update
+            Button confirmButton = new Button();
+            confirmButton.Content = "Update";
+            confirmButton.Click += (confirmSender, confirmArgs) =>
+            {
+                // Get the new description from the TextBox
+                string newDescription = descriptionTextBox.Text;
+
+                // Call the method to update the description
+                var currentUser = UserSession.CurrentUser;
+                int userId = currentUser.userId;
+
+                UpdateClientDescription(userId, newDescription);
+
+                // Close the pop-up dialog box
+                updateDescriptionWindow.Close();
+            };
+            stackPanel.Children.Add(confirmButton);
+
+            // Add the StackPanel to the Window
+            updateDescriptionWindow.Content = stackPanel;
+
+            // Show the pop-up dialog box
+            updateDescriptionWindow.ShowDialog();
+        }
+        void UpdateClientDescription(int userId, string newDescription)
+        {
+            string connectionString = "datasource=127.0.0.1;" +
+                                      "port=3306;" +
+                                      "username=root;" +
+                                      "password=;" +
+                                      "database=fitfinder4";
+
+            string query = "UPDATE Client SET Description = @newDescription WHERE PersonId = @userId";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@newDescription", newDescription);
+                cmd.Parameters.AddWithValue("@userId", userId);
+
+                try
+                {
+                    connection.Open();
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Description updated successfully.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("No rows updated. User not found or no changes made to description.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
         }
 
         private void UploadProfilePicture_Click(object sender, RoutedEventArgs e)

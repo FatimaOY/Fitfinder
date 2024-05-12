@@ -129,7 +129,7 @@ namespace Fitfinder
                             {
 
                                 Name = reader["Name"]?.ToString(),
-                                userId = reader["UserID"]?.ToString(),
+                                userId = (int)reader["UserID"],
                                 Surname = reader["Surname"]?.ToString(),
                                 Email = reader["Email"]?.ToString(),
                             };
@@ -143,15 +143,15 @@ namespace Fitfinder
         public string GetUserRole(int userId)
         {
             // Check if user is a client, trainer, or admin
-            if (CheckUserInTable("Clients", userId))
+            if (CheckUserInTable("Client", userId))
             {
                 return "Client";
             }
-            if (CheckUserInTable("Trainers", userId))
+            if (CheckUserInTable("Trainer", userId))
             {
                 return "Trainer";
             }
-            if (CheckUserInTable("Admins", userId))
+            if (CheckUserInTable("Admin", userId))
             {
                 return "Admin";
             }
@@ -324,7 +324,7 @@ namespace Fitfinder
                     {
                         userInfo = new UserInfo
                         {
-                            userId = reader["UserID"].ToString(),
+                            userId = (int)reader["UserID"],
                             Email = reader["Email"].ToString(),
                             Name = reader["Name"].ToString(),
                             Surname = reader["Surname"].ToString(),

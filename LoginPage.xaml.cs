@@ -21,7 +21,7 @@ namespace Fitfinder
 {
     public class UserInfo
     {
-        public string userId { get; set; }
+        public int userId { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }
@@ -32,6 +32,18 @@ namespace Fitfinder
     {
         public static UserInfo CurrentUser { get; set; }
         public static string UserRole { get; set; }
+    }
+
+
+    public class ClientInfo
+    {
+        public int TraineeId { get; set; }
+        public string Description { get; set; }
+        public int PersonId { get; set; }
+    }
+    public static class ClientSession
+    {
+        public static ClientInfo CurrentClient { get; set; }
     }
 
     /// <summary>
@@ -75,6 +87,8 @@ namespace Fitfinder
                     UserSession.CurrentUser = GetUserInformation(email, password);
                     AdminMainPage adminMainPage = new AdminMainPage();
                     this.NavigationService.Navigate(adminMainPage);
+                    UserSession.UserRole = "Admin";
+
                 }
                 else if (UserExistsInTable("Trainer", userId))
                 {
@@ -82,6 +96,7 @@ namespace Fitfinder
                     UserSession.CurrentUser = GetUserInformation(email, password);
                     TrainerMainPage trainerMainPage = new TrainerMainPage();
                     this.NavigationService.Navigate(trainerMainPage);
+                    UserSession.UserRole = "Trainer";
                 }
                 else if (UserExistsInTable("Client", userId))
                 {
@@ -89,6 +104,8 @@ namespace Fitfinder
                     UserSession.CurrentUser = GetUserInformation(email, password);
                     BrowseTrainers browseTrainers = new BrowseTrainers();
                     this.NavigationService.Navigate(browseTrainers);
+                    UserSession.UserRole = "Client";
+                    ClientSession.CurrentClient = GetClientInformation(userId);
                 }
                 else
                 {
@@ -127,7 +144,7 @@ namespace Fitfinder
                     {
                         userInfo = new UserInfo
                         {
-                            userId = reader["UserID"].ToString(),
+                            userId = (int)reader["UserID"],
                             Email = reader["Email"].ToString(),
                             Name = reader["Name"].ToString(),
                             Surname = reader["Surname"].ToString(),
@@ -144,7 +161,48 @@ namespace Fitfinder
             return userInfo;
         }
 
-       
+        ClientInfo GetClientInformation(int userId)
+        {
+            ClientInfo clientInfo = null;
+            string connectionString =
+                "datasource=127.0.0.1;" +
+                "port=3306;" +
+                "username=root;" +
+                "password=;" +
+                "database=fitfinder4";
+
+            string query = "SELECT * FROM Client WHERE PersonId = @userId";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@userId", userId);
+
+
+                try
+                {
+                    connection.Open();
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        clientInfo = new ClientInfo
+                        {
+                           TraineeId = (int)reader["TraineeId"],
+                           PersonId = (int)reader["PersonId"],
+                           Description = reader["Description"].ToString()
+                        };
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+
+            return clientInfo;
+        }
+
+
 
         private bool UserExistsInTable(string tableName, int userId)
         {

@@ -115,6 +115,7 @@ namespace Fitfinder
             this.NavigationService.Navigate(browseTrainers);
         }
 
+
         private void YourWorkouts_button(object sender, RoutedEventArgs e)
         {
             YourWorkouts yourWorkouts = new YourWorkouts();

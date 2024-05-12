@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,23 +14,19 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
 
-
 namespace Fitfinder
 {
     /// <summary>
-    /// Interaction logic for AdminMainPage.xaml
+    /// Interaction logic for AdminPageListOfTrainers.xaml
     /// </summary>
-    public partial class AdminMainPage : Page
+    public partial class AdminPageListOfTrainers : Page
     {
-        private Data data;
-
-        public AdminMainPage()
+        public AdminPageListOfTrainers()
         {
             InitializeComponent();
-
-            // Call a method to populate the ListView with users from the database
             PopulateUserListView();
         }
+
 
         private void PopulateUserListView()
         {
@@ -58,6 +53,9 @@ namespace Fitfinder
 
             public string Description { get; set; }
 
+            public string Location { get; set; }
+            public int Price { get; set; }
+
 
             // Add more properties as needed
         }
@@ -78,7 +76,7 @@ namespace Fitfinder
             {
                 connection.Open();
 
-                string query = "SELECT u.name, u.surname, u.email, u.password,u.ProfilePic, u.GenderId, t.Description FROM user as u JOIN client as t ON u.userId = t.PersonId JOIN gender as g ON u.genderId = g.genderId;"; // Assuming your table name is 'user'
+                string query = "SELECT u.name, u.surname, u.email, u.password,u.ProfilePic, u.GenderId, t.Description, t.Location, t.Price FROM user as u JOIN trainer as t ON u.userId = t.PersonId JOIN gender as g ON u.genderId = g.genderId;\r\n"; // Assuming your table name is 'user'
                 // SELECT u.name, u.surname, u.email, u.password,u.ProfilePic ,g.name FROM user as u JOIN client as t ON u.userId = t.PersonId JOIN gender as g ON u.genderId = g.genderId;
 
                 using (MySqlCommand command = new MySqlCommand(query, connection))
@@ -94,7 +92,9 @@ namespace Fitfinder
                                 Email = reader["email"].ToString(),
                                 Password = reader["password"].ToString(),
                                 GenderId = Convert.ToInt32(reader["GenderId"]),
-                                Description = reader["description"].ToString()
+                                Description = reader["description"].ToString(),
+                                Location = reader["location"].ToString(),
+                                Price = Convert.ToInt32(reader["price"])
 
                             };
 
@@ -132,7 +132,6 @@ namespace Fitfinder
 
             return users;
         }
-
         private void ProfileAdmin_button(object sender, RoutedEventArgs e)
         {
             AdminProfile adminProfile = new AdminProfile();

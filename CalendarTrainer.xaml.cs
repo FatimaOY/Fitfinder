@@ -53,7 +53,7 @@ namespace Fitfinder
                     Data data = new Data(); // Create an instance of the Data class
                     connection.Open();
                     MySqlCommand cmd = connection.CreateCommand();
-                    cmd.CommandText = "INSERT INTO availability (TrainerId, Day, StartTime, EndTime) VALUES (@TrainerId, @Day, @StartTime, @EndTime)";
+                    cmd.CommandText = "INSERT INTO availability (TrainerId, Day) VALUES (@TrainerId, @Day)";
                     cmd.Parameters.AddWithValue("@TrainerId", data.GetUserId((currentUser.Email).ToString(), (currentUser.Password).ToString())); // Change 0 to the actual TrainerId
                     cmd.Parameters.AddWithValue("@Day", GetDayOfWeek(listBox));
 

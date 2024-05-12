@@ -46,6 +46,19 @@ namespace Fitfinder
         public static ClientInfo CurrentClient { get; set; }
     }
 
+    public class TrainerInfo
+    {
+        public int TrainerId { get; set; }
+        public string Description { get; set; }
+        public int PersonId { get; set; }
+        public string Location { get; set; }
+        public decimal Price { get; set; }
+    }
+    public static class TrainerSession
+    {
+        public static TrainerInfo CurrentTrainer { get; set; }
+    }
+
     /// <summary>
     /// Interaction logic for LoginPage.xaml
     /// </summary>
@@ -97,6 +110,7 @@ namespace Fitfinder
                     TrainerMainPage trainerMainPage = new TrainerMainPage();
                     this.NavigationService.Navigate(trainerMainPage);
                     UserSession.UserRole = "Trainer";
+                    TrainerSession.CurrentTrainer = GetTrainerInformation(userId);
                 }
                 else if (UserExistsInTable("Client", userId))
                 {
@@ -200,6 +214,49 @@ namespace Fitfinder
             }
 
             return clientInfo;
+        }
+        TrainerInfo GetTrainerInformation(int userId)
+        {
+            TrainerInfo trainerInfo = null;
+            string connectionString =
+                "datasource=127.0.0.1;" +
+                "port=3306;" +
+                "username=root;" +
+                "password=;" +
+                "database=fitfinder4";
+
+            string query = "SELECT * FROM Trainer WHERE PersonId = @userId";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@userId", userId);
+
+
+                try
+                {
+                    connection.Open();
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        trainerInfo = new TrainerInfo
+                        {
+                            TrainerId = (int)reader["TrainerId"],
+                            PersonId = (int)reader["PersonId"],
+                            Description = reader["Description"].ToString(),
+                            Location = reader["Location"].ToString(),
+                            Price = decimal.Parse(reader["Price"].ToString())
+
+                        };
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+
+            return trainerInfo;
         }
 
 

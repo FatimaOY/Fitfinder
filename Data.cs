@@ -340,6 +340,47 @@ namespace Fitfinder
 
             return userInfo;
         }
+        public UserInfo GetUserInformationById(int userId)
+        {
+            UserInfo userInfo = null;
+            string connectionString =
+                "datasource=127.0.0.1;" +
+                "port=3306;" +
+                "username=root;" +
+                "password=;" +
+                "database=fitfinder4";
+
+            string query = "SELECT * FROM User WHERE UserID = @UserID";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@UserID", userId);
+
+                try
+                {
+                    connection.Open();
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        userInfo = new UserInfo
+                        {
+                            userId = (int)reader["UserID"],
+                            Email = reader["Email"].ToString(),
+                            Name = reader["Name"].ToString(),
+                            Surname = reader["Surname"].ToString(),
+                            Password = reader["Password"].ToString(),
+                        };
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+
+            return userInfo;
+        }
 
         public int GetUserId(string email, string password)
         {

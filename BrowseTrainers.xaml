@@ -57,12 +57,22 @@
         </StackPanel>
 
         <!-- List of trainers -->
-        <ListBox Margin="10,306,0,0" >
-            <!-- Trainers will be dynamically loaded here -->
-            <ListBoxItem>Trainer 1</ListBoxItem>
-            <ListBoxItem>Trainer 2</ListBoxItem>
-            <ListBoxItem>Trainer 3</ListBoxItem>
-            <!-- Add more trainers as needed -->
+        <ListBox x:Name="TrainersListBox" Margin="10,306,0,0" >
+        <!-- Define how each trainer should be displayed -->
+        <ListBox.ItemTemplate>
+            <DataTemplate>
+                <StackPanel>
+                    <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding Surname}"/>
+                    <!-- Add TextBlock for Surname -->
+                    <TextBlock Text="{Binding Email}"/>
+                    <!-- Add TextBlock for Email -->
+                    <TextBlock Text="{Binding Location}"/>
+                    <TextBlock Text="{Binding Description}"/>
+                        <TextBlock Text="{Binding Price, StringFormat='Price : {0}'}"/>
+                    </StackPanel>
+            </DataTemplate>
+        </ListBox.ItemTemplate>
         </ListBox>
     </Grid>
 </Page>

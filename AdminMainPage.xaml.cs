@@ -25,6 +25,9 @@ namespace Fitfinder
     {
         private Data data;
 
+        public static AdminMainPage.User SelectedUser { get; set; }
+
+
         public AdminMainPage()
         {
             InitializeComponent();
@@ -133,6 +136,67 @@ namespace Fitfinder
             return users;
         }
 
+        public void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            User user = button.DataContext as User;
+
+            SelectedUser = user;
+            AdminEditProfile adminEditProfile = new AdminEditProfile(SelectedUser);
+            this.NavigationService.Navigate(adminEditProfile);
+        }
+
+
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Get the clicked button
+            Button button = sender as Button;
+
+            // Get the corresponding user from the button's DataContext
+            User user = button.DataContext as User;
+
+            // Perform the deletion operation for the user
+            DeleteUserFromDatabase(user);
+
+            // Refresh the ListView after deletion
+            PopulateUserListView();
+        }
+
+        private void DeleteUserFromDatabase(User user)
+        {
+            string connectionString =
+                "datasource=127.0.0.1;" +
+                "port=3306;" +
+                "username=root;" +
+                "password=;" +
+                "database=fitfinder4";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = "DELETE FROM user WHERE name = @Name AND surname = @Surname AND email = @Email";
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Name", user.Name);
+                    command.Parameters.AddWithValue("@Surname", user.Surname);
+                    command.Parameters.AddWithValue("@Email", user.Email);
+
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("User deleted successfully!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to delete user.");
+                    }
+                }
+            }
+        }
+
         private void ProfileAdmin_button(object sender, RoutedEventArgs e)
         {
             AdminProfile adminProfile = new AdminProfile();
@@ -149,6 +213,11 @@ namespace Fitfinder
         {
             AdminPageListOfTrainers adminMainPageListForTrainer = new AdminPageListOfTrainers();
             this.NavigationService.Navigate(adminMainPageListForTrainer);
+        }
+
+        private void createProfile_button(object sender, RoutedEventArgs e)
+        {
+            //
         }
     }
 }

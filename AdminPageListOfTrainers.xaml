@@ -15,8 +15,8 @@
             <Button Content="List Of Trainees" Click="TraineesList_button" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,0,10,0"/>
             <Button Content="List Of Trainers" Click="TrainersList_button" VerticalAlignment="Top" HorizontalAlignment="Center"  Margin="10,0,0,0"/>
         </StackPanel>
-        <Grid>
-            <ListView x:Name="userListView" Margin="0,29,10,0">
+        <Grid Margin="0,0,0,60">
+            <ListView x:Name="userListView" Margin="0,29,10,31">
                 <ListView.View>
                     <GridView>
                         <!-- Column Definitions -->
@@ -37,10 +37,22 @@
                         <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}" Width="200"/>
                         <GridViewColumn Header="Location" DisplayMemberBinding="{Binding Location}" Width="100"/>
                         <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}" Width="50"/>
-
+                        <GridViewColumn Header="Delete/Edit" Width="200">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <!-- Edit Button -->
+                                        <Button Content="Edit" Width="50" Click="EditButton_Click"/>
+                                        <!-- Delete Button -->
+                                        <Button Content="Delete" Width="50" Click="DeleteButton_Click"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>
         </Grid>
+        <Button Content="Create Profile" VerticalAlignment="Bottom" HorizontalAlignment="Center" Click="createProfile_button"></Button>
     </Grid>
 </Page>

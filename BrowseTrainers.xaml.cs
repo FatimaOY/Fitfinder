@@ -24,12 +24,52 @@ namespace Fitfinder
     /// </summary>
     public partial class BrowseTrainers : Page
     {
+        private List<WorkoutType> workoutTypes;
+
         public BrowseTrainers()
         {
             InitializeComponent();
+            genderComboBox.ItemsSource = new List<string> { "Male", "Female", "Other" };
+            workoutTypes = new List<WorkoutType>
+            {
+                new WorkoutType(1, "Weightlifting"),
+                new WorkoutType(2, "Cardio"),
+                new WorkoutType(3, "Stretching"),
+                new WorkoutType(4, "Yoga"),
+                new WorkoutType(5, "Pilates"),
+                new WorkoutType(6, "CrossFit"),
+                new WorkoutType(7, "Calinistics"),
+                new WorkoutType(8, "Swimming")
+            };
+
+            // Bind the ComboBox to the collection of WorkoutType objects
+            workoutTypeComboBox.ItemsSource = workoutTypes;
+
+            // Set the DisplayMemberPath to display the Name property
+            workoutTypeComboBox.DisplayMemberPath = "Name";
             List<TrainerBrowse> trainers = GetTrainersFromDatabase();
 
             TrainersListBox.ItemsSource = trainers;
+        }
+        private void GenderComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // You can access the selected gender using SelectedItem property
+            string selectedGender = genderComboBox.SelectedItem as string;
+            if (selectedGender != null)
+            {
+                // Do something with the selected gender
+                MessageBox.Show($"Selected gender: {selectedGender}");
+            }
+        }
+        private void WorkoutTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // You can access the selected workout type using SelectedItem property
+            WorkoutType selectedWorkoutType = workoutTypeComboBox.SelectedItem as WorkoutType;
+            if (selectedWorkoutType != null)
+            {
+                // Do something with the selected workout type
+                MessageBox.Show($"Selected workout type: {selectedWorkoutType.Name}");
+            }
         }
         public class TrainerBrowse
         {

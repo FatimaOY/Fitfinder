@@ -38,13 +38,13 @@
             <!-- Gender filter -->
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Gender:" Margin="0,0,10,0"/>
-                <ComboBox Width="150"/>
+                <ComboBox x:Name="genderComboBox" Width="150"/>
             </StackPanel>
 
             <!-- Workout type filter -->
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Workout Type:" Margin="0,0,10,0"/>
-                <ComboBox Width="150"/>
+                <ComboBox x:Name="workoutTypeComboBox" Width="150"/>
             </StackPanel>
 
             <!-- Price range filter -->

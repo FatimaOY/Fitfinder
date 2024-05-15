@@ -8,11 +8,24 @@ using MySqlX.XDevAPI;
 using Microsoft.Win32;
 using System.Windows.Media.Imaging;
 using System.IO;
+using System.Collections.Generic;
+using System.Collections;
 
 namespace Fitfinder
 {
     public partial class RegisterWindom : Page
     {
+        private List<WorkoutType> workoutTypes = new List<WorkoutType>
+        {
+            new WorkoutType(1, "Weightlifting"),
+            new WorkoutType(2, "Cardio"),
+            new WorkoutType(3, "Stretching"),
+            new WorkoutType(4, "Yoga"),
+            new WorkoutType(5, "Pilates"),
+            new WorkoutType(6, "CrossFit"),
+            new WorkoutType(7, "Calinistics"),
+            new WorkoutType(8, "Swimming")
+        };
         private MyViewModel _viewModel; // Declare the ViewModel
         private Data _database; // You can keep your Data class instance if needed
 
@@ -21,6 +34,82 @@ namespace Fitfinder
             InitializeComponent();
             _viewModel = new MyViewModel(); // Initialize the ViewModel
             _database = new Data(); // Initialize the Data class if needed
+            lstWorkouts.ItemsSource = workoutTypes;
+        }
+
+        private void lstWorkouts_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+
+            List<string> selectedWorkouts = new List<string>();
+
+            // Loop through the selected ListBoxItems and add their content to the list
+            foreach (ListBoxItem item in lstWorkouts.SelectedItems)
+            {
+                selectedWorkouts.Add(item.Content.ToString());
+            }
+
+            // Forward the selected workouts to the database
+            ForwardSelectedWorkoutsToDatabase(selectedWorkouts);
+        }
+        private void ForwardSelectedWorkoutsToDatabase(List<string> selectedWorkouts)
+        {
+            string connectionstring = "server=127.0.0.1;port=3306;database=fitfinder4;user=root;password=;";
+            MySqlConnection connection = new MySqlConnection(connectionstring);
+            int trainerId = TrainerSession.CurrentTrainer.TrainerId;
+
+            try
+            {
+                connection.Open();
+
+                foreach (string workout in selectedWorkouts)
+                {
+                    // Perform an SQL INSERT operation for each selected workout
+                    string query = "INSERT INTO trainerworkout (PersonalTrainer, WorkoutType) VALUES (@PersonalTrainer, @WorkoutType)";
+                    MySqlCommand command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@PersonalTrainer", trainerId); // Assuming you have a method to get the logged-in user's ID
+                    command.Parameters.AddWithValue("@WorkoutType", GetWorkoutTypeIdByName(workout));
+                    command.ExecuteNonQuery();
+                }
+
+                MessageBox.Show("Selected workouts forwarded to the database successfully.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while forwarding selected workouts to the database: " + ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+        public int GetWorkoutTypeIdByName(string workoutTypeName)
+        {
+            string connectionstring = "server=127.0.0.1;port=3306;database=fitfinder4;user=root;password=;";
+            int workoutTypeId = -1; // Default value if not found
+            string query = "SELECT WorkoutTypeId FROM Workouttypes WHERE Name = @WorkoutTypeName";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionstring))
+            {
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@WorkoutTypeName", workoutTypeName);
+
+                try
+                {
+                    connection.Open();
+                    var result = command.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                    {
+                        workoutTypeId = Convert.ToInt32(result);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("An error occurred while getting workout type ID: " + ex.Message);
+                }
+            }
+
+            return workoutTypeId;
         }
 
         // Method to determine the gender based on the selected radio button
@@ -67,6 +156,11 @@ namespace Fitfinder
                 MessageBox.Show("Passwords do not match.");
                 return;
             }
+            if (IfEmailExists(email) == true)
+            {
+                MessageBox.Show("An account with this email already exists.");
+                return;
+            }
             int genderId = GetGenderIdClient();
 
             // Create a Client object
@@ -106,6 +200,11 @@ namespace Fitfinder
                 MessageBox.Show("Passwords do not match.");
                 return;
             }
+            if (IfEmailExists(email) == true)
+            {
+                MessageBox.Show("An account with this email already exists.");
+                return;
+            }
 
             int genderId = GetGenderIdTrainer();
 
@@ -135,6 +234,36 @@ namespace Fitfinder
             }
         }
 
+        public bool IfEmailExists(string email)
+        {
+            // Assuming you have a connection string defined somewhere
+            string connectionString = "server=127.0.0.1;port=3306;database=fitfinder4;user=root;password=;";
+
+            // SQL query to check if the email exists
+            string query = "SELECT COUNT(*) FROM User WHERE Email = @Email";
+
+            // Variable to store the count
+            int count = 0;
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                // Create a MySqlCommand object
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+                {
+                    // Add the parameter for email
+                    command.Parameters.AddWithValue("@Email", email);
+
+                    // Open the connection
+                    connection.Open();
+
+                    // Execute the query and store the result in count
+                    count = Convert.ToInt32(command.ExecuteScalar());
+                }
+            }
+
+            // If the count is greater than 0, email exists; otherwise, it doesn't
+            return count > 0;
+        }
         private void UploadProfilePicture_Click(object sender, RoutedEventArgs e)
         {
             // Create OpenFileDialog

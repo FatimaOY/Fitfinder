@@ -114,10 +114,11 @@
 
                     <TextBlock Text="4. What type of workouts do you offer?" VerticalAlignment="Top" Margin="28,10,0,0"/>
                     <ListBox x:Name="lstWorkouts" SelectionMode="Multiple" Margin="28,5,28,69">
-                        <ListBoxItem>Cardio</ListBoxItem>
-                        <ListBoxItem>Lifting</ListBoxItem>
-                        <ListBoxItem>Yoga</ListBoxItem>
-                        <!-- Add more ListBoxItems for additional workout options -->
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
                     </ListBox>
                     <Button Content="Register" Click ="Trainer_final_register_click" HorizontalAlignment="Left" Height="24" Margin="28,10,0,0" VerticalAlignment="Top" Width="98"/>
                 </StackPanel>

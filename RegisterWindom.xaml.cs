@@ -172,9 +172,9 @@ namespace Fitfinder
                 _viewModel.AddNewClient(client); // Adding a client
                 MessageBox.Show("Trainee registered successfully.");
 
-                //The navigation to the browseTrainers page
-                BrowseTrainers browseTrainers = new BrowseTrainers();
-                this.NavigationService.Navigate(browseTrainers);
+                // Navigate to the login page again
+                LoginPage loginPage = new LoginPage();
+                this.NavigationService.Navigate(loginPage);
 
             }
             catch (Exception ex)
@@ -224,9 +224,9 @@ namespace Fitfinder
                 _viewModel.AddNewTrainer(trainer); // Adding a trainer
                 MessageBox.Show("Trainer registered successfully.");
 
-                // Navigate to the browseTrainers page
-                TrainerMainPage trainerMainPage = new TrainerMainPage();
-                this.NavigationService.Navigate(trainerMainPage);
+                // Navigate to the login page again
+                LoginPage loginPage = new LoginPage();
+                this.NavigationService.Navigate(loginPage);
             }
             catch (Exception ex)
             {

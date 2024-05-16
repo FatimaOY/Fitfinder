@@ -234,15 +234,10 @@ namespace Fitfinder
 
             return clientInfo;
         }
-        TrainerInfo GetTrainerInformation(int userId)
+        public TrainerInfo GetTrainerInformation(int userId)
         {
             TrainerInfo trainerInfo = null;
-            string connectionString =
-                "datasource=127.0.0.1;" +
-                "port=3306;" +
-                "username=root;" +
-                "password=;" +
-                "database=fitfinder4";
+            string connectionString = "Server=127.0.0.1;Port=3306;Database=fitfinder4;Uid=root;Pwd=;";
 
             string query = "SELECT * FROM Trainer WHERE PersonId = @userId";
 

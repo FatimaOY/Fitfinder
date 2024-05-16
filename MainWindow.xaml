@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid Margin="10,10,0,0">
+        <Frame x:Name="MainContentFrame" NavigationUIVisibility="Hidden"/>
         <Image Source="pack://application:,,,/images/fitfinder_logo_bicep.png" HorizontalAlignment="Left" VerticalAlignment="Top" Height="72" Width="76" Margin="227,72,0,0"/>
         <TextBlock Text="FitFinder" Foreground="#FF6700" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,84,0,0"
            FontSize="36" FontWeight="Bold"/>

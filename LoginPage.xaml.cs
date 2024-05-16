@@ -85,6 +85,7 @@ namespace Fitfinder
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
             {
                 lblError.Visibility = Visibility.Visible;
+                lblError.Text = "Email and password are required."; // Corrected from `Content` to `Text`
                 return;
             }
 
@@ -94,45 +95,63 @@ namespace Fitfinder
 
             if (userId != -1)
             {
-                if (UserExistsInTable("Admin", userId))
+                var currentUser = GetUserInformation(email, password);
+                if (currentUser != null)
                 {
-                    // Admin login
-                    UserSession.CurrentUser = GetUserInformation(email, password);
-                    AdminMainPage adminMainPage = new AdminMainPage();
-                    this.NavigationService.Navigate(adminMainPage);
-                    UserSession.UserRole = "Admin";
+                    UserSession.CurrentUser = currentUser;
 
-                }
-                else if (UserExistsInTable("Trainer", userId))
-                {
-                    // Trainer login
-                    UserSession.CurrentUser = GetUserInformation(email, password);
-                    TrainerMainPage trainerMainPage = new TrainerMainPage();
-                    this.NavigationService.Navigate(trainerMainPage);
-                    UserSession.UserRole = "Trainer";
-                    TrainerSession.CurrentTrainer = GetTrainerInformation(userId);
-                }
-                else if (UserExistsInTable("Client", userId))
-                {
-                    // Client login
-                    UserSession.CurrentUser = GetUserInformation(email, password);
-                    BrowseTrainers browseTrainers = new BrowseTrainers();
-                    this.NavigationService.Navigate(browseTrainers);
-                    UserSession.UserRole = "Client";
-                    ClientSession.CurrentClient = GetClientInformation(userId);
+                    MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
+                    if (mainWindow != null)
+                    {
+                        if (UserExistsInTable("Admin", userId))
+                        {
+                            // Admin login
+                            UserSession.UserRole = "Admin";
+                            AdminMainPage adminMainPage = new AdminMainPage();
+                            mainWindow.MainFrame.Navigate(adminMainPage);
+                        }
+                        else if (UserExistsInTable("Trainer", userId))
+                        {
+                            // Trainer login
+                            UserSession.UserRole = "Trainer";
+                            TrainerSession.CurrentTrainer = GetTrainerInformation(userId);
+                            TrainerMainPage trainerMainPage = new TrainerMainPage();
+                            mainWindow.MainFrame.Navigate(trainerMainPage);
+                        }
+                        else if (UserExistsInTable("Client", userId))
+                        {
+                            // Client login
+                            UserSession.UserRole = "Client";
+                            ClientSession.CurrentClient = GetClientInformation(userId);
+                            BrowseTrainers browseTrainers = new BrowseTrainers();
+                            mainWindow.MainFrame.Navigate(browseTrainers);
+                        }
+                        else
+                        {
+                            lblError.Visibility = Visibility.Visible;
+                            lblError.Text = "User role not found."; // Corrected from `Content` to `Text`
+                        }
+                    }
+                    else
+                    {
+                        lblError.Visibility = Visibility.Visible;
+                        lblError.Text = "Main window is not available."; // Corrected from `Content` to `Text`
+                    }
                 }
                 else
                 {
-                    lblError.Visibility = Visibility.Visible; // Show error message
+                    lblError.Visibility = Visibility.Visible;
+                    lblError.Text = "Failed to retrieve user information."; // Corrected from `Content` to `Text`
                 }
             }
             else
             {
-                lblError.Visibility = Visibility.Visible; // Show error message
+                lblError.Visibility = Visibility.Visible;
+                lblError.Text = "Invalid email or password."; // Corrected from `Content` to `Text`
             }
         }
 
-         UserInfo GetUserInformation(string email, string password)
+        UserInfo GetUserInformation(string email, string password)
         {
             UserInfo userInfo = null;
             string connectionString =

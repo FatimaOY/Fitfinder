@@ -241,7 +241,7 @@ namespace Fitfinder
                     int rowsAffected = cmd.ExecuteNonQuery();
                     if (rowsAffected > 0)
                     {
-                        MessageBox.Show("Description updated successfully. You will get logged out when clicking the button \'OK\'. Log in again to see the changes. ");
+                        MessageBox.Show("Description updated successfully. You will get logged out when clicking the button \'OK\'. Log in again to  ");
                         return true;
                     }
                     else

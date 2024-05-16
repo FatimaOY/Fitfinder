@@ -37,7 +37,10 @@
             <TextBlock x:Name="DescriptionTextBlock" Margin="0,0,0,5" Text="Description:"/>
             <TextBlock x:Name="LocationTextBlock" Margin="0,0,0,5" Text="Location:"/>
             <TextBlock x:Name="PriceTextBlock" Margin="0,0,0,5" Text="Price:"/>
-            <Button Content="Change Description" Click="ChangeDescription_Click" Margin="0,10,0,0"/>
+			<ListBox x:Name="WorkoutTypesListBox" Margin="0,10,0,0" Width="200" Height="150">
+    <ListBoxItem FontWeight="Bold">Offered workouts</ListBoxItem>
+</ListBox>
+			<Button Content="Change Description" Click="ChangeDescription_Click" Margin="0,10,0,0"/>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left" Width="122" Margin="38,0,0,0">

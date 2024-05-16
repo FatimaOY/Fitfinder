@@ -39,7 +39,7 @@ namespace Fitfinder
 
         private void DisplayUserInfo()
         {
-            userToUpdate = AdminPageListOfTrainers.SelectedUser;
+            //userToUpdate = AdminPageListOfTrainers.SelectedUser;
 
             if (userToUpdate != null)
             {

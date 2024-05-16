@@ -139,6 +139,7 @@ namespace Fitfinder
                 .Cast<WorkoutType>() // Cast to WorkoutType
                 .Select(workout => workout.Name) // Select the Name property
                 .ToList(); // Convert to List<string>
+            TrainerSession.styles = selectedWorkouts;
 
             if (selectedWorkouts.Count > 0)
             {

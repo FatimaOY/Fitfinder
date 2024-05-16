@@ -15,6 +15,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+using System.Collections.ObjectModel;
+using System.Runtime.InteropServices;
+using System.Diagnostics.Eventing.Reader;
 
 namespace Fitfinder
 {
@@ -23,13 +26,18 @@ namespace Fitfinder
     /// </summary>
     public partial class TrainerProfile : Page
     {
+        private ObservableCollection<string> workoutTypes = new ObservableCollection<string>();
+
         private YourProfil profil = new YourProfil();
 
         public TrainerProfile()
         {
+            
             InitializeComponent();
-            LoadProfilePicture();
             LoadTrainerProfile();
+            LoadProfilePicture();
+            
+
         }
         public void LoadTrainerProfile()
         {
@@ -44,18 +52,119 @@ namespace Fitfinder
                     SurnameTextBlock.Text = $"Surname: {currentUser.Surname}";
                     EmailTextBlock.Text = $"Email: {currentUser.Email}";
                     LocationTextBlock.Text = $"Location: {currentTrainer.Location}";
-                    PriceTextBlock.Text = $"Email: {currentTrainer.Price}";
+                    PriceTextBlock.Text = $"Price: {currentTrainer.Price}";
                     MessageBox.Show($"User role: {UserSession.UserRole}", "User Role", MessageBoxButton.OK, MessageBoxImage.Information);
                     DescriptionTextBlock.Text = $"Description: {currentTrainer.Description}";
                     string savedEmail = currentUser.Email;
-                    // If you have a password field, it's usually a placeholder for user interaction (e.g., change password)
-                    // Avoid displaying plain-text passwords
+
+                    // Instantiate TrainerInfo object
+                    TrainerInfo trainerInfo = new TrainerInfo();
+                    
+                    trainerInfo.TrainerId = currentTrainer.TrainerId;
+                    int trainerId = currentTrainer.TrainerId;
+                    
+                    MessageBox.Show(Convert.ToString(currentTrainer.TrainerId));
+
+                 
+
+                    // Update trainer styles
+                    List <string> stylesList = UpdateTrainerStyles(trainerId);
+                    
+                    
+
+                    // Set the item source for the WorkoutTypesListBox
+                    foreach (var style in TrainerSession.styles)
+                    {
+                        WorkoutTypesListBox.Items.Add(style);
+                    }
                 }
             }
             else
             {
                 MessageBox.Show("User information could not be loaded.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+
+        public string GetWorkoutTypeNameById(int workoutTypeId)
+        {
+            string workoutTypeName = null;
+
+            string connectionString = "Server=127.0.0.1;Port=3306;Database=fitfinder4;Uid=root;Pwd=;"; // Replace this with your actual connection string
+            string query = "SELECT Name FROM Workouttypes WHERE WorkoutTypeId = @WorkoutTypeId";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@WorkoutTypeId", workoutTypeId);
+
+                try
+                {
+                    connection.Open();
+                    var result = command.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                    {
+                        workoutTypeName = Convert.ToString(result);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("An error occurred while getting workout type name: " + ex.Message);
+                }
+            }
+
+            return workoutTypeName;
+        }
+        public List<int> GetWorkoutIdsForTrainer(int trainerId)
+        {
+            List<int> workoutIds = new List<int>();
+
+            string connectionString = "Server=127.0.0.1;Port=3306;Database=fitfinder4;Uid=root;Pwd=;"; // Replace this with your actual connection string
+            string query = "SELECT WorkoutType FROM trainerworkout WHERE PersonalTrainer = @PersonalTrainer";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@PersonalTrainer", trainerId);
+
+                try
+                {
+                    connection.Open();
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int workoutId = reader.GetInt32("WorkoutType");
+                            workoutIds.Add(workoutId);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("An error occurred while retrieving workout IDs: " + ex.Message);
+                }
+            }
+
+            return workoutIds;
+        }
+        public List<string> UpdateTrainerStyles(int trainerId)
+        {
+            List<int> workoutIds = GetWorkoutIdsForTrainer(trainerId);
+            List<string> stylesList = new List<string>();
+
+            // Iterate over the workout IDs and get the corresponding names
+            foreach (int workoutId in workoutIds)
+            {
+                string workoutName = GetWorkoutTypeNameById(workoutId);
+                stylesList.Add(workoutName);
+                MessageBox.Show(workoutName);
+
+            }
+
+            // Update the styles list in the TrainerInfo object
+            TrainerSession.styles = stylesList;
+            return stylesList;
+
         }
 
         private void Back_button(object sender, RoutedEventArgs e)
@@ -191,6 +300,7 @@ namespace Fitfinder
                 }
             }
         }
+       
         public void LoadProfilePicture()
         {
             var currentUser = UserSession.CurrentUser;

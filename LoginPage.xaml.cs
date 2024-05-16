@@ -57,6 +57,7 @@ namespace Fitfinder
     public static class TrainerSession
     {
         public static TrainerInfo CurrentTrainer { get; set; }
+        public static List<string> styles { get; set; }
     }
 
     /// <summary>

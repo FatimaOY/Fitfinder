@@ -24,11 +24,14 @@ namespace Fitfinder
     /// </summary>
     public partial class BrowseTrainers : Page
     {
+        private TrainerProfile _trainerProfile;
         private List<WorkoutType> workoutTypes;
 
         public BrowseTrainers()
         {
+            
             InitializeComponent();
+            _trainerProfile = new TrainerProfile();
             genderComboBox.ItemsSource = new List<string> { "Male", "Female", "Other" };
             workoutTypes = new List<WorkoutType>
             {
@@ -71,6 +74,7 @@ namespace Fitfinder
                 MessageBox.Show($"Selected workout type: {selectedWorkoutType.Name}");
             }
         }
+
         public class TrainerBrowse
         {
             public string Name { get; set; }
@@ -79,6 +83,7 @@ namespace Fitfinder
             public string Location { get; set; }
             public string Description { get; set; }
             public decimal Price { get; set; }
+            public List<string> WorkoutTypes { get; set; }
         }
 
 
@@ -102,11 +107,18 @@ namespace Fitfinder
                     connection.Open();
                     MySqlDataReader reader = command.ExecuteReader();
 
-                    
-
                     while (reader.Read())
                     {
                         int userId = Convert.ToInt32(reader["PersonId"]);
+                        int trainerId = Convert.ToInt32(reader["TrainerId"]);
+
+                        // Call the UpdateTrainerStyles method to get the styles list
+                        List<string> stylestList = _trainerProfile.UpdateTrainerStyles(trainerId);
+                        foreach(var style in stylestList)
+                        {
+                            MessageBox.Show(style);
+                        }
+
                         MessageBox.Show("User ID: " + userId);
                         var userInfo = data.GetUserInformationById(userId);
                         TrainerBrowse trainerBrowse = new TrainerBrowse
@@ -116,7 +128,8 @@ namespace Fitfinder
                             Email = userInfo.Email,
                             Location = reader["Location"].ToString(),
                             Description = reader["Description"].ToString(),
-                            Price = Convert.ToDecimal(reader["Price"])
+                            Price = Convert.ToDecimal(reader["Price"]),
+                            WorkoutTypes = stylestList
                         };
 
                         trainers.Add(trainerBrowse);

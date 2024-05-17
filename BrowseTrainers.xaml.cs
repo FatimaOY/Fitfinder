@@ -1,27 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using static Google.Protobuf.Reflection.SourceCodeInfo.Types;
 using MySql.Data.MySqlClient;
-using ZstdSharp.Unsafe; // MySQL connection
 
 namespace Fitfinder
 {
-    /// <summary>
-    /// Interaction logic for BrowseTrainers.xaml
-    /// </summary>
     public partial class BrowseTrainers : Page
     {
         private TrainerProfile _trainerProfile;
@@ -29,7 +13,6 @@ namespace Fitfinder
 
         public BrowseTrainers()
         {
-            
             InitializeComponent();
             _trainerProfile = new TrainerProfile();
             genderComboBox.ItemsSource = new List<string> { "Male", "Female", "Other" };
@@ -41,36 +24,46 @@ namespace Fitfinder
                 new WorkoutType(4, "Yoga"),
                 new WorkoutType(5, "Pilates"),
                 new WorkoutType(6, "CrossFit"),
-                new WorkoutType(7, "Calinistics"),
+                new WorkoutType(7, "Calisthenics"),
                 new WorkoutType(8, "Swimming")
             };
 
-            // Bind the ComboBox to the collection of WorkoutType objects
             workoutTypeComboBox.ItemsSource = workoutTypes;
-
-            // Set the DisplayMemberPath to display the Name property
             workoutTypeComboBox.DisplayMemberPath = "Name";
             List<TrainerBrowse> trainers = GetTrainersFromDatabase();
-
             TrainersListBox.ItemsSource = trainers;
         }
+
+        private void TrainersListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (TrainersListBox.SelectedItem is TrainerBrowse selectedTrainer)
+            {
+                TrainerDetails trainerDetailsPage = new TrainerDetails(selectedTrainer);
+                if (this.NavigationService != null)
+                {
+                    this.NavigationService.Navigate(trainerDetailsPage);
+                }
+                else
+                {
+                    MessageBox.Show("Navigation service is not available.");
+                }
+            }
+        }
+
         private void GenderComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // You can access the selected gender using SelectedItem property
             string selectedGender = genderComboBox.SelectedItem as string;
             if (selectedGender != null)
             {
-                // Do something with the selected gender
                 MessageBox.Show($"Selected gender: {selectedGender}");
             }
         }
+
         private void WorkoutTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // You can access the selected workout type using SelectedItem property
             WorkoutType selectedWorkoutType = workoutTypeComboBox.SelectedItem as WorkoutType;
             if (selectedWorkoutType != null)
             {
-                // Do something with the selected workout type
                 MessageBox.Show($"Selected workout type: {selectedWorkoutType.Name}");
             }
         }
@@ -86,7 +79,6 @@ namespace Fitfinder
             public List<string> WorkoutTypes { get; set; }
         }
 
-
         public List<TrainerBrowse> GetTrainersFromDatabase()
         {
             Data data = new Data();
@@ -100,7 +92,7 @@ namespace Fitfinder
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                string sqlQuery = "SELECT TrainerId, PersonId, Location, Description, Price FROM Trainer"; // Modify query as needed
+                string sqlQuery = "SELECT TrainerId, PersonId, Location, Description, Price FROM Trainer";
 
                 using (MySqlCommand command = new MySqlCommand(sqlQuery, connection))
                 {
@@ -112,14 +104,7 @@ namespace Fitfinder
                         int userId = Convert.ToInt32(reader["PersonId"]);
                         int trainerId = Convert.ToInt32(reader["TrainerId"]);
 
-                        // Call the UpdateTrainerStyles method to get the styles list
                         List<string> stylestList = _trainerProfile.UpdateTrainerStyles(trainerId);
-                        foreach(var style in stylestList)
-                        {
-                            MessageBox.Show(style);
-                        }
-
-                        MessageBox.Show("User ID: " + userId);
                         var userInfo = data.GetUserInformationById(userId);
                         TrainerBrowse trainerBrowse = new TrainerBrowse
                         {
@@ -162,7 +147,7 @@ namespace Fitfinder
 
         private void Messages_button(object sender, RoutedEventArgs e)
         {
-
+            // Handle messages button click
         }
     }
 }

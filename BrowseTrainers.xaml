@@ -11,7 +11,6 @@
 
     <Grid>
         <!-- Top navigation bar -->
-        <!-- Top navigation bar -->
         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -57,19 +56,17 @@
         </StackPanel>
 
         <!-- List of trainers -->
-        <ListBox x:Name="TrainersListBox" Margin="10,306,0,0" >
+        <ListBox x:Name="TrainersListBox" Margin="10,306,0,0" SelectionChanged="TrainersListBox_SelectionChanged">
             <!-- Define how each trainer should be displayed -->
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
                         <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
                         <TextBlock Text="{Binding Surname}"/>
-                        <!-- Add TextBlock for Surname -->
                         <TextBlock Text="{Binding Email}"/>
-                        <!-- Add TextBlock for Email -->
                         <TextBlock Text="{Binding Location}"/>
                         <TextBlock Text="{Binding Description}"/>
-                        <TextBlock Text="{Binding Price, StringFormat='Price : {0}'}"/>
+                        <TextBlock Text="{Binding Price, StringFormat='Price: {0:C}'}"/>
 
                         <!-- Display workout types -->
                         <ItemsControl ItemsSource="{Binding WorkoutTypes}">

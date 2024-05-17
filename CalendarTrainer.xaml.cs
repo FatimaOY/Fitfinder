@@ -35,15 +35,38 @@ namespace Fitfinder
         private void TimeSlot_Click(object sender, SelectionChangedEventArgs e)
         {
             var listBox = sender as ListBox;
-            if (listBox != null && listBox.SelectedItem != null)
+            if (listBox != null && listBox.SelectedItems != null)
             {
-                var timeSlot = listBox.SelectedItem.ToString();
-                listBox.Foreground = Brushes.Blue; // Change foreground color to blue
-                SaveAvailability(listBox); // Save availability to the database
+                // Create a copy of the selected items
+                var selectedItemsCopy = new List<ListBoxItem>(listBox.SelectedItems.OfType<ListBoxItem>());
+
+                foreach (var selectedItem in selectedItemsCopy)
+                {
+                    if (selectedItem != null)
+                    {
+                        if (selectedItem.Foreground == Brushes.Blue) // Time slot is already selected
+                        {
+                            // Prompt the user to confirm removal of the availability
+                            MessageBoxResult result = MessageBox.Show("Do you want to remove this availability?", "Remove Availability", MessageBoxButton.YesNo);
+                            if (result == MessageBoxResult.Yes)
+                            {
+                                RemoveAvailability(listBox, selectedItem); // Remove availability from the database
+                                selectedItem.Foreground = Brushes.Black; // Reset the foreground color
+                                selectedItem.IsSelected = false; // Deselect the item
+                            }
+                        }
+                        else
+                        {
+                            selectedItem.Foreground = Brushes.Blue; // Change foreground color to blue
+                            SaveAvailability(listBox, selectedItem); // Save availability to the database
+                        }
+                    }
+                }
             }
         }
 
-        private void SaveAvailability(ListBox listBox)
+
+        private void SaveAvailability(ListBox listBox, ListBoxItem selectedItem)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -53,25 +76,24 @@ namespace Fitfinder
                     Data data = new Data(); // Create an instance of the Data class
                     connection.Open();
                     MySqlCommand cmd = connection.CreateCommand();
-                    cmd.CommandText = "INSERT INTO availability (TrainerId, Day) VALUES (@TrainerId, @Day)";
-                    cmd.Parameters.AddWithValue("@TrainerId", data.GetUserId((currentUser.Email).ToString(), (currentUser.Password).ToString())); // Change 0 to the actual TrainerId
+                    cmd.CommandText = "SELECT COUNT(*) FROM availability WHERE TrainerId = @TrainerId AND Day = @Day AND StartTime = @StartTime AND EndTime = @EndTime";
+                    cmd.Parameters.AddWithValue("@TrainerId", data.GetTrainerID(data.GetUserId(currentUser.Email, currentUser.Password)));
                     cmd.Parameters.AddWithValue("@Day", GetDayOfWeek(listBox));
 
-                    string[] times = listBox.SelectedItem.ToString().Split('-');
-                    string startTimeString = times[0].Trim().Replace(" AM", "").Replace(" PM", ""); // Trim and remove " AM" and " PM"
-                    string endTimeString = times[1].Trim().Replace(" AM", "").Replace(" PM", ""); // Trim and remove " AM" and " PM"
+                    string[] times = selectedItem.Content.ToString().Split('-');
+                    string startTimeString = times[0].Trim();
+                    string endTimeString = times[1].Trim();
 
-                    // Convert time strings to TimeSpan
-                    TimeSpan startTime, endTime;
-                    if (TimeSpan.TryParse(startTimeString, out startTime) && TimeSpan.TryParse(endTimeString, out endTime))
+                    cmd.Parameters.AddWithValue("@StartTime", startTimeString);
+                    cmd.Parameters.AddWithValue("@EndTime", endTimeString);
+
+                    int count = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    if (count == 0)
                     {
-                        cmd.Parameters.AddWithValue("@StartTime", startTime);
-                        cmd.Parameters.AddWithValue("@EndTime", endTime);
+                        // If the entry does not exist, insert it
+                        cmd.CommandText = "INSERT INTO availability (TrainerId, Day, StartTime, EndTime) VALUES (@TrainerId, @Day, @StartTime, @EndTime)";
                         cmd.ExecuteNonQuery();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Invalid time format.");
                     }
                 }
                 catch (Exception ex)
@@ -81,7 +103,35 @@ namespace Fitfinder
             }
         }
 
+        private void RemoveAvailability(ListBox listBox, ListBoxItem selectedItem)
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    var currentUser = UserSession.CurrentUser;
+                    Data data = new Data(); // Create an instance of the Data class
+                    connection.Open();
+                    MySqlCommand cmd = connection.CreateCommand();
+                    cmd.CommandText = "DELETE FROM availability WHERE TrainerId = @TrainerId AND Day = @Day AND StartTime = @StartTime AND EndTime = @EndTime";
+                    cmd.Parameters.AddWithValue("@TrainerId", data.GetTrainerID(data.GetUserId(currentUser.Email, currentUser.Password)));
+                    cmd.Parameters.AddWithValue("@Day", GetDayOfWeek(listBox));
 
+                    string[] times = selectedItem.Content.ToString().Split('-');
+                    string startTimeString = times[0].Trim();
+                    string endTimeString = times[1].Trim();
+
+                    cmd.Parameters.AddWithValue("@StartTime", startTimeString);
+                    cmd.Parameters.AddWithValue("@EndTime", endTimeString);
+
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+            }
+        }
 
         private void LoadAvailabilities()
         {
@@ -94,17 +144,22 @@ namespace Fitfinder
                     connection.Open();
                     MySqlCommand cmd = connection.CreateCommand();
                     cmd.CommandText = "SELECT * FROM availability WHERE TrainerId = @TrainerId";
-                    cmd.Parameters.AddWithValue("@TrainerId", data.GetUserId((currentUser.Email).ToString(), (currentUser.Password).ToString())); // Change 0 to the actual TrainerId
+                    cmd.Parameters.AddWithValue("@TrainerId", data.GetTrainerID(data.GetUserId(currentUser.Email, currentUser.Password)));
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            availabilities.Add(new Availability(
+                            Availability availability = new Availability(
                                 availabilityId: Convert.ToInt32(reader["AvailabilityId"]),
                                 trainerId: Convert.ToInt32(reader["TrainerId"]),
                                 day: reader["Day"].ToString(),
                                 startTime: TimeSpan.Parse(reader["StartTime"].ToString()),
-                                endTime: TimeSpan.Parse(reader["EndTime"].ToString())));
+                                endTime: TimeSpan.Parse(reader["EndTime"].ToString()));
+
+                            availabilities.Add(availability);
+
+                            // Update UI
+                            UpdateUIWithAvailability(availability);
                         }
                     }
                 }
@@ -112,6 +167,49 @@ namespace Fitfinder
                 {
                     MessageBox.Show("Error: " + ex.Message);
                 }
+            }
+        }
+
+        private void UpdateUIWithAvailability(Availability availability)
+        {
+            ListBox listBox = GetListBoxForDay(availability.Day);
+            if (listBox != null)
+            {
+                foreach (ListBoxItem item in listBox.Items)
+                {
+                    string[] times = item.Content.ToString().Split('-');
+                    TimeSpan startTime = TimeSpan.Parse(times[0].Trim());
+                    TimeSpan endTime = TimeSpan.Parse(times[1].Trim());
+
+                    if (availability.StartTime == startTime && availability.EndTime == endTime)
+                    {
+                        item.IsSelected = true;
+                        item.Foreground = Brushes.Blue;
+                    }
+                }
+            }
+        }
+
+        private ListBox GetListBoxForDay(string day)
+        {
+            switch (day)
+            {
+                case "Monday":
+                    return MondayTimeSlots;
+                case "Tuesday":
+                    return TuesdayTimeSlots;
+                case "Wednesday":
+                    return WednesdayTimeSlots;
+                case "Thursday":
+                    return ThursdayTimeSlots;
+                case "Friday":
+                    return FridayTimeSlots;
+                case "Saturday":
+                    return SaturdayTimeSlots;
+                case "Sunday":
+                    return SundayTimeSlots;
+                default:
+                    return null;
             }
         }
 
@@ -133,6 +231,28 @@ namespace Fitfinder
                 return DayOfWeek.Sunday.ToString();
             else
                 return "";
+        }
+
+        private void TrainerProfile_click(object sender, RoutedEventArgs e)
+        {
+            TrainerProfile trainerProfile = new TrainerProfile();
+            this.NavigationService.Navigate(trainerProfile);
+        }
+
+        private void Messages_button(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Requests_button(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Calander_button(object sender, RoutedEventArgs e)
+        {
+            CalendarTrainer calendarTrainer = new CalendarTrainer();
+            this.NavigationService.Navigate(calendarTrainer);
         }
     }
 }

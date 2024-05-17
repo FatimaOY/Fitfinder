@@ -57,7 +57,7 @@
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button Content="Change Password" Click="change_password_button" Margin="20,10,20,10"/>
             <!-- Uncomment the line below to enable delete profile button -->
-            <!-- <Button Content="Delete Profile" Click="delete_profile_button" Background="#AC4242" Margin="20,10,20,10"/> -->
+            <Button Content="Delete Profile" Click="delete_profile_button" Background="#AC4242" Margin="20,10,20,10"/>
         </StackPanel>
     </Grid>
 </Page>

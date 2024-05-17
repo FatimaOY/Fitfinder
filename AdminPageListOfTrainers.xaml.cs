@@ -24,6 +24,7 @@ namespace Fitfinder
 
         private Data data;
 
+
         public static AdminPageListOfTrainers.User SelectedUser { get; set; }
         public AdminPageListOfTrainers()
         {
@@ -59,14 +60,16 @@ namespace Fitfinder
 
             public string Location { get; set; }
             public int Price { get; set; }
+            public List<string> WorkoutTypes { get; set; }  // Changed to List<string>
 
 
             // Add more properties as needed
         }
 
-        //method to retrieve users from the database
-        private List<User> GetUsersFromDatabase()
+    //method to retrieve users from the database
+    private List<User> GetUsersFromDatabase()
         {
+            Data data = new Data(); // Create an instance of the Data class
             List<User> users = new List<User>();
 
             string connectionString =
@@ -81,6 +84,7 @@ namespace Fitfinder
                 connection.Open();
 
                 string query = "SELECT u.name, u.surname, u.email, u.password,u.ProfilePic, u.GenderId, t.Description, t.Location, t.Price FROM user as u JOIN trainer as t ON u.userId = t.PersonId JOIN gender as g ON u.genderId = g.genderId;\r\n"; // Assuming your table name is 'user'
+                string queryForWokouts = "SELECT wt.Name FROM `trainerworkout` as tw JOIN workouttypes AS wt ON tw.WorkoutType = wt.WorkoutTypeId WHERE tw.PersonalTrainer = @PersonalTrainer;\r\n";
                 // SELECT u.name, u.surname, u.email, u.password,u.ProfilePic ,g.name FROM user as u JOIN client as t ON u.userId = t.PersonId JOIN gender as g ON u.genderId = g.genderId;
 
                 using (MySqlCommand command = new MySqlCommand(query, connection))
@@ -98,10 +102,14 @@ namespace Fitfinder
                                 GenderId = Convert.ToInt32(reader["GenderId"]),
                                 Description = reader["description"].ToString(),
                                 Location = reader["location"].ToString(),
-                                Price = Convert.ToInt32(reader["price"])
+                                Price = Convert.ToInt32(reader["price"]),
+                                WorkoutTypes = new List<string>()
+
 
                             };
 
+                            
+                       
                             // Set GenderId based on the value retrieved from the database
                             int genderId = user.GenderId; // Get the numeric gender ID
                             if (genderId == 1)
@@ -129,6 +137,31 @@ namespace Fitfinder
                                 user.ProfilePic = new byte[0];
                             }
                             users.Add(user);
+                        }
+                    }
+                }
+
+                // Now fetch workout types for each user
+                foreach (var user in users)
+                {
+                    string queryForWorkouts = @"
+                SELECT wt.Name 
+                FROM trainerworkout AS tw 
+                JOIN workouttypes AS wt ON tw.WorkoutType = wt.WorkoutTypeId 
+                WHERE tw.PersonalTrainer = @PersonalTrainer";
+
+                    using (MySqlCommand command = new MySqlCommand(queryForWorkouts, connection))
+                    {
+                        int userId = data.GetUserId(user.Email, user.Password);
+                        int trainerID = data.GetTrainerID(userId);
+                        command.Parameters.AddWithValue("@PersonalTrainer", trainerID);
+
+                        using (MySqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                user.WorkoutTypes.Add(reader["Name"].ToString());
+                            }
                         }
                     }
                 }
@@ -214,7 +247,8 @@ namespace Fitfinder
 
         private void createProfile_button(object sender, RoutedEventArgs e)
         {
-
+            AdminCreateTrainer adminMainPage = new AdminCreateTrainer();
+            this.NavigationService.Navigate(adminMainPage);
         }
     }
 }

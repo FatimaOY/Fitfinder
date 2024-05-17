@@ -58,21 +58,30 @@
 
         <!-- List of trainers -->
         <ListBox x:Name="TrainersListBox" Margin="10,306,0,0" >
-        <!-- Define how each trainer should be displayed -->
-        <ListBox.ItemTemplate>
-            <DataTemplate>
-                <StackPanel>
-                    <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
-                    <TextBlock Text="{Binding Surname}"/>
-                    <!-- Add TextBlock for Surname -->
-                    <TextBlock Text="{Binding Email}"/>
-                    <!-- Add TextBlock for Email -->
-                    <TextBlock Text="{Binding Location}"/>
-                    <TextBlock Text="{Binding Description}"/>
+            <!-- Define how each trainer should be displayed -->
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Surname}"/>
+                        <!-- Add TextBlock for Surname -->
+                        <TextBlock Text="{Binding Email}"/>
+                        <!-- Add TextBlock for Email -->
+                        <TextBlock Text="{Binding Location}"/>
+                        <TextBlock Text="{Binding Description}"/>
                         <TextBlock Text="{Binding Price, StringFormat='Price : {0}'}"/>
+
+                        <!-- Display workout types -->
+                        <ItemsControl ItemsSource="{Binding WorkoutTypes}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}" Margin="10,0,0,0"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                     </StackPanel>
-            </DataTemplate>
-        </ListBox.ItemTemplate>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
     </Grid>
 </Page>

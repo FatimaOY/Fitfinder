@@ -29,6 +29,11 @@ namespace Fitfinder
             TestDatabaseConnection();
 
         }
+        public Frame ContentFrame
+        {
+            get { return this.MainContentFrame; }
+        }
+
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
             // Create an instance of the RegisterWindom page

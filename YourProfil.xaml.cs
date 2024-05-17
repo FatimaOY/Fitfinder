@@ -135,7 +135,6 @@ namespace Fitfinder
         }
         private void UpdateDescription_Click(object sender, RoutedEventArgs e)
         {
-            
             Window updateDescriptionWindow = new Window();
             updateDescriptionWindow.Title = "Update Description";
             updateDescriptionWindow.Width = 300;
@@ -166,20 +165,61 @@ namespace Fitfinder
                 var currentUser = UserSession.CurrentUser;
                 int userId = currentUser.userId;
 
-                UpdateClientDescription(userId, newDescription);
+                bool success = UpdateClientDescription(userId, newDescription);
 
-                // Close the pop-up dialog box
-                updateDescriptionWindow.Close();
-            };
-            stackPanel.Children.Add(confirmButton);
+                if (success)
+                {
+                    // Close the pop-up dialog box
+                    /*updateDescriptionWindow.Close();
 
-            // Add the StackPanel to the Window
-            updateDescriptionWindow.Content = stackPanel;
+                    // Log out the user (clear the session)
+                    UserSession.CurrentUser = null;
 
-            // Show the pop-up dialog box
-            updateDescriptionWindow.ShowDialog();
-        }
-        void UpdateClientDescription(int userId, string newDescription)
+                    // Navigate to the login window
+                    MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
+                    if (mainWindow != null)
+                    {
+                        mainWindow.ContentFrame.Navigate(new Uri("MainWindow.xaml", UriKind.Relative));
+                    }*/
+                    // Instantiate the MainWindow
+                    MainWindow mainWindow = new MainWindow();
+
+                    // Close the current window (assuming the updateDescriptionWindow is the current window)
+                    updateDescriptionWindow.Close();
+
+                    // Set the MainWindow as the application's main window
+                    Application.Current.MainWindow = mainWindow;
+
+                    // Get the parent window
+                    Window parentWindow = Window.GetWindow(this);
+
+                    // Close the parent window if it's not null
+                    if (parentWindow != null)
+                    {
+                        parentWindow.Close();
+                    }
+
+                    // Show the MainWindow
+                    mainWindow.Show();
+
+                }
+                else
+                {
+                    // Display a message indicating that the description update failed
+                    MessageBox.Show("Failed to update description. Please try again.", "Update Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                };
+                stackPanel.Children.Add(confirmButton);
+
+                // Add the StackPanel to the Window
+                updateDescriptionWindow.Content = stackPanel;
+
+                // Show the pop-up dialog box
+                updateDescriptionWindow.ShowDialog();
+            }
+            
+
+        bool UpdateClientDescription(int userId, string newDescription)
         {
             string connectionString = "datasource=127.0.0.1;" +
                                       "port=3306;" +
@@ -201,20 +241,22 @@ namespace Fitfinder
                     int rowsAffected = cmd.ExecuteNonQuery();
                     if (rowsAffected > 0)
                     {
-                        MessageBox.Show("Description updated successfully.");
+                        MessageBox.Show("Description updated successfully. You will get logged out when clicking the button \'OK\'. Log in again to  ");
+                        return true;
                     }
                     else
                     {
                         MessageBox.Show("No rows updated. User not found or no changes made to description.");
+                        return false;
                     }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("An error occurred: " + ex.Message);
+                    return false;
                 }
             }
         }
-
         private void UploadProfilePicture_Click(object sender, RoutedEventArgs e)
         {
             // Create OpenFileDialog

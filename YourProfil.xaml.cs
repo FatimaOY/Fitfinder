@@ -288,5 +288,60 @@ namespace Fitfinder
             }
         }
 
+        private void delete_profile_button(object sender, RoutedEventArgs e)
+        {
+            var currentUser = UserSession.CurrentUser;
+            if (currentUser == null)
+            {
+                MessageBox.Show("No user is currently logged in.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to delete your profile?", "Confirm Deletion", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                string connectionString =
+                    "datasource=127.0.0.1;" +
+                    "port=3306;" +
+                    "username=root;" +
+                    "password=;" +
+                    "database=fitfinder4";
+
+                try
+                {
+                    using (MySqlConnection connection = new MySqlConnection(connectionString))
+                    {
+                        connection.Open();
+
+                        string deleteUserQuery = "DELETE FROM user WHERE UserID = @UserID";
+                        MySqlCommand deleteUserCmd = new MySqlCommand(deleteUserQuery, connection);
+                        deleteUserCmd.Parameters.AddWithValue("@UserID", currentUser.userId);
+
+                        int rowsAffected = deleteUserCmd.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Profile deleted successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                            // Optionally, navigate to a different page after deletion, e.g., the login page
+                            // Navigate to MainWindow
+                            MainWindow mainWindow = new MainWindow();
+                            mainWindow.Show();
+
+                            // Close the current window
+                            Window.GetWindow(this).Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Failed to delete profile. No rows affected.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error deleting profile: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
     }
 }

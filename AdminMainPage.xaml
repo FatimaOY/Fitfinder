@@ -52,6 +52,6 @@
                 </ListView.View>
             </ListView>
         </Grid>
-        <Button Content="Create Profile" VerticalAlignment="Bottom" HorizontalAlignment="Center" Click="createProfile_button"></Button>
+        <Button Content="Create Profile" HorizontalAlignment="Center" Click="createProfile_button" VerticalAlignment="Bottom"/>
     </Grid>
 </Page>

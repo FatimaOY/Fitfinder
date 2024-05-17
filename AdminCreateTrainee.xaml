@@ -1,0 +1,52 @@
+﻿<Page x:Class="Fitfinder.AdminCreateTrainee"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Fitfinder"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AdminCreateTrainee"
+      Background="white">
+
+    <Grid>
+        <StackPanel>
+            <TextBlock Text="Create Profile for a Trainee" FontSize="18" FontWeight="Bold" Margin="0,20,0,10" HorizontalAlignment="Center"/>
+
+            <!-- Trainee registration fields -->
+            <StackPanel Margin="0,0,0,10">
+                <TextBlock Text="Name:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <TextBox x:Name="txtTraineeName" Width="150" VerticalAlignment="Center"/>
+            </StackPanel>
+
+            <StackPanel Margin="0,0,0,10">
+                <TextBlock Text="Surname:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <TextBox x:Name="txtTraineeSurname" Width="150" VerticalAlignment="Center"/>
+            </StackPanel>
+
+            <StackPanel Margin="0,0,0,10">
+                <TextBlock Text="Email:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <TextBox x:Name="txtTraineeEmail" Width="150" VerticalAlignment="Center"/>
+            </StackPanel>
+
+            <StackPanel Margin="0,0,0,10">
+                <TextBlock Text="Password:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <PasswordBox x:Name="txtTraineePassword" Width="150" VerticalAlignment="Center"/>
+            </StackPanel>
+
+            <StackPanel Margin="0,0,0,10">
+                <TextBlock Text="Confirm Password:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <PasswordBox x:Name="txtTraineeConfirmPassword" Width="150" VerticalAlignment="Center"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Gender:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <RadioButton x:Name="Female" Content="Female" VerticalAlignment="Top" Margin="28,5,0,0"/>
+                <RadioButton x:Name="Male" Content="Male" VerticalAlignment="Top" Margin="28,5,0,0"/>
+                <RadioButton x:Name="Other" Content="Other" VerticalAlignment="Top" Margin="28,5,0,0"/>
+            </StackPanel>
+
+            <Button Content="Create Profile" Click="CreateTrainee_button" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </StackPanel>
+    </Grid>
+</Page>

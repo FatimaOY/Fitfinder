@@ -217,7 +217,8 @@ namespace Fitfinder
 
         private void createProfile_button(object sender, RoutedEventArgs e)
         {
-            //
+            AdminCreateTrainee adminCreateTrainee = new AdminCreateTrainee();
+            this.NavigationService.Navigate(adminCreateTrainee);
         }
     }
 }

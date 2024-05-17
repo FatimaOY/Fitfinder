@@ -382,6 +382,42 @@ namespace Fitfinder
 
             return userId;
         }
+
+        public int GetTrainerID(int userId)
+        {
+            string connectionString =
+                "datasource=127.0.0.1;" +
+                "port=3306;" +
+                "username=root;" +
+                "password=;" +
+                "database=fitfinder4";
+
+            int TrainerId = -1; // Default value indicating user not found
+
+            string query = "SELECT TrainerId FROM Trainer WHERE PersonId = @PersonId";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@PersonId", userId);
+
+                try
+                {
+                    connection.Open();
+                    object result = cmd.ExecuteScalar();
+                    if (result != null)
+                    {
+                        TrainerId = Convert.ToInt32(result);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+
+            return TrainerId;
+        }
     }
 }
 

@@ -10,37 +10,67 @@
       Background="White">
 
     <Grid>
-        <StackPanel Margin="10">
-            <TextBlock Text="Name" />
-            <TextBox x:Name="txtName" Margin="0,0,0,10"/>
+        <!-- Define row and column definitions for the Grid -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Row for Back Button -->
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-            <TextBlock Text="Surname" />
-            <TextBox x:Name="txtSurname" Margin="0,0,0,10"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-            <TextBlock Text="Email" />
-            <TextBox x:Name="txtEmail" Margin="0,0,0,10" IsReadOnly="True"/>
+        <!-- Back Button -->
+        <Button Content="Back" Click="Back_button" Grid.Row="0" Grid.Column="0" Margin="0,0,0,10" HorizontalAlignment="Left"/>
 
-            <TextBlock Text="Password" />
-            <TextBox x:Name="txtPassword" Margin="0,0,0,10"/>
+        <!-- Name -->
+        <TextBlock Text="Name" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
+        <TextBox x:Name="txtName" Grid.Row="1" Grid.Column="1" Margin="0,0,0,10" Width="200"/>
 
-            <TextBlock Text="Description" />
-            <TextBox x:Name="txtDescription" Margin="0,0,0,10"/>
+        <!-- Surname -->
+        <TextBlock Text="Surname" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
+        <TextBox x:Name="txtSurname" Grid.Row="2" Grid.Column="1" Margin="0,0,0,10" Width="200"/>
 
-            <TextBlock Text="Gender" />
-            <ComboBox x:Name="cmbGender" Margin="0,0,0,10">
-                <ComboBoxItem Content="Male" Tag="1" />
-                <ComboBoxItem Content="Female" Tag="2" />
-                <ComboBoxItem Content="Other" Tag="3" />
-            </ComboBox>
+        <!-- Email -->
+        <TextBlock Text="Email" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
+        <TextBox x:Name="txtEmail" Grid.Row="3" Grid.Column="1" Margin="0,0,0,10" Width="200" IsReadOnly="True"/>
 
-            <TextBlock Text="Profile Pic" />
-            <Image x:Name="imgProfile" Width="100" Height="100" Stretch="UniformToFill" Margin="0,0,0,10"/>
-            <Button Content="Select Image" Click="SelectImageButton_Click" Margin="0,0,0,10"/>
+        <!-- Password -->
+        <TextBlock Text="Password" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
+        <TextBox x:Name="txtPassword" Grid.Row="4" Grid.Column="1" Margin="0,0,0,10" Width="200"/>
 
-            <!-- Add other fields as needed -->
+        <!-- Description -->
+        <TextBlock Text="Description" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
+        <TextBox x:Name="txtDescription" Grid.Row="5" Grid.Column="1" Margin="0,0,0,10" Width="200"/>
 
-            <Button Content="Save" Click="SaveButton_Click" Width="100" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+        <!-- Gender -->
+        <TextBlock Text="Gender" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
+        <ComboBox x:Name="cmbGender" Grid.Row="6" Grid.Column="1" Margin="0,0,0,10" Width="200">
+            <ComboBoxItem Content="Male" Tag="1" />
+            <ComboBoxItem Content="Female" Tag="2" />
+            <ComboBoxItem Content="Other" Tag="3" />
+        </ComboBox>
+
+        <!-- Profile Pic -->
+        <TextBlock Text="Profile Pic" Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
+        <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
+            <Image x:Name="imgProfile" Width="100" Height="100" Stretch="UniformToFill"  />
+            <Button Content="Select Image" Click="SelectImageButton_Click" HorizontalAlignment="Center"/>
         </StackPanel>
 
+        <!-- Save Button -->
+        <Button Content="Save" Click="SaveButton_Click" Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
     </Grid>
+
 </Page>

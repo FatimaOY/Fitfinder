@@ -10,42 +10,56 @@
       Background="White">
 
     <Grid>
-        <StackPanel Margin="10">
-            <TextBlock Text="Name" />
-            <TextBox x:Name="txtName" Margin="0,0,0,10"/>
+        <!-- Define row and column definitions for the Grid -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-            <TextBlock Text="Surname" />
-            <TextBox x:Name="txtSurname" Margin="0,0,0,10"/>
-
-            <TextBlock Text="Email" />
-            <TextBox x:Name="txtEmail" Margin="0,0,0,10" IsReadOnly="True"/>
-
-            <TextBlock Text="Password" />
-            <TextBox x:Name="txtPassword" Margin="0,0,0,10"/>
-
-            <TextBlock Text="Gender" />
-            <ComboBox x:Name="cmbGender" Margin="0,0,0,10">
-                <ComboBoxItem Content="Male" Tag="1" />
-                <ComboBoxItem Content="Female" Tag="2" />
-                <ComboBoxItem Content="Other" Tag="3" />
-            </ComboBox>
-
-            <TextBlock Text="Description" />
-            <TextBox x:Name="txtDescription" Margin="0,0,0,10"/>
-
-            <TextBlock Text="Location" />
-            <TextBox x:Name="txtLocation" Margin="0,0,0,10"/>
-
-            <TextBlock Text="Price" />
-            <TextBox x:Name="txtPrice" Margin="0,0,0,10"/>
-
-            <TextBlock Text="Profile Pic" />
-            <Image x:Name="imgProfile" Width="100" Height="100" Stretch="UniformToFill" Margin="0,0,0,10"/>
-            <Button Content="Select Image" Click="SelectImageButton_Click" Margin="0,0,0,10"/>
-
-            <!-- Add other fields as needed -->
-
-            <Button Content="Save" Click="SaveButton_Click" Width="100" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+        <!-- Top Buttons Section -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Row="0" >
+            <Button Content="Back" Click="Back_button" Margin="0,0,10,0"/>
         </StackPanel>
+
+        <!-- Scrollable Content Section -->
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Margin="10">
+            <StackPanel Margin="0,10">
+                <TextBlock Text="Name" Margin="0,10"/>
+                <TextBox x:Name="txtName" Margin="0,0,0,10" Width="200"/>
+
+                <TextBlock Text="Surname" Margin="0,10"/>
+                <TextBox x:Name="txtSurname" Margin="0,0,0,10" Width="200"/>
+
+                <TextBlock Text="Email" Margin="0,10"/>
+                <TextBox x:Name="txtEmail" Margin="0,0,0,10" Width="200" IsReadOnly="True"/>
+
+                <TextBlock Text="Password" Margin="0,10"/>
+                <TextBox x:Name="txtPassword" Margin="0,0,0,10" Width="200"/>
+
+                <TextBlock Text="Gender" Margin="0,10"/>
+                <ComboBox x:Name="cmbGender" Margin="0,0,0,10" Width="200">
+                    <ComboBoxItem Content="Male" Tag="1" />
+                    <ComboBoxItem Content="Female" Tag="2" />
+                    <ComboBoxItem Content="Other" Tag="3" />
+                </ComboBox>
+
+                <TextBlock Text="Description" Margin="0,10"/>
+                <TextBox x:Name="txtDescription" Margin="0,0,0,10" Width="200"/>
+
+                <TextBlock Text="Location" Margin="0,10"/>
+                <TextBox x:Name="txtLocation" Margin="0,0,0,10" Width="200"/>
+
+                <TextBlock Text="Price" Margin="0,10"/>
+                <TextBox x:Name="txtPrice" Margin="0,0,0,10" Width="200"/>
+
+                <TextBlock Text="Profile Pic" Margin="0,10"/>
+                <Image x:Name="imgProfile" Width="100" Height="100" Stretch="UniformToFill" Margin="0,0,0,10"/>
+                <Button Content="Select Image" Click="SelectImageButton_Click" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+
+                <!-- Add other fields as needed -->
+                <Button Content="Save" Click="SaveButton_Click" Width="100" HorizontalAlignment="Center" Margin="10,20,0,0"/>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
+
 </Page>

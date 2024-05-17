@@ -210,5 +210,11 @@ namespace Fitfinder
                 imgProfile.Source = bitmap;
             }
         }
+
+        private void Back_button(object sender, RoutedEventArgs e)
+        {
+            AdminMainPage adminMainPageListForTrainee = new AdminMainPage();
+            this.NavigationService.Navigate(adminMainPageListForTrainee);
+        }
     }
 }

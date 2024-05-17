@@ -24,8 +24,8 @@
                         <GridViewColumn Header="Surname" DisplayMemberBinding="{Binding Surname}" Width="100"/>
                         <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Email}" Width="200"/>
 
-                        <GridViewColumn Header="Password" DisplayMemberBinding="{Binding Password}" Width="200"/>
-                        <GridViewColumn Header="Gender" DisplayMemberBinding="{Binding Gender}" Width="100"/>
+                        <GridViewColumn Header="Password" DisplayMemberBinding="{Binding Password}" Width="70"/>
+                        <GridViewColumn Header="Gender" DisplayMemberBinding="{Binding Gender}" Width="60"/>
                         <!-- Profile Picture Column -->
                         <GridViewColumn Header="Profile Picture" Width="100">
                             <GridViewColumn.CellTemplate>
@@ -35,9 +35,23 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}" Width="200"/>
+                        <GridViewColumn Header="Workout Types" Width="100">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ItemsControl ItemsSource="{Binding WorkoutTypes}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding}" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
                         <GridViewColumn Header="Location" DisplayMemberBinding="{Binding Location}" Width="100"/>
                         <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}" Width="50"/>
-                        <GridViewColumn Header="Delete/Edit" Width="200">
+                        <GridViewColumn Header="Delete/Edit" Width="120">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">

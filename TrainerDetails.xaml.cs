@@ -9,9 +9,12 @@ namespace Fitfinder
 {
     public partial class TrainerDetails : Page
     {
+        private string trainerEmail;
         public TrainerDetails(TrainerBrowse trainer)
         {
             InitializeComponent();
+            trainerEmail = trainer.Email;
+            MessageBox.Show(trainerEmail);
             DisplayTrainerDetails(trainer);
         }
 
@@ -34,13 +37,15 @@ namespace Fitfinder
             // Example: ProfilePicture.Source = new BitmapImage(new Uri("path/to/profile/picture.jpg"));
         }
 
-        private void Back_button1(object sender, System.Windows.RoutedEventArgs e)
+        private void Back_button1(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.GoBack();
+            BrowseTrainers browseTrainers = new BrowseTrainers();
+            this.NavigationService.Navigate(browseTrainers);
         }
         private void ScheduleWorkout_button(object sender, RoutedEventArgs e)
         {
-            // Handle the Schedule a Workout button click event
+            ScheduleWorkout scheduleWorkoutPage = new ScheduleWorkout(trainerEmail);
+            this.NavigationService.Navigate(scheduleWorkoutPage);
         }
 
         private void Message_button(object sender, RoutedEventArgs e)

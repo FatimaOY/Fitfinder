@@ -200,7 +200,6 @@ namespace Fitfinder
         }
 
 
-
         private ListBox GetListBoxForDay(string day)
         {
             switch (day.ToLower())
@@ -224,29 +223,6 @@ namespace Fitfinder
             }
         }
 
-
-        /*private void TimeSlot_Click(object sender, RoutedEventArgs e)
-        {
-            ListBox listBox = (ListBox)sender;
-            if (listBox.SelectedItem != null && listBox.SelectedItem is ListBoxItem listBoxItem)
-            {
-                Availability availability = listBoxItem.Tag as Availability; // Retrieve the associated Availability object from the Tag property
-
-                string selectedWorkout = WorkoutTypesComboBox.SelectedItem as string;
-                if (!string.IsNullOrEmpty(selectedWorkout))
-                {
-                    // Save the appointment directly
-                    SaveAppointment(availability, selectedWorkout);
-                    MessageBox.Show("Saved!!!");
-
-                }
-                else
-                {
-                    MessageBox.Show("Please select a workout type.");
-                }
-            }
-        }*/
-
         private void TimeSlot_Click(object sender, RoutedEventArgs e)
         {
             ListBox listBox = (ListBox)sender;
@@ -254,13 +230,15 @@ namespace Fitfinder
             {
                 string dayOfWeek = listBoxItem.Tag as string;
                 string selectedWorkout = WorkoutTypesComboBox.SelectedItem as string;
-                if (!string.IsNullOrEmpty(selectedWorkout))
+
+                if (!string.IsNullOrEmpty(dayOfWeek) && !string.IsNullOrEmpty(selectedWorkout))
                 {
+                    string timeSlot = listBoxItem.Content.ToString();
                     MessageBoxResult result = MessageBox.Show("Do you want to schedule a workout here?", "Schedule Workout", MessageBoxButton.YesNo);
 
                     if (result == MessageBoxResult.Yes)
                     {
-                        SaveAppointment(dayOfWeek, selectedWorkout);
+                        SaveAppointment(dayOfWeek, timeSlot, selectedWorkout);
                     }
                 }
                 else
@@ -269,7 +247,6 @@ namespace Fitfinder
                 }
             }
         }
-
 
 
         private List<string> GetTrainerWorkoutTypes()
@@ -304,15 +281,28 @@ namespace Fitfinder
             return workoutTypes;
         }
 
-        private void SaveAppointment(string dayOfWeek, string selectedWorkout)
+        private void SaveAppointment(string dayOfWeek, string timeSlot, string selectedWorkout)
         {
             Data data = new Data();
             var currentUser = UserSession.CurrentUser;
             int traineeID = data.GetTraineeID(data.GetUserId(currentUser.Email, currentUser.Password));
             int trainerID = data.GetTrainerID(GetUserId(trainerEmail));
-            MessageBox.Show(traineeID.ToString());
             int trainerWorkoutID = GetTrainerWorkoutId(selectedWorkout);
-            DateTime appointmentDate = GetNextDayOfWeek(dayOfWeek);
+
+            // Extract start time from the time slot
+            string[] times = timeSlot.Split('-');
+            if (times.Length != 2)
+            {
+                MessageBox.Show("Invalid time slot format.");
+                return;
+            }
+
+            // Parse the start time
+            TimeSpan startTime = TimeSpan.Parse(times[0].Trim());
+
+            // Combine date and time
+            DateTime appointmentDate = GetNextDayOfWeek(dayOfWeek).Add(startTime);
+
             string status = "Pending";
             TimeSpan duration = TimeSpan.FromHours(1);
 
@@ -339,6 +329,7 @@ namespace Fitfinder
                 }
             }
         }
+
 
         private int GetTrainerWorkoutId(string workoutName)
         {

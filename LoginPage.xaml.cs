@@ -26,6 +26,7 @@ namespace Fitfinder
         public string Surname { get; set; }
         public string Email { get; set; }
         public string Password {  get; set; }
+        public int GenderId { get; set; }
     }
 
     public static class UserSession
@@ -183,6 +184,7 @@ namespace Fitfinder
                             Name = reader["Name"].ToString(),
                             Surname = reader["Surname"].ToString(),
                             Password = reader["Password"].ToString(),
+                            GenderId = (int)reader["UserID"]
                         };
                     }
                 }

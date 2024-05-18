@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using MySql.Data.MySqlClient;
@@ -10,6 +11,7 @@ namespace Fitfinder
     {
         private TrainerProfile _trainerProfile;
         private List<WorkoutType> workoutTypes;
+        private List<TrainerBrowse> allTrainers;
 
         public BrowseTrainers()
         {
@@ -30,8 +32,8 @@ namespace Fitfinder
 
             workoutTypeComboBox.ItemsSource = workoutTypes;
             workoutTypeComboBox.DisplayMemberPath = "Name";
-            List<TrainerBrowse> trainers = GetTrainersFromDatabase();
-            TrainersListBox.ItemsSource = trainers;
+            allTrainers = GetTrainersFromDatabase();
+            TrainersListBox.ItemsSource = allTrainers;
         }
 
         private void TrainersListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -77,6 +79,7 @@ namespace Fitfinder
             public string Description { get; set; }
             public decimal Price { get; set; }
             public List<string> WorkoutTypes { get; set; }
+            public int GenderId { get; set; }
         }
 
         public List<TrainerBrowse> GetTrainersFromDatabase()
@@ -92,7 +95,7 @@ namespace Fitfinder
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                string sqlQuery = "SELECT TrainerId, PersonId, Location, Description, Price FROM Trainer";
+                string sqlQuery = "SELECT TrainerId, PersonId, Location, Description, Price FROM Trainer"; // Ensure GenderId is retrieved
 
                 using (MySqlCommand command = new MySqlCommand(sqlQuery, connection))
                 {
@@ -114,7 +117,8 @@ namespace Fitfinder
                             Location = reader["Location"].ToString(),
                             Description = reader["Description"].ToString(),
                             Price = Convert.ToDecimal(reader["Price"]),
-                            WorkoutTypes = stylestList
+                            WorkoutTypes = stylestList,
+                            GenderId = userInfo.GenderId // Ensure GenderId is set correctly
                         };
 
                         trainers.Add(trainerBrowse);
@@ -125,6 +129,36 @@ namespace Fitfinder
             }
 
             return trainers;
+        }
+
+        private void ApplyFilters_button(object sender, RoutedEventArgs e)
+        {
+            var filteredTrainers = ApplyFilters();
+            DisplayTrainers(filteredTrainers);
+        }
+
+        private List<TrainerBrowse> ApplyFilters()
+        {
+            string location = LocationInput.Text;
+            int genderIndex = genderComboBox.SelectedIndex;
+            string workoutType = workoutTypeComboBox.SelectedItem?.ToString();
+            decimal minPrice = decimal.TryParse(MinPriceInput.Text, out decimal min) ? min : 0;
+            decimal maxPrice = decimal.TryParse(MaxPriceInput.Text, out decimal max) ? max : decimal.MaxValue;
+
+
+            var filteredTrainers = allTrainers.Where(trainer =>
+                (string.IsNullOrEmpty(location) || trainer.Location.Contains(location, StringComparison.OrdinalIgnoreCase)) &&
+                (genderIndex == -1 || trainer.GenderId == genderIndex) &&
+                (string.IsNullOrEmpty(workoutType) || trainer.WorkoutTypes.Contains(workoutType, StringComparer.OrdinalIgnoreCase)) &&
+                (trainer.Price >= minPrice && trainer.Price <= maxPrice)
+            ).ToList();
+
+            return filteredTrainers;
+        }
+
+        private void DisplayTrainers(List<TrainerBrowse> trainers)
+        {
+            TrainersListBox.ItemsSource = trainers;
         }
 
         private void Profile_button(object sender, RoutedEventArgs e)

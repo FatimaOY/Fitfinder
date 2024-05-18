@@ -24,7 +24,6 @@
             <Button Content="Messages" Click="Messages_button" Grid.Column="3"/>
         </Grid>
 
-        <!-- Filtration section -->
         <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Width="800" Height="208" Margin="0,25,0,0">
             <TextBlock Text="Filter By:" FontWeight="Bold" Height="29"/>
 
@@ -53,6 +52,9 @@
                 <TextBlock Text="-" Margin="0,0,5,0"/>
                 <TextBox Width="70" Height="20" x:Name="MaxPriceInput" TextAlignment="Center"/>
             </StackPanel>
+
+            <!-- Apply filters button -->
+            <Button Content="Apply Filters" Click="ApplyFilters_button" Margin="10"/>
         </StackPanel>
 
         <!-- List of trainers -->

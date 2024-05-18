@@ -36,7 +36,8 @@ namespace Fitfinder
 
         private void Back_button1(object sender, System.Windows.RoutedEventArgs e)
         {
-            this.NavigationService.GoBack();
+            BrowseTrainers browseTrainers = new BrowseTrainers();
+            this.NavigationService.Navigate(browseTrainers);
         }
         private void ScheduleWorkout_button(object sender, RoutedEventArgs e)
         {

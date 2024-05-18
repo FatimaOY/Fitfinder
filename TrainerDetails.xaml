@@ -37,10 +37,10 @@
             <TextBlock x:Name="DescriptionText" Margin="0,0,0,5" Text="Description:"/>
             <TextBlock x:Name="LocationText" Margin="0,0,0,5" Text="Location:"/>
             <TextBlock x:Name="PriceText" Margin="0,0,0,5" Text="Price:"/>
+            <TextBlock x:Name="GenderText" Margin="0,0,0,5" Text="Gender:"/>
             <ListBox x:Name="WorkoutTypesList" Margin="0,10,0,0" Width="200" Height="150">
                 <ListBoxItem FontWeight="Bold">Offered workouts</ListBoxItem>
             </ListBox>
-
         </StackPanel>
 
         <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left" Width="122" Margin="38,0,0,0">
@@ -53,13 +53,8 @@
 
         <!-- Bottom action buttons -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-
-            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button Content="Schedule a Workout" Click="ScheduleWorkout_button" Margin="10"/>
-                <Button Content="Message" Click="Message_button" Margin="10"/>
-            </StackPanel>
-            <!-- Uncomment the line below to enable delete profile button -->
-            <!-- <Button Content="Delete Profile" Click="delete_profile_button" Background="#AC4242" Margin="20,10,20,10"/> -->
+            <Button Content="Schedule a Workout" Click="ScheduleWorkout_button" Margin="10"/>
+            <Button Content="Message" Click="Message_button" Margin="10"/>
         </StackPanel>
     </Grid>
 </Page>

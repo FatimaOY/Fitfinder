@@ -23,6 +23,7 @@ namespace Fitfinder
             LocationText.Text = $"Location: {trainer.Location}";
             DescriptionText.Text = $"Description: {trainer.Description}";
             PriceText.Text = $"Price: {trainer.Price:C}";
+            GenderText.Text = $"Gender: {trainer.GenderName}";
 
             WorkoutTypesList.Items.Clear();
             foreach (var workoutType in trainer.WorkoutTypes)

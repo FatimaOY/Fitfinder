@@ -345,6 +345,43 @@ namespace Fitfinder
 
             return userInfo;
         }
+        public int GetGenderIdByUserId(int userId)
+        {
+            int genderId = 0;
+            string query = "SELECT GenderId FROM User WHERE UserID = @UserId";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@UserId", userId);
+
+                try
+                {
+                    connection.Open();
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        genderId = reader["GenderId"] != DBNull.Value ? Convert.ToInt32(reader["GenderId"]) : 0;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+
+            return genderId;
+        }
+        public string GetGenderName(int genderId)
+        {
+            return genderId switch
+            {
+                1 => "Male",
+                2 => "Female",
+                3 => "Other",
+                _ => "Unknown"
+            };
+        }
 
         public int GetUserId(string email, string password)
         {

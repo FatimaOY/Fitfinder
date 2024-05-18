@@ -51,7 +51,9 @@
                     <TextBlock Text="At the end of every week, it is advised to update your availabilities." Margin="5"/>
                 </StackPanel>
 
-                <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
+
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Grid.ColumnSpan="2" Margin="5,39,91,10" Grid.RowSpan="2">
                     <Border BorderBrush="Black" BorderThickness="1" Margin="5" Height="269">
                         <StackPanel>
                             <TextBlock Text="Monday" Margin="5"/>
@@ -193,8 +195,8 @@
                         </StackPanel>
                     </Border>
                 </StackPanel>
-                <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="138" Margin="10,10,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Select your available time slots by clicking on them." TextAlignment="Left" VerticalAlignment="Top" Width="86" RenderTransformOrigin="0.496,0.783"/>
-                <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="138" Margin="10,0,0,0" Grid.Row="1" TextWrapping="Wrap" Text="To remove an availability, click on it again." TextAlignment="Left" VerticalAlignment="Center" Width="86" RenderTransformOrigin="0.496,0.783"/>
+                <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="138" Margin="309,94,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Select your available time slots by clicking on them." TextAlignment="Left" VerticalAlignment="Top" Width="86" RenderTransformOrigin="0.496,0.783"/>
+                <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="138" Margin="309,187,0,0" Grid.Row="1" TextWrapping="Wrap" Text="To remove an availability, click on it again." TextAlignment="Left" VerticalAlignment="Top" Width="86" RenderTransformOrigin="0.496,0.783"/>
                 <!--<Button Grid.Column="1" Content="Delete" Click="DeleteButton_Click"  HorizontalAlignment="Left" Height="21" Margin="27,153,0,0" Grid.Row="1" VerticalAlignment="Top" Width="59"/>-->
 
             </Grid>

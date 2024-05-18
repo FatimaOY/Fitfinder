@@ -40,53 +40,93 @@
             <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center">
                 <TextBlock Text="Calendar of the Trainer" FontWeight="Bold" Margin="5" HorizontalAlignment="Center"/>
                 <TextBlock Text="Press on the marked date to send a request for a workout with the trainer." Margin="5"/>
+                <!-- ScheduleWorkout.xaml -->
+
             </StackPanel>
             <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
-                <!-- Day-wise ListBox definitions -->
+                <!-- Left Panel with Workout Types -->
+                <Border BorderBrush="Black" BorderThickness="1" Margin="5" Height="53">
+                    <StackPanel>
+                        <TextBlock Text="Workout Types" Margin="5" FontWeight="Bold"/>
+                        <ComboBox x:Name="WorkoutTypesComboBox" SelectionChanged="WorkoutTypesComboBox_SelectionChanged">
+                            <!-- Workout types will be added programmatically -->
+                        </ComboBox>
+                    </StackPanel>
+                </Border>
                 <Border BorderBrush="Black" BorderThickness="1" Margin="5" Height="269">
                     <StackPanel>
                         <TextBlock Text="Monday" Margin="5"/>
-                        <ListBox x:Name="MondayTimeSlots" SelectionMode="Multiple" SelectionChanged="TimeSlot_Click"/>
+                        <ListBox x:Name="MondayTimeSlots" SelectionMode="Single" SelectionChanged="TimeSlot_Click">
+                            <ListBoxItem Tag="{Binding MondayAvailability}">
+                                <!-- Content of the ListBoxItem -->
+                            </ListBoxItem>
+                            <!-- Other ListBoxItems -->
+                        </ListBox>
                     </StackPanel>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="1" Margin="5" Height="270">
                     <StackPanel>
                         <TextBlock Text="Tuesday" Margin="5"/>
-                        <ListBox x:Name="TuesdayTimeSlots" SelectionMode="Multiple" SelectionChanged="TimeSlot_Click"/>
+                        <ListBox x:Name="TuesdayTimeSlots" SelectionMode="Multiple" SelectionChanged="TimeSlot_Click">
+                            <ListBoxItem Tag="{Binding TuesdayAvailability}">
+                                <!-- Content of the ListBoxItem -->
+                            </ListBoxItem>
+                        </ListBox>
                     </StackPanel>
                 </Border>
-                <!-- Repeat similar blocks for other days of the week -->
                 <Border BorderBrush="Black" BorderThickness="1" Margin="5" Height="269">
                     <StackPanel>
                         <TextBlock Text="Wednesday" Margin="5"/>
-                        <ListBox x:Name="WednesdayTimeSlots" SelectionMode="Multiple" SelectionChanged="TimeSlot_Click"/>
+                        <ListBox x:Name="WednesdayTimeSlots" SelectionMode="Multiple" SelectionChanged="TimeSlot_Click">
+                            <!--<ListBoxItem Tag="{Binding WednesdayAvailability}">
+                                 --><!--Content of the ListBoxItem--><!-- 
+                            </ListBoxItem>-->
+                            <!-- Other ListBoxItems -->
+                        </ListBox>
                     </StackPanel>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="1" Margin="5" Height="269">
                     <StackPanel>
                         <TextBlock Text="Thursday" Margin="5"/>
-                        <ListBox x:Name="ThursdayTimeSlots" SelectionMode="Multiple" SelectionChanged="TimeSlot_Click"/>
+                        <ListBox x:Name="ThursdayTimeSlots" SelectionMode="Multiple" SelectionChanged="TimeSlot_Click">
+                            <ListBoxItem Tag="{Binding ThursdayAvailability}">
+                                <!-- Content of the ListBoxItem -->
+                            </ListBoxItem>
+                        </ListBox>
                     </StackPanel>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="1" Margin="5" Height="269">
                     <StackPanel>
                         <TextBlock Text="Friday" Margin="5"/>
-                        <ListBox x:Name="FridayTimeSlots" SelectionMode="Multiple" SelectionChanged="TimeSlot_Click"/>
+                        <ListBox x:Name="FridayTimeSlots" SelectionMode="Multiple" SelectionChanged="TimeSlot_Click">
+                            <ListBoxItem Tag="{Binding FridayAvailability}">
+                                <!-- Content of the ListBoxItem -->
+                            </ListBoxItem>
+                        </ListBox>
                     </StackPanel>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="1" Margin="5" Height="269">
                     <StackPanel>
                         <TextBlock Text="Saturday" Margin="5"/>
-                        <ListBox x:Name="SaturdayTimeSlots" SelectionMode="Multiple" SelectionChanged="TimeSlot_Click"/>
+                        <ListBox x:Name="SaturdayTimeSlots" SelectionMode="Multiple" SelectionChanged="TimeSlot_Click">
+                            <ListBoxItem Tag="{Binding SaturdayAvailability}">
+                                <!-- Content of the ListBoxItem -->
+                            </ListBoxItem>
+                        </ListBox>
                     </StackPanel>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="1" Margin="5" Height="271">
                     <StackPanel>
                         <TextBlock Text="Sunday" Margin="5"/>
-                        <ListBox x:Name="SundayTimeSlots" SelectionMode="Multiple" SelectionChanged="TimeSlot_Click"/>
+                        <ListBox x:Name="SundayTimeSlots" SelectionMode="Multiple" SelectionChanged="TimeSlot_Click">
+                            <ListBoxItem Tag="{Binding SundayAvailability}">
+                                <!-- Content of the ListBoxItem -->
+                            </ListBoxItem>
+                        </ListBox>
                     </StackPanel>
                 </Border>
             </StackPanel>
+            
         </Grid>
     </Grid>
 </Page>

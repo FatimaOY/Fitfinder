@@ -184,7 +184,7 @@ namespace Fitfinder
                             Name = reader["Name"].ToString(),
                             Surname = reader["Surname"].ToString(),
                             Password = reader["Password"].ToString(),
-                            GenderId = (int)reader["UserID"]
+                            GenderId = reader["GenderId"] != DBNull.Value ? Convert.ToInt32(reader["GenderId"]) : 0 // Handle null values
                         };
                     }
                 }
@@ -263,6 +263,7 @@ namespace Fitfinder
                             Description = reader["Description"].ToString(),
                             Location = reader["Location"].ToString(),
                             Price = decimal.Parse(reader["Price"].ToString())
+                            
 
                         };
                     }

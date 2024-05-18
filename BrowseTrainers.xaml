@@ -63,13 +63,35 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
-                        <TextBlock Text="{Binding Surname}"/>
-                        <TextBlock Text="{Binding Email}"/>
-                        <TextBlock Text="{Binding Location}"/>
-                        <TextBlock Text="{Binding Description}"/>
-                        <TextBlock Text="{Binding Price, StringFormat='Price: {0:C}'}"/>
-
+                        <TextBlock FontWeight="Bold">
+                            <Run Text="Name: "/>
+                            <Run Text="{Binding Name}"/>
+                        </TextBlock>
+                        <TextBlock FontWeight="Bold">
+                            <Run Text="Surname: "/>
+                            <Run Text="{Binding Surname}"/>
+                        </TextBlock>
+                        <TextBlock FontWeight="Bold">
+                            <Run Text="Email: "/>
+                            <Run Text="{Binding Email}"/>
+                        </TextBlock>
+                        <TextBlock FontWeight="Bold">
+                            <Run Text="Location: "/>
+                            <Run Text="{Binding Location}"/>
+                        </TextBlock>
+                        <TextBlock FontWeight="Bold">
+                            <Run Text="Description: "/>
+                            <Run Text="{Binding Description}"/>
+                        </TextBlock>
+                        <TextBlock FontWeight="Bold">
+                            <Run Text="Price: "/>
+                            <Run Text="{Binding Price, StringFormat='{}{0:C}'}"/>
+                        </TextBlock>
+                        <TextBlock FontWeight="Bold">
+                            <Run Text="Gender: "/>
+                            <Run Text="{Binding GenderName}"/>
+                        </TextBlock>
+                        <TextBlock FontWeight="Bold" Text="Workout Types:"/>
                         <!-- Display workout types -->
                         <ItemsControl ItemsSource="{Binding WorkoutTypes}">
                             <ItemsControl.ItemTemplate>

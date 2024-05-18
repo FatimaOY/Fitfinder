@@ -79,6 +79,7 @@ namespace Fitfinder
             public string Description { get; set; }
             public decimal Price { get; set; }
             public List<string> WorkoutTypes { get; set; }
+            public string GenderName { get; set; }
             public int GenderId { get; set; }
         }
 
@@ -95,7 +96,7 @@ namespace Fitfinder
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                string sqlQuery = "SELECT TrainerId, PersonId, Location, Description, Price FROM Trainer"; // Ensure GenderId is retrieved
+                string sqlQuery = "SELECT TrainerId, PersonId, Location, Description, Price FROM Trainer";
 
                 using (MySqlCommand command = new MySqlCommand(sqlQuery, connection))
                 {
@@ -107,8 +108,11 @@ namespace Fitfinder
                         int userId = Convert.ToInt32(reader["PersonId"]);
                         int trainerId = Convert.ToInt32(reader["TrainerId"]);
 
-                        List<string> stylestList = _trainerProfile.UpdateTrainerStyles(trainerId);
+                        List<string> stylesList = _trainerProfile.UpdateTrainerStyles(trainerId);
                         var userInfo = data.GetUserInformationById(userId);
+                        int genderId = data.GetGenderIdByUserId(userId); // Retrieve the GenderId using the new method
+                        string genderName = data.GetGenderName(genderId);
+
                         TrainerBrowse trainerBrowse = new TrainerBrowse
                         {
                             Name = userInfo.Name,
@@ -117,8 +121,9 @@ namespace Fitfinder
                             Location = reader["Location"].ToString(),
                             Description = reader["Description"].ToString(),
                             Price = Convert.ToDecimal(reader["Price"]),
-                            WorkoutTypes = stylestList,
-                            GenderId = userInfo.GenderId // Ensure GenderId is set correctly
+                            WorkoutTypes = stylesList,
+                            GenderName = genderName, // Ensure GenderId is set correctly
+                            GenderId = genderId
                         };
 
                         trainers.Add(trainerBrowse);
@@ -131,6 +136,7 @@ namespace Fitfinder
             return trainers;
         }
 
+
         private void ApplyFilters_button(object sender, RoutedEventArgs e)
         {
             var filteredTrainers = ApplyFilters();
@@ -140,22 +146,20 @@ namespace Fitfinder
         private List<TrainerBrowse> ApplyFilters()
         {
             string location = LocationInput.Text;
-            int genderIndex = genderComboBox.SelectedIndex;
-            string workoutType = workoutTypeComboBox.SelectedItem?.ToString();
+            int genderIndex = genderComboBox.SelectedIndex + 1;
+            string workoutType = workoutTypeComboBox.SelectedItem != null ? ((WorkoutType)workoutTypeComboBox.SelectedItem).Name : null;
             decimal minPrice = decimal.TryParse(MinPriceInput.Text, out decimal min) ? min : 0;
             decimal maxPrice = decimal.TryParse(MaxPriceInput.Text, out decimal max) ? max : decimal.MaxValue;
 
-
             var filteredTrainers = allTrainers.Where(trainer =>
                 (string.IsNullOrEmpty(location) || trainer.Location.Contains(location, StringComparison.OrdinalIgnoreCase)) &&
-                (genderIndex == -1 || trainer.GenderId == genderIndex) &&
-                (string.IsNullOrEmpty(workoutType) || trainer.WorkoutTypes.Contains(workoutType, StringComparer.OrdinalIgnoreCase)) &&
+                (genderIndex == 0 || trainer.GenderId == genderIndex) && // Adjust gender filter
+                (string.IsNullOrEmpty(workoutType) || trainer.WorkoutTypes.Any(wt => wt.Equals(workoutType, StringComparison.OrdinalIgnoreCase))) &&
                 (trainer.Price >= minPrice && trainer.Price <= maxPrice)
             ).ToList();
 
             return filteredTrainers;
         }
-
         private void DisplayTrainers(List<TrainerBrowse> trainers)
         {
             TrainersListBox.ItemsSource = trainers;

@@ -319,7 +319,7 @@ namespace Fitfinder
             TimeSpan startTime = TimeSpan.Parse(times[0].Trim());
 
             // Combine date and time
-            DateTime appointmentDate = GetNextDayOfWeek(dayOfWeek).Add(startTime);
+            DateTime appointmentDate = GetNextDayOfWeek(selectedWeek, dayOfWeek).Add(startTime);
 
             string status = "Pending";
             TimeSpan duration = TimeSpan.FromHours(1);
@@ -383,13 +383,24 @@ namespace Fitfinder
             return workoutId;
         }
 
-        private DateTime GetNextDayOfWeek(string dayOfWeek)
+        private DateTime GetNextDayOfWeek(int selectedWeek, string dayOfWeek)
         {
+            // Convert the selected week to a date representing the first day of that week
+            DateTime firstDayOfWeek = new DateTime(DateTime.Now.Year, 1, 1)
+                .AddDays((selectedWeek - 1) * 7) // Adjust to the first day of the selected week
+                .AddDays(-(int)DateTime.Now.DayOfWeek); // Adjust to the first day of the current week
+
+            // Calculate the desired day of the week
             DayOfWeek desiredDay = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), dayOfWeek, true);
-            DateTime today = DateTime.Today;
-            int daysUntilNextDay = ((int)desiredDay - (int)today.DayOfWeek + 7) % 7;
-            return today.AddDays(daysUntilNextDay);
+
+            // Find the date of the desired day in the selected week
+            DateTime desiredDate = firstDayOfWeek.AddDays((int)desiredDay);
+            // Subtract one day to get the previous occurrence of the desired day of the week within the selected week
+            desiredDate = desiredDate.AddDays(-1);
+
+            return desiredDate;
         }
+
 
 
         private void Profile_button(object sender, RoutedEventArgs e)

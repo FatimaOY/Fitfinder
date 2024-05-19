@@ -25,17 +25,17 @@
         </Grid>
 
         <!-- Table Header -->
-        <ListView x:Name="userListView" Margin="0,29,10,31">
+        <ListView x:Name="userListView" HorizontalAlignment="Center" VerticalAlignment="Center" Height="251">
             <ListView.View>
                 <GridView>
                     <!-- Column Definitions -->
-                    <GridViewColumn Header="Trainer Name" DisplayMemberBinding="{Binding Name}" Width="100"/>
-                    <GridViewColumn Header="Workout Type" DisplayMemberBinding="{Binding Surname}" Width="100"/>
-                    <GridViewColumn Header="Duration" DisplayMemberBinding="{Binding Email}" Width="200"/>
+                    <GridViewColumn Header="Trainer" DisplayMemberBinding="{Binding Trainer}" Width="100"/>
+                    <GridViewColumn Header="Workout Type" DisplayMemberBinding="{Binding WorkoutType}" Width="100"/>
+                    <GridViewColumn Header="Duration" DisplayMemberBinding="{Binding Duration}" Width="60"/>
+                    <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Date}" Width="100"/>
+                    <GridViewColumn Header="Time" DisplayMemberBinding="{Binding Time}" Width="100"/>
+                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="60"/>
 
-                    <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Password}" Width="200"/>
-                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Gender}" Width="200"/>
-             
                 </GridView>
             </ListView.View>
         </ListView>

@@ -178,6 +178,8 @@ namespace Fitfinder
             }
         }
 
+        private Dictionary<string, List<TimeSpan>> availableSlots = new Dictionary<string, List<TimeSpan>>();
+
         private void HighlightAvailability(Availability availability)
         {
             ListBox listBox = GetListBoxForDay(availability.Day);
@@ -188,13 +190,19 @@ namespace Fitfinder
                     if (item.Content != null)
                     {
                         string[] times = item.Content.ToString().Split('-');
-                        if (times.Length == 2) // Ensure there are two parts (start and end time)
+                        if (times.Length == 2)
                         {
                             TimeSpan start = TimeSpan.Parse(times[0].Trim());
                             TimeSpan end = TimeSpan.Parse(times[1].Trim());
                             if (availability.StartTime <= start && availability.EndTime >= end)
                             {
                                 item.Background = new SolidColorBrush(Colors.LightBlue);
+
+                                if (!availableSlots.ContainsKey(availability.Day))
+                                {
+                                    availableSlots[availability.Day] = new List<TimeSpan>();
+                                }
+                                availableSlots[availability.Day].Add(start);
                             }
                         }
                     }
@@ -241,7 +249,7 @@ namespace Fitfinder
 
                     if (result == MessageBoxResult.Yes)
                     {
-                        SaveAppointment(dayOfWeek, timeSlot, selectedWorkout,selectedWeek);
+                        SaveAppointment(dayOfWeek, timeSlot, selectedWorkout, selectedWeek);
                     }
                 }
                 else
@@ -286,6 +294,13 @@ namespace Fitfinder
 
         private void SaveAppointment(string dayOfWeek, string timeSlot, string selectedWorkout, int selectedWeek)
         {
+            // Check if the selected time slot is available
+            if (!availableSlots.ContainsKey(dayOfWeek) || !availableSlots[dayOfWeek].Any(t => t.ToString(@"hh\:mm") == timeSlot.Split('-')[0].Trim()))
+            {
+                MessageBox.Show("The selected time slot is not available. Please choose a highlighted time slot.");
+                return;
+            }
+
             Data data = new Data();
             var currentUser = UserSession.CurrentUser;
             int traineeID = data.GetTraineeID(data.GetUserId(currentUser.Email, currentUser.Password));

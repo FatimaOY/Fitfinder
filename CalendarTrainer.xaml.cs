@@ -22,14 +22,16 @@ namespace Fitfinder
     /// </summary>
     public partial class CalendarTrainer : Page
     {
+        private int SelectedWeek { get; }
         // Mock database for demonstration purposes
         private List<Availability> availabilities = new List<Availability>();
         private string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=fitfinder4";
 
-        public CalendarTrainer()
+        public CalendarTrainer(int selectedWeek)
         {
             InitializeComponent();
-            LoadAvailabilities(); // Load availabilities when the page is loaded
+            LoadAvailabilities(selectedWeek); // Load availabilities when the page is loaded
+            SelectedWeek = selectedWeek;
         }
 
         private void TimeSlot_Click(object sender, SelectionChangedEventArgs e)
@@ -50,7 +52,7 @@ namespace Fitfinder
                             MessageBoxResult result = MessageBox.Show("Do you want to remove this availability?", "Remove Availability", MessageBoxButton.YesNo);
                             if (result == MessageBoxResult.Yes)
                             {
-                                RemoveAvailability(listBox, selectedItem); // Remove availability from the database
+                                RemoveAvailability(listBox, selectedItem, SelectedWeek); // Remove availability from the database
                                 selectedItem.Foreground = Brushes.Black; // Reset the foreground color
                                 selectedItem.IsSelected = false; // Deselect the item
                             }
@@ -58,7 +60,7 @@ namespace Fitfinder
                         else
                         {
                             selectedItem.Foreground = Brushes.Blue; // Change foreground color to blue
-                            SaveAvailability(listBox, selectedItem); // Save availability to the database
+                            SaveAvailability(listBox, selectedItem, SelectedWeek); // Save availability to the database
                         }
                     }
                 }
@@ -66,7 +68,7 @@ namespace Fitfinder
         }
 
 
-        private void SaveAvailability(ListBox listBox, ListBoxItem selectedItem)
+        private void SaveAvailability(ListBox listBox, ListBoxItem selectedItem, int selectedWeek)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -76,7 +78,7 @@ namespace Fitfinder
                     Data data = new Data(); // Create an instance of the Data class
                     connection.Open();
                     MySqlCommand cmd = connection.CreateCommand();
-                    cmd.CommandText = "SELECT COUNT(*) FROM availability WHERE TrainerId = @TrainerId AND Day = @Day AND StartTime = @StartTime AND EndTime = @EndTime";
+                    cmd.CommandText = "SELECT COUNT(*) FROM availability WHERE TrainerId = @TrainerId AND Day = @Day AND StartTime = @StartTime AND EndTime = @EndTime AND WeekNumber = @WeekNumber";
                     cmd.Parameters.AddWithValue("@TrainerId", data.GetTrainerID(data.GetUserId(currentUser.Email, currentUser.Password)));
                     cmd.Parameters.AddWithValue("@Day", GetDayOfWeek(listBox));
 
@@ -86,13 +88,14 @@ namespace Fitfinder
 
                     cmd.Parameters.AddWithValue("@StartTime", startTimeString);
                     cmd.Parameters.AddWithValue("@EndTime", endTimeString);
+                    cmd.Parameters.AddWithValue("@WeekNumber", selectedWeek); // Use the passed parameter
 
                     int count = Convert.ToInt32(cmd.ExecuteScalar());
 
                     if (count == 0)
                     {
                         // If the entry does not exist, insert it
-                        cmd.CommandText = "INSERT INTO availability (TrainerId, Day, StartTime, EndTime) VALUES (@TrainerId, @Day, @StartTime, @EndTime)";
+                        cmd.CommandText = "INSERT INTO availability (TrainerId, Day, StartTime, EndTime, WeekNumber) VALUES (@TrainerId, @Day, @StartTime, @EndTime, @WeekNumber)";
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -103,7 +106,7 @@ namespace Fitfinder
             }
         }
 
-        private void RemoveAvailability(ListBox listBox, ListBoxItem selectedItem)
+        private void RemoveAvailability(ListBox listBox, ListBoxItem selectedItem, int selectedWeek)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -113,7 +116,7 @@ namespace Fitfinder
                     Data data = new Data(); // Create an instance of the Data class
                     connection.Open();
                     MySqlCommand cmd = connection.CreateCommand();
-                    cmd.CommandText = "DELETE FROM availability WHERE TrainerId = @TrainerId AND Day = @Day AND StartTime = @StartTime AND EndTime = @EndTime";
+                    cmd.CommandText = "DELETE FROM availability WHERE TrainerId = @TrainerId AND Day = @Day AND StartTime = @StartTime AND EndTime = @EndTime AND WeekNumber = @WeekNumber";
                     cmd.Parameters.AddWithValue("@TrainerId", data.GetTrainerID(data.GetUserId(currentUser.Email, currentUser.Password)));
                     cmd.Parameters.AddWithValue("@Day", GetDayOfWeek(listBox));
 
@@ -123,6 +126,7 @@ namespace Fitfinder
 
                     cmd.Parameters.AddWithValue("@StartTime", startTimeString);
                     cmd.Parameters.AddWithValue("@EndTime", endTimeString);
+                    cmd.Parameters.AddWithValue("@WeekNumber", selectedWeek); // Use the passed parameter
 
                     cmd.ExecuteNonQuery();
                 }
@@ -133,7 +137,9 @@ namespace Fitfinder
             }
         }
 
-        private void LoadAvailabilities()
+
+
+        private void LoadAvailabilities(int selectedWeek)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -143,8 +149,9 @@ namespace Fitfinder
                     Data data = new Data(); // Create an instance of the Data class
                     connection.Open();
                     MySqlCommand cmd = connection.CreateCommand();
-                    cmd.CommandText = "SELECT * FROM availability WHERE TrainerId = @TrainerId";
+                    cmd.CommandText = "SELECT * FROM availability WHERE TrainerId = @TrainerId AND WeekNumber = @WeekNumber";
                     cmd.Parameters.AddWithValue("@TrainerId", data.GetTrainerID(data.GetUserId(currentUser.Email, currentUser.Password)));
+                    cmd.Parameters.AddWithValue("@WeekNumber", selectedWeek);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
@@ -251,8 +258,8 @@ namespace Fitfinder
 
         private void Calander_button(object sender, RoutedEventArgs e)
         {
-            CalendarTrainer calendarTrainer = new CalendarTrainer();
-            this.NavigationService.Navigate(calendarTrainer);
+            //CalendarTrainer calendarTrainer = new CalendarTrainer();
+            //this.NavigationService.Navigate(calendarTrainer);
         }
     }
 }

@@ -25,12 +25,14 @@ namespace Fitfinder
     public partial class ScheduleWorkout : Page
     {
         private string trainerEmail;
+        private int selectedWeek;
         private string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=fitfinder4";
 
-        public ScheduleWorkout(string email)
+        public ScheduleWorkout(string email, int week)
         {
             InitializeComponent();
             trainerEmail = email;
+            selectedWeek = week;
             InitializeTimeSlots();
             PopulateWorkoutTypes();
             if (!string.IsNullOrEmpty(trainerEmail))
@@ -150,8 +152,9 @@ namespace Fitfinder
                 {
                     connection.Open();
                     MySqlCommand cmd = connection.CreateCommand();
-                    cmd.CommandText = "SELECT * FROM availability WHERE TrainerId = @TrainerId";
+                    cmd.CommandText = "SELECT * FROM availability WHERE TrainerId = @TrainerId AND WeekNumber = @WeekNumber";
                     cmd.Parameters.AddWithValue("@TrainerId", trainerID);
+                    cmd.Parameters.AddWithValue("@WeekNumber", selectedWeek);
 
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -175,6 +178,8 @@ namespace Fitfinder
             }
         }
 
+        private Dictionary<string, List<TimeSpan>> availableSlots = new Dictionary<string, List<TimeSpan>>();
+
         private void HighlightAvailability(Availability availability)
         {
             ListBox listBox = GetListBoxForDay(availability.Day);
@@ -185,13 +190,19 @@ namespace Fitfinder
                     if (item.Content != null)
                     {
                         string[] times = item.Content.ToString().Split('-');
-                        if (times.Length == 2) // Ensure there are two parts (start and end time)
+                        if (times.Length == 2)
                         {
                             TimeSpan start = TimeSpan.Parse(times[0].Trim());
                             TimeSpan end = TimeSpan.Parse(times[1].Trim());
                             if (availability.StartTime <= start && availability.EndTime >= end)
                             {
                                 item.Background = new SolidColorBrush(Colors.LightBlue);
+
+                                if (!availableSlots.ContainsKey(availability.Day))
+                                {
+                                    availableSlots[availability.Day] = new List<TimeSpan>();
+                                }
+                                availableSlots[availability.Day].Add(start);
                             }
                         }
                     }
@@ -238,7 +249,7 @@ namespace Fitfinder
 
                     if (result == MessageBoxResult.Yes)
                     {
-                        SaveAppointment(dayOfWeek, timeSlot, selectedWorkout);
+                        SaveAppointment(dayOfWeek, timeSlot, selectedWorkout, selectedWeek);
                     }
                 }
                 else
@@ -281,8 +292,15 @@ namespace Fitfinder
             return workoutTypes;
         }
 
-        private void SaveAppointment(string dayOfWeek, string timeSlot, string selectedWorkout)
+        private void SaveAppointment(string dayOfWeek, string timeSlot, string selectedWorkout, int selectedWeek)
         {
+            // Check if the selected time slot is available
+            if (!availableSlots.ContainsKey(dayOfWeek) || !availableSlots[dayOfWeek].Any(t => t.ToString(@"hh\:mm") == timeSlot.Split('-')[0].Trim()))
+            {
+                MessageBox.Show("The selected time slot is not available. Please choose a highlighted time slot.");
+                return;
+            }
+
             Data data = new Data();
             var currentUser = UserSession.CurrentUser;
             int traineeID = data.GetTraineeID(data.GetUserId(currentUser.Email, currentUser.Password));
@@ -312,13 +330,14 @@ namespace Fitfinder
                 {
                     connection.Open();
                     MySqlCommand cmd = connection.CreateCommand();
-                    cmd.CommandText = "INSERT INTO appointment (TraineeId, TrainerId, TrainerWorkoutId, Duration, Date, Status) VALUES (@TraineeId, @TrainerId, @TrainerWorkoutId, @Duration, @Date, @Status)";
+                    cmd.CommandText = "INSERT INTO appointment (TraineeId, TrainerId, TrainerWorkoutId, Duration, Date, Status, WeekNumber) VALUES (@TraineeId, @TrainerId, @TrainerWorkoutId, @Duration, @Date, @Status, @WeekNumber)";
                     cmd.Parameters.AddWithValue("@TraineeId", traineeID);
                     cmd.Parameters.AddWithValue("@TrainerId", trainerID);
                     cmd.Parameters.AddWithValue("@TrainerWorkoutId", trainerWorkoutID);
                     cmd.Parameters.AddWithValue("@Duration", duration);
                     cmd.Parameters.AddWithValue("@Date", appointmentDate);
                     cmd.Parameters.AddWithValue("@Status", status);
+                    cmd.Parameters.AddWithValue("@WeekNumber", selectedWeek);
                     cmd.ExecuteNonQuery();
 
                     MessageBox.Show("Appointment scheduled successfully!");

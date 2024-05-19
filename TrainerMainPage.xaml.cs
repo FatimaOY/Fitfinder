@@ -33,8 +33,17 @@ namespace Fitfinder
 
         private void TrainerCalander_Button(object sender, RoutedEventArgs e)
         {
-            CalendarTrainer calendarTrainer = new CalendarTrainer();
-            this.NavigationService.Navigate(calendarTrainer);
+            // Show the week selection window
+            WeekSelectionWindow weekSelection = new WeekSelectionWindow();
+            if (weekSelection.ShowDialog() == true)
+            {
+                // Get the selected week number from the WeekSelection instance
+                int selectedWeek = weekSelection.SelectedWeek;
+
+                // Pass the selected week number to the CalendarTrainer constructor
+                CalendarTrainer calendarTrainer = new CalendarTrainer(selectedWeek);
+                this.NavigationService.Navigate(calendarTrainer);
+            }
         }
     }
 }

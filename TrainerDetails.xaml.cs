@@ -45,8 +45,17 @@ namespace Fitfinder
         }
         private void ScheduleWorkout_button(object sender, RoutedEventArgs e)
         {
-            ScheduleWorkout scheduleWorkoutPage = new ScheduleWorkout(trainerEmail);
-            this.NavigationService.Navigate(scheduleWorkoutPage);
+            // Show the week selection window
+            WeekSelectionClient weekSelectionClient = new WeekSelectionClient();
+            if (weekSelectionClient.ShowDialog() == true)
+            {
+                // Get the selected week number from the WeekSelection instance
+                int selectedWeek = weekSelectionClient.SelectedWeek;
+
+                
+                ScheduleWorkout scheduleWorkoutPage = new ScheduleWorkout(trainerEmail, selectedWeek);
+                this.NavigationService.Navigate(scheduleWorkoutPage);
+            }
         }
 
         private void Message_button(object sender, RoutedEventArgs e)

@@ -74,7 +74,10 @@ namespace Fitfinder
 
         private void ForgotPassword_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Password reset instructions will be sent to your email.", "Forgot Password");
+            MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
+
+            ForgotPassword adminMainPage = new ForgotPassword();
+            mainWindow.MainFrame.Navigate(adminMainPage);
         }
 
 

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using MySql.Data.MySqlClient;
 
 namespace Fitfinder
@@ -33,12 +35,13 @@ namespace Fitfinder
             workoutTypeComboBox.ItemsSource = workoutTypes;
             workoutTypeComboBox.DisplayMemberPath = "Name";
             allTrainers = GetTrainersFromDatabase();
-            TrainersListBox.ItemsSource = allTrainers;
+            TrainersItemsControl.ItemsSource = allTrainers;
         }
 
-        private void TrainersListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ViewDetails_Click(object sender, RoutedEventArgs e)
         {
-            if (TrainersListBox.SelectedItem is TrainerBrowse selectedTrainer)
+            // Find the data context of the clicked button which corresponds to the selected trainer
+            if (sender is FrameworkElement button && button.DataContext is TrainerBrowse selectedTrainer)
             {
                 TrainerDetails trainerDetailsPage = new TrainerDetails(selectedTrainer);
                 if (this.NavigationService != null)
@@ -51,6 +54,7 @@ namespace Fitfinder
                 }
             }
         }
+
 
         private void GenderComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -81,6 +85,8 @@ namespace Fitfinder
             public List<string> WorkoutTypes { get; set; }
             public string GenderName { get; set; }
             public int GenderId { get; set; }
+
+            //public byte ProfileImage { get; set; }
         }
 
         public List<TrainerBrowse> GetTrainersFromDatabase()
@@ -123,7 +129,8 @@ namespace Fitfinder
                             Price = Convert.ToDecimal(reader["Price"]),
                             WorkoutTypes = stylesList,
                             GenderName = genderName, // Ensure GenderId is set correctly
-                            GenderId = genderId
+                            GenderId = genderId,
+                            //ProfileImage = Convert.ToByte(LoadProfilePicture(userInfo.Email))
                         };
 
                         trainers.Add(trainerBrowse);
@@ -135,6 +142,49 @@ namespace Fitfinder
 
             return trainers;
         }
+
+        /*public BitmapImage LoadProfilePicture(string email)
+        {
+            // Connection string to your database
+            string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=fitfinder4";
+
+            string query = "SELECT ProfilePic FROM user WHERE Email = @Email";
+
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@Email", email);
+
+                    connection.Open();
+                    object result = cmd.ExecuteScalar();
+
+                    if (result != null && result != DBNull.Value)
+                    {
+                        byte[] imageData = (byte[])result;
+
+                        using (MemoryStream ms = new MemoryStream(imageData))
+                        {
+                            BitmapImage bitmapImage = new BitmapImage();
+                            bitmapImage.BeginInit();
+                            bitmapImage.StreamSource = ms;
+                            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                            bitmapImage.EndInit();
+                            bitmapImage.Freeze(); // To make the image thread-safe
+
+                            return bitmapImage;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading profile picture: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            return null; // Return null if no image was found or an error occurred
+        }*/
 
 
         private void ApplyFilters_button(object sender, RoutedEventArgs e)
@@ -162,7 +212,7 @@ namespace Fitfinder
         }
         private void DisplayTrainers(List<TrainerBrowse> trainers)
         {
-            TrainersListBox.ItemsSource = trainers;
+            TrainersItemsControl.ItemsSource = trainers;
         }
 
         private void Profile_button(object sender, RoutedEventArgs e)

@@ -24,85 +24,95 @@
             <Button Content="Messages" Click="Messages_button" Grid.Column="3"/>
         </Grid>
 
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Width="800" Height="208" Margin="0,25,0,0">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Width="800" Height="87" Margin="0,25,0,0">
             <TextBlock Text="Filter By:" FontWeight="Bold" Height="29"/>
 
-            <!-- Location filter -->
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBlock Text="Location:" Margin="0,0,10,0"/>
-                <TextBox x:Name="LocationInput" Width="150"/>
+            <StackPanel Orientation="Horizontal">
+                <!-- Location filter -->
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <TextBlock Text="Location:" Margin="0,0,10,0"/>
+                    <TextBox x:Name="LocationInput" Width="80" Height="20"/>
+                </StackPanel>
+
+                <!-- Gender filter -->
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <TextBlock Text="Gender:" Margin="10,0,10,0"/>
+                    <ComboBox x:Name="genderComboBox" Width="60" Height="20"/>
+                </StackPanel>
+
+                <!-- Workout type filter -->
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <TextBlock Text="Workout Type:" Margin="10,0,10,0"/>
+                    <ComboBox x:Name="workoutTypeComboBox" Width="100" Height="20"/>
+                </StackPanel>
+
+                <!-- Price range filter -->
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <TextBlock Text="Price Range:" Margin="10,0,10,0" Height="30"/>
+                    <TextBox Width="70" Height="20" x:Name="MinPriceInput" Margin="0,0,5,0" TextAlignment="Center"/>
+                    <TextBlock Text="-" Margin="0,0,5,0"/>
+                    <TextBox Width="70" Height="20" x:Name="MaxPriceInput" TextAlignment="Center"/>
+                </StackPanel>
+                <!-- Apply filters button -->
+                <Button Content="Apply Filters" Click="ApplyFilters_button" Margin="10,10"/>
             </StackPanel>
 
-            <!-- Gender filter -->
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBlock Text="Gender:" Margin="0,0,10,0"/>
-                <ComboBox x:Name="genderComboBox" Width="150"/>
-            </StackPanel>
-
-            <!-- Workout type filter -->
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBlock Text="Workout Type:" Margin="0,0,10,0"/>
-                <ComboBox x:Name="workoutTypeComboBox" Width="150"/>
-            </StackPanel>
-
-            <!-- Price range filter -->
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBlock Text="Price Range:" Margin="0,0,10,0" Height="30"/>
-                <TextBox Width="70" Height="20" x:Name="MinPriceInput" Margin="0,0,5,0" TextAlignment="Center"/>
-                <TextBlock Text="-" Margin="0,0,5,0"/>
-                <TextBox Width="70" Height="20" x:Name="MaxPriceInput" TextAlignment="Center"/>
-            </StackPanel>
-
-            <!-- Apply filters button -->
-            <Button Content="Apply Filters" Click="ApplyFilters_button" Margin="10"/>
         </StackPanel>
 
         <!-- List of trainers -->
-        <ListBox x:Name="TrainersListBox" Margin="10,306,0,0" SelectionChanged="TrainersListBox_SelectionChanged">
+        <ItemsControl x:Name="TrainersItemsControl" Margin="10,183,0,0" ScrollViewer.VerticalScrollBarVisibility="Auto">
             <!-- Define how each trainer should be displayed -->
-            <ListBox.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="3" VerticalAlignment="Top"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel>
-                        <TextBlock FontWeight="Bold">
-                            <Run Text="Name: "/>
-                            <Run Text="{Binding Name}"/>
-                        </TextBlock>
-                        <TextBlock FontWeight="Bold">
-                            <Run Text="Surname: "/>
-                            <Run Text="{Binding Surname}"/>
-                        </TextBlock>
-                        <TextBlock FontWeight="Bold">
-                            <Run Text="Email: "/>
-                            <Run Text="{Binding Email}"/>
-                        </TextBlock>
-                        <TextBlock FontWeight="Bold">
-                            <Run Text="Location: "/>
-                            <Run Text="{Binding Location}"/>
-                        </TextBlock>
-                        <TextBlock FontWeight="Bold">
-                            <Run Text="Description: "/>
-                            <Run Text="{Binding Description}"/>
-                        </TextBlock>
-                        <TextBlock FontWeight="Bold">
-                            <Run Text="Price: "/>
-                            <Run Text="{Binding Price, StringFormat='{}{0:C}'}"/>
-                        </TextBlock>
-                        <TextBlock FontWeight="Bold">
-                            <Run Text="Gender: "/>
-                            <Run Text="{Binding GenderName}"/>
-                        </TextBlock>
-                        <TextBlock FontWeight="Bold" Text="Workout Types:"/>
-                        <!-- Display workout types -->
-                        <ItemsControl ItemsSource="{Binding WorkoutTypes}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding}" Margin="10,0,0,0"/>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
+                    <Border BorderBrush="Black" BorderThickness="1" Margin="5">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold">
+                        <Run Text="Name: "/>
+                        <Run Text="{Binding Name}"/>
+                            </TextBlock>
+                            <TextBlock FontWeight="Bold">
+                        <Run Text="Surname: "/>
+                        <Run Text="{Binding Surname}"/>
+                            </TextBlock>
+                            <TextBlock FontWeight="Bold">
+                        <Run Text="Email: "/>
+                        <Run Text="{Binding Email}"/>
+                            </TextBlock>
+                            <TextBlock FontWeight="Bold">
+                        <Run Text="Location: "/>
+                        <Run Text="{Binding Location}"/>
+                            </TextBlock>
+                            <TextBlock FontWeight="Bold">
+                        <Run Text="Description: "/>
+                        <Run Text="{Binding Description}"/>
+                            </TextBlock>
+                            <TextBlock FontWeight="Bold">
+                        <Run Text="Price: "/>
+                        <Run Text="{Binding Price, StringFormat='{}{0:C}'}"/>
+                            </TextBlock>
+                            <TextBlock FontWeight="Bold">
+                        <Run Text="Gender: "/>
+                        <Run Text="{Binding GenderName}"/>
+                            </TextBlock>
+                            <TextBlock FontWeight="Bold" Text="Workout Types:"/>
+                            <!-- Display workout types -->
+                            <ItemsControl ItemsSource="{Binding WorkoutTypes}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" Margin="10,0,0,0"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                            <Button Content="View Details" Click="ViewDetails_Click"/>
+                        </StackPanel>
+                    </Border>
                 </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </Page>

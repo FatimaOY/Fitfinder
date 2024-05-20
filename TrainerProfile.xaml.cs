@@ -167,11 +167,11 @@ namespace Fitfinder
 
         }
 
-        private void Back_button(object sender, RoutedEventArgs e)
-        {
-            TrainerMainPage trainerMainPage = new TrainerMainPage();
-            this.NavigationService.Navigate(trainerMainPage);
-        }
+        //private void Back_button(object sender, RoutedEventArgs e)
+        //{
+        //    TrainerMainPage trainerMainPage = new TrainerMainPage();
+        //    this.NavigationService.Navigate(trainerMainPage);
+        //}
         private void ChangeDescription_Click(object sender, RoutedEventArgs e)
         {
 
@@ -407,6 +407,39 @@ namespace Fitfinder
                 {
                     MessageBox.Show("Error deleting profile: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+            }
+        }
+
+        private void Profile_button(object sender, RoutedEventArgs e)
+        {
+            TrainerProfile yourProfil = new TrainerProfile();
+            this.NavigationService.Navigate(yourProfil);
+        }
+
+        private void Requests_button(object sender, RoutedEventArgs e)
+        {
+            Request request = new Request();
+            this.NavigationService.Navigate(request);
+        }
+
+        private void YourWorkouts_button(object sender, RoutedEventArgs e)
+        {
+            YourWorkoutsTrainer yourWorkoutsTrainer = new YourWorkoutsTrainer();
+            this.NavigationService.Navigate(yourWorkoutsTrainer);
+        }
+
+        private void Calendar_button(object sender, RoutedEventArgs e)
+        {
+            // Show the week selection window
+            WeekSelectionWindow weekSelection = new WeekSelectionWindow();
+            if (weekSelection.ShowDialog() == true)
+            {
+                // Get the selected week number from the WeekSelection instance
+                int selectedWeek = weekSelection.SelectedWeek;
+
+                // Pass the selected week number to the CalendarTrainer constructor
+                CalendarTrainer calendarTrainer = new CalendarTrainer(selectedWeek);
+                this.NavigationService.Navigate(calendarTrainer);
             }
         }
     }

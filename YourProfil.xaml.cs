@@ -43,7 +43,7 @@ namespace Fitfinder
                     NameTextBlock.Text = $"Name: {currentUser.Name}";
                     SurnameTextBlock.Text = $"Surname: {currentUser.Surname}";
                     EmailTextBlock.Text = $"Email: {currentUser.Email}";
-                    MessageBox.Show($"User role: {UserSession.UserRole}", "User Role", MessageBoxButton.OK, MessageBoxImage.Information);
+                    //MessageBox.Show($"User role: {UserSession.UserRole}", "User Role", MessageBoxButton.OK, MessageBoxImage.Information);
                     DescriptionTextBlock.Text = $"Description: {currentClient.Description}";
                     string savedEmail = currentUser.Email;
                     // If you have a password field, it's usually a placeholder for user interaction (e.g., change password)

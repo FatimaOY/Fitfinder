@@ -11,6 +11,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Fitfinder
 {
@@ -68,6 +69,12 @@ namespace Fitfinder
                 MessageBox.Show("Passwords do not match.");
                 return;
             }
+            // Validate email format
+            if (!IsValidEmail(email))
+            {
+                MessageBox.Show("Please enter a valid email address.");
+                return;
+            }
             if (IfEmailExists(email) == true)
             {
                 MessageBox.Show("An account with this email already exists.");
@@ -82,7 +89,7 @@ namespace Fitfinder
             try
             {
                 _viewModel.AddNewClient(client); // Adding a client
-                MessageBox.Show("Trainee registered successfully.");
+                //MessageBox.Show("Trainee registered successfully.");
 
                 // Navigate to the login page again
                 LoginPage loginPage = new LoginPage();
@@ -127,6 +134,12 @@ namespace Fitfinder
                 MessageBox.Show("Passwords do not match.");
                 return;
             }
+            // Validate email format
+            if (!IsValidEmail(email))
+            {
+                MessageBox.Show("Please enter a valid email address.");
+                return;
+            }
             if (IfEmailExists(email) == true)
             {
                 MessageBox.Show("An account with this email already exists.");
@@ -150,7 +163,7 @@ namespace Fitfinder
             try
             {
                 _viewModel.AddNewTrainer(trainer); // Adding a trainer
-                MessageBox.Show("Trainer registered successfully.");
+                //MessageBox.Show("Trainer registered successfully.");
 
 
                 Questions1 questionsPage = new Questions1(email,password);
@@ -162,6 +175,12 @@ namespace Fitfinder
             }
         }
 
+        private bool IsValidEmail(string email)
+        {
+            // Regular expression for validating email
+            string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            return Regex.IsMatch(email, emailPattern);
+        }
         public bool IfEmailExists(string email)
         {
             // Assuming you have a connection string defined somewhere

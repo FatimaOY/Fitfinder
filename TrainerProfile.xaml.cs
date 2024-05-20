@@ -53,7 +53,7 @@ namespace Fitfinder
                     EmailTextBlock.Text = $"Email: {currentUser.Email}";
                     LocationTextBlock.Text = $"Location: {currentTrainer.Location}";
                     PriceTextBlock.Text = $"Price: {currentTrainer.Price}";
-                    MessageBox.Show($"User role: {UserSession.UserRole}", "User Role", MessageBoxButton.OK, MessageBoxImage.Information);
+                    //MessageBox.Show($"User role: {UserSession.UserRole}", "User Role", MessageBoxButton.OK, MessageBoxImage.Information);
                     DescriptionTextBlock.Text = $"Description: {currentTrainer.Description}";
                     string savedEmail = currentUser.Email;
 
@@ -63,7 +63,7 @@ namespace Fitfinder
                     trainerInfo.TrainerId = currentTrainer.TrainerId;
                     int trainerId = currentTrainer.TrainerId;
                     
-                    MessageBox.Show(Convert.ToString(currentTrainer.TrainerId));
+                    //MessageBox.Show(Convert.ToString(currentTrainer.TrainerId));
 
                  
 
@@ -157,7 +157,7 @@ namespace Fitfinder
             {
                 string workoutName = GetWorkoutTypeNameById(workoutId);
                 stylesList.Add(workoutName);
-                MessageBox.Show(workoutName);
+                //MessageBox.Show(workoutName);
 
             }
 

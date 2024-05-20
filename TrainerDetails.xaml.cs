@@ -14,7 +14,7 @@ namespace Fitfinder
         {
             InitializeComponent();
             trainerEmail = trainer.Email;
-            MessageBox.Show(trainerEmail);
+            //MessageBox.Show(trainerEmail);
             DisplayTrainerDetails(trainer);
         }
 

@@ -16,6 +16,8 @@
                 <DataGridTextColumn Header="Gender" Binding="{Binding Gender}" Width="*"/>
                 <DataGridTextColumn Header="Workout Style" Binding="{Binding WorkoutStyle}" Width="*"/>
                 <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*"/>
+                <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="*"/>
+                <DataGridTextColumn Header="Duration" Binding="{Binding Duration}" Width="*"/>
                 <DataGridTemplateColumn Header="Actions" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

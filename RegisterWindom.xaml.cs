@@ -98,15 +98,15 @@ namespace Fitfinder
                                   // Method to determine the gender based on the selected radio button
         private int GetGenderIdTrainer()
         {
-            if (rbFemale.IsChecked == true) return 1; // Female
-            if (rbMale.IsChecked == true) return 2; // Male
+            if (rbFemale.IsChecked == true) return 2; // Female
+            if (rbMale.IsChecked == true) return 1; // Male
             if (rbOther.IsChecked == true) return 3; // Other
             return 0; // Default or unknown
         }
         private int GetGenderIdClient()
         {
-            if (Female.IsChecked == true) return 1; // Female
-            if (Male.IsChecked == true) return 2; // Male
+            if (Female.IsChecked == true) return 2; // Female
+            if (Male.IsChecked == true) return 1; // Male
             if (Other.IsChecked == true) return 3; // Other
             return 0; // Default or unknown
         }

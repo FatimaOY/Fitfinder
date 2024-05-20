@@ -321,6 +321,13 @@ namespace Fitfinder
             // Combine date and time
             DateTime appointmentDate = GetNextDayOfWeek(selectedWeek, dayOfWeek).Add(startTime);
 
+            // Check if there is an appointment for the same date and time
+            if (IsAppointmentConflict(trainerID, appointmentDate))
+            {
+                MessageBox.Show("There is already an appointment scheduled for the selected date and time. Please choose a different time slot.");
+                return;
+            }
+
             string status = "Pending";
             TimeSpan duration = TimeSpan.FromHours(1);
 
@@ -348,6 +355,34 @@ namespace Fitfinder
                 }
             }
         }
+
+        private bool IsAppointmentConflict(int trainerID, DateTime appointmentDate)
+        {
+            bool conflict = false;
+
+            string query = "SELECT COUNT(*) FROM appointment WHERE TrainerId = @TrainerId AND Date = @AppointmentDate";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@TrainerId", trainerID);
+                cmd.Parameters.AddWithValue("@AppointmentDate", appointmentDate);
+
+                try
+                {
+                    connection.Open();
+                    int count = Convert.ToInt32(cmd.ExecuteScalar());
+                    conflict = count > 0;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error checking appointment conflict: " + ex.Message);
+                }
+            }
+
+            return conflict;
+        }
+
 
 
         private int GetTrainerWorkoutId(string workoutName)

@@ -45,5 +45,10 @@ namespace Fitfinder
                 this.NavigationService.Navigate(calendarTrainer);
             }
         }
+        private void AppointmentRequests_Button(object sender, RoutedEventArgs e)
+        {
+            Request request = new Request();
+            this.NavigationService.Navigate(request);
+        }
     }
 }

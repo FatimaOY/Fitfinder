@@ -17,7 +17,7 @@
             <!-- Messages Button -->
             <Button Content="Messages" Width="120" Margin="10"/>
             <!-- Appointment Requests Button -->
-            <Button Content="Appointment Requests" Width="180" Margin="10"/>
+            <Button Content="Appointment Requests" Width="180" Margin="10" Click="AppointmentRequests_Button"/>
             <!-- Your Calendar Button -->
             <Button Content="Your Calendar" Width="140" Margin="10" Click="TrainerCalander_Button"/>
         </StackPanel>

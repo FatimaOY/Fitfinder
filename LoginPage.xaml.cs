@@ -70,6 +70,7 @@ namespace Fitfinder
         public LoginPage()
         {
             InitializeComponent();
+            Data data = new Data();
         }
 
         private void ForgotPassword_Click(object sender, RoutedEventArgs e)
@@ -120,7 +121,8 @@ namespace Fitfinder
                             // Trainer login
                             UserSession.UserRole = "Trainer";
                             TrainerSession.CurrentTrainer = GetTrainerInformation(userId);
-                            TrainerMainPage trainerMainPage = new TrainerMainPage();
+                            int trainerId = data.GetTrainerID(userId);
+                            TrainerMainPage trainerMainPage = new TrainerMainPage(trainerId);
                             mainWindow.MainFrame.Navigate(trainerMainPage);
                         }
                         else if (UserExistsInTable("Client", userId))

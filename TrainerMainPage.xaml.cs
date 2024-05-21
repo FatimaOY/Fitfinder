@@ -20,9 +20,14 @@ namespace Fitfinder
     /// </summary>
     public partial class TrainerMainPage : Page
     {
-        public TrainerMainPage()
+        private int userId;
+        private int trainerId;
+        public TrainerMainPage(int userId)
         {
             InitializeComponent();
+            this.userId = userId;
+            Data data = new Data();
+            int trainerId = data.GetTrainerID(userId);
         }
 
         private void TrainerProfile_click(object sender, RoutedEventArgs e)
@@ -47,7 +52,7 @@ namespace Fitfinder
         }
         private void AppointmentRequests_Button(object sender, RoutedEventArgs e)
         {
-            Request request = new Request();
+            Request request = new Request(trainerId);
             this.NavigationService.Navigate(request);
         }
     }

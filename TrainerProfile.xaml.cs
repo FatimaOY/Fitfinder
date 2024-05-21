@@ -27,7 +27,7 @@ namespace Fitfinder
     public partial class TrainerProfile : Page
     {
         private ObservableCollection<string> workoutTypes = new ObservableCollection<string>();
-
+        private int trainerId;
         private YourProfil profil = new YourProfil();
 
         public TrainerProfile()
@@ -61,7 +61,7 @@ namespace Fitfinder
                     TrainerInfo trainerInfo = new TrainerInfo();
                     
                     trainerInfo.TrainerId = currentTrainer.TrainerId;
-                    int trainerId = currentTrainer.TrainerId;
+                    trainerId = currentTrainer.TrainerId;
                     
                     MessageBox.Show(Convert.ToString(currentTrainer.TrainerId));
 
@@ -169,7 +169,7 @@ namespace Fitfinder
 
         private void Back_button(object sender, RoutedEventArgs e)
         {
-            TrainerMainPage trainerMainPage = new TrainerMainPage();
+            TrainerMainPage trainerMainPage = new TrainerMainPage(trainerId);
             this.NavigationService.Navigate(trainerMainPage);
         }
         private void ChangeDescription_Click(object sender, RoutedEventArgs e)

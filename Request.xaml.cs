@@ -23,14 +23,16 @@ namespace Fitfinder
     {
         private int userId;
         private int selectedTraineeId; // Add a field to store the selected trainee ID
+        private int trainerId;
 
-        public Request()
+        public Request(int trainerId)
         {
             InitializeComponent();
-            LoadRequests();
+            this.trainerId = trainerId;
+            LoadRequests(trainerId);
         }
 
-        private void LoadRequests()
+        private void LoadRequests(int trainerId)
         {
             string connectionString = "datasource=127.0.0.1;" +
                                       "port=3306;" +
@@ -38,13 +40,15 @@ namespace Fitfinder
                                       "password=;" +
                                       "database=fitfinder4";
 
-            string query = "SELECT AppointmentId, TraineeId, TrainerWorkoutId, Date, Duration FROM Appointment WHERE Status = 'Pending'";
+            // Modify the query to include TrainerId condition
+            string query = "SELECT AppointmentId, TraineeId, TrainerWorkoutId, Date, Duration FROM Appointment WHERE Status = 'Pending' AND TrainerId = @TrainerId";
 
             var requests = new List<RequestModel>();
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@TrainerId", trainerId); // Add trainerId parameter
 
                 try
                 {
@@ -318,8 +322,6 @@ namespace Fitfinder
             }
         }
 
-
-        // Modify UpdateStatus to accept TraineeId directly
         private void UpdateStatus(int appointmentId, string status)
         {
             string connectionString = "datasource=127.0.0.1;" +
@@ -343,7 +345,7 @@ namespace Fitfinder
                     if (rowsAffected > 0)
                     {
                         // Status updated successfully
-                        LoadRequests(); // Reload requests to reflect updated status
+                        LoadRequests(trainerId); // Reload requests to reflect updated status
                     }
                 }
                 catch (MySqlException ex)
@@ -354,7 +356,7 @@ namespace Fitfinder
         }
     }
 
-        public class RequestModel
+    public class RequestModel
     {
         public DateTime Date { get; set; }
         public TimeSpan Duration { get; set; }

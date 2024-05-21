@@ -62,6 +62,9 @@ namespace Fitfinder
             string email = txtTraineeEmail.Text;
             string password = txtTraineePassword.Password;
             string confirmPassword = txtTraineeConfirmPassword.Password;
+            string favoriteColor = (txtAnswer1.Text).ToLower().Trim();
+            string dreamDestination = (txtAnswer2.Text).ToLower().Trim();
+            string favoriteAnimal = (txtAnswer3.Text).ToLower().Trim();
 
             // Validate input (check if passwords match)
             if (password != confirmPassword)
@@ -83,7 +86,7 @@ namespace Fitfinder
             int genderId = GetGenderIdClient();
 
             // Create a Client object
-            Client client = new Client(0, name, surname, email, password, null, genderId, null, null);
+            Client client = new Client(0, name, surname, email, password, null, genderId, null, null, favoriteColor, dreamDestination, favoriteAnimal);
 
             // Insert into the database using the ViewModel
             try
@@ -125,6 +128,9 @@ namespace Fitfinder
             string email = txtTrainerEmail.Text;
             string password = txtTrainerPassword.Password;
             string confirmPassword = txtTrainerConfirmPassword.Password;
+            string favoriteColor = (txtTrainerAnswer1.Text).ToLower().Trim();
+            string dreamDestination = (txtTrianerAnswer2.Text).ToLower().Trim();
+            string favoriteAnimal = (txtTrainerAnswer3.Text).ToLower().Trim();
             /*string location = txtTrainerLocation.Text; // ADD HERE GENDER ID WHEN READY
             int price = Convert.ToInt32(txtTraineePrice.Text);*/
 
@@ -156,7 +162,7 @@ namespace Fitfinder
             }
 
             // Create a Trainer object
-            Trainer trainer = new Trainer(0, name, surname, email, password, imageData, genderId, null, null, 0);
+            Trainer trainer = new Trainer(0, name, surname, email, password, imageData, genderId, null, null, 0, favoriteColor, dreamDestination, favoriteAnimal);
             
 
             // Insert into the database using the ViewModel

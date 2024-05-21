@@ -75,8 +75,9 @@ namespace Fitfinder
         private void ForgotPassword_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
+            string email = EmailInput.Text;
 
-            ForgotPassword adminMainPage = new ForgotPassword();
+            ForgotPassword adminMainPage = new ForgotPassword(email);
             mainWindow.MainFrame.Navigate(adminMainPage);
         }
 

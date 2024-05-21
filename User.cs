@@ -53,7 +53,11 @@ namespace Fitfinder
         public byte[] ProfilePic { get; set; }
         public int GenderId { get; set; }
 
-        public User(string name, string surname, string email, string password, byte[] profilePic, int genderId)
+        public string FavoriteColor { get; set; }
+        public string DreamDestination { get; set; }
+        public string FavoriteAnimal { get; set; }
+
+        public User(string name, string surname, string email, string password, byte[] profilePic, int genderId, string favoriteColor, string dreamDestination, string favoriteAnimal)
         {
             Name = name;
             Surname = surname;
@@ -61,6 +65,9 @@ namespace Fitfinder
             Password = password;
             ProfilePic = profilePic;
             GenderId = genderId;
+            FavoriteColor = favoriteColor;
+            DreamDestination = dreamDestination;
+            FavoriteAnimal = favoriteAnimal;
         }
     }
 

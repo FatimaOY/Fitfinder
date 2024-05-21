@@ -70,7 +70,11 @@
                     <StackPanel Margin="0,0,0,10">
                         <!-- Add a button for uploading profile picture -->
                         <Border Background="Gray" Width="90" Height="100" HorizontalAlignment="Left">
-                            <Image x:Name="ProfilePicture" Stretch="Uniform" HorizontalAlignment="Left"/>
+                            <Image Name="ProfilePicture"
+                               Width="150" Height="150"
+                               Stretch="Uniform"
+                               VerticalAlignment="Top"
+                               HorizontalAlignment="Left" />    
                         </Border>
                         <Button Content="Upload Profile Picture" Click="UploadProfilePicture_Click" HorizontalAlignment="Left"/>
                         <!-- Add an Image control to display the selected profile picture -->

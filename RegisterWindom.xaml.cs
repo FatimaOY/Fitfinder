@@ -194,25 +194,15 @@ namespace Fitfinder
         }
         private void UploadProfilePicture_Click(object sender, RoutedEventArgs e)
         {
-            // Create OpenFileDialog
             OpenFileDialog openFileDialog = new OpenFileDialog();
-
-            // Set filter for file extension and default file extension
             openFileDialog.Filter = "Image Files (*.jpg; *.jpeg; *.png; *.gif)|*.jpg; *.jpeg; *.png; *.gif";
 
-            // Display OpenFileDialog by calling ShowDialog method
             bool? result = openFileDialog.ShowDialog();
 
-            // Get the selected file name and display in an Image control
             if (result == true)
             {
-                // Open document
                 string filename = openFileDialog.FileName;
-
-                // Display selected image in the Image control
                 ProfilePicture.Source = new BitmapImage(new Uri(filename));
-
-                // Convert the selected image file to byte array
                 imageData = File.ReadAllBytes(filename);
             }
         }

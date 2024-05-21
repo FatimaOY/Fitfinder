@@ -11,6 +11,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Fitfinder
 {
@@ -61,11 +62,20 @@ namespace Fitfinder
             string email = txtTraineeEmail.Text;
             string password = txtTraineePassword.Password;
             string confirmPassword = txtTraineeConfirmPassword.Password;
+            string favoriteColor = (txtAnswer1.Text).ToLower().Trim();
+            string dreamDestination = (txtAnswer2.Text).ToLower().Trim();
+            string favoriteAnimal = (txtAnswer3.Text).ToLower().Trim();
 
             // Validate input (check if passwords match)
             if (password != confirmPassword)
             {
                 MessageBox.Show("Passwords do not match.");
+                return;
+            }
+            // Validate email format
+            if (!IsValidEmail(email))
+            {
+                MessageBox.Show("Please enter a valid email address.");
                 return;
             }
             if (IfEmailExists(email) == true)
@@ -76,13 +86,13 @@ namespace Fitfinder
             int genderId = GetGenderIdClient();
 
             // Create a Client object
-            Client client = new Client(0, name, surname, email, password, null, genderId, null, null);
+            Client client = new Client(0, name, surname, email, password, null, genderId, null, null, favoriteColor, dreamDestination, favoriteAnimal);
 
             // Insert into the database using the ViewModel
             try
             {
                 _viewModel.AddNewClient(client); // Adding a client
-                MessageBox.Show("Trainee registered successfully.");
+                //MessageBox.Show("Trainee registered successfully.");
 
                 // Navigate to the login page again
                 LoginPage loginPage = new LoginPage();
@@ -118,6 +128,9 @@ namespace Fitfinder
             string email = txtTrainerEmail.Text;
             string password = txtTrainerPassword.Password;
             string confirmPassword = txtTrainerConfirmPassword.Password;
+            string favoriteColor = (txtTrainerAnswer1.Text).ToLower().Trim();
+            string dreamDestination = (txtTrianerAnswer2.Text).ToLower().Trim();
+            string favoriteAnimal = (txtTrainerAnswer3.Text).ToLower().Trim();
             /*string location = txtTrainerLocation.Text; // ADD HERE GENDER ID WHEN READY
             int price = Convert.ToInt32(txtTraineePrice.Text);*/
 
@@ -125,6 +138,12 @@ namespace Fitfinder
             if (password != confirmPassword)
             {
                 MessageBox.Show("Passwords do not match.");
+                return;
+            }
+            // Validate email format
+            if (!IsValidEmail(email))
+            {
+                MessageBox.Show("Please enter a valid email address.");
                 return;
             }
             if (IfEmailExists(email) == true)
@@ -143,14 +162,14 @@ namespace Fitfinder
             }
 
             // Create a Trainer object
-            Trainer trainer = new Trainer(0, name, surname, email, password, imageData, genderId, null, null, 0);
+            Trainer trainer = new Trainer(0, name, surname, email, password, imageData, genderId, null, null, 0, favoriteColor, dreamDestination, favoriteAnimal);
             
 
             // Insert into the database using the ViewModel
             try
             {
                 _viewModel.AddNewTrainer(trainer); // Adding a trainer
-                MessageBox.Show("Trainer registered successfully.");
+                //MessageBox.Show("Trainer registered successfully.");
 
 
                 Questions1 questionsPage = new Questions1(email,password);
@@ -162,6 +181,12 @@ namespace Fitfinder
             }
         }
 
+        private bool IsValidEmail(string email)
+        {
+            // Regular expression for validating email
+            string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            return Regex.IsMatch(email, emailPattern);
+        }
         public bool IfEmailExists(string email)
         {
             // Assuming you have a connection string defined somewhere

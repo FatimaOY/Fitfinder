@@ -182,7 +182,7 @@ namespace Fitfinder
         {
             OpenConnection();
 
-            string query = "INSERT INTO User (Name, Surname, Email, Password, ProfilePic, GenderId) VALUES (@Name, @Surname, @Email, @Password, @ProfilePic, @GenderId)";
+            string query = "INSERT INTO User (Name, Surname, Email, Password, ProfilePic, GenderId,FavoriteColor, DreamDestination, FavoriteAnimal) VALUES (@Name, @Surname, @Email, @Password, @ProfilePic, @GenderId, @FavoriteColor, @DreamDestination, @FavoriteAnimal)";
 
             MySqlCommand cmd = new MySqlCommand(query, connection);
 
@@ -193,6 +193,9 @@ namespace Fitfinder
             cmd.Parameters.AddWithValue("@Password", user.Password);
             cmd.Parameters.AddWithValue("@ProfilePic", user.ProfilePic); // Assuming it's a byte array
             cmd.Parameters.AddWithValue("@GenderId", user.GenderId);
+            cmd.Parameters.AddWithValue("@FavoriteColor", user.FavoriteColor);
+            cmd.Parameters.AddWithValue("@DreamDestination", user.DreamDestination);
+            cmd.Parameters.AddWithValue("@FavoriteAnimal", user.FavoriteAnimal);
 
             int rowsAffected = cmd.ExecuteNonQuery(); // Execute command and get affected rows
 

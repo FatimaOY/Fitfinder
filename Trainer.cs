@@ -50,9 +50,13 @@ namespace Fitfinder
             int genderId,  // Added parameter
             string description,
             string location,
-            decimal price
- 
-        ) : base(name, surname, email, password, profilePic, genderId)  // Correct base constructor call
+            decimal price,
+            string favoriteColor, 
+            string dreamDestination, 
+            string favoriteAnimal
+
+
+        ) : base(name, surname, email, password, profilePic, genderId, favoriteColor,dreamDestination,favoriteAnimal)  // Correct base constructor call
         {
             Description = description;
             Location = location;

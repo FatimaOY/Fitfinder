@@ -53,7 +53,7 @@ namespace Fitfinder
                     EmailTextBlock.Text = $"Email: {currentUser.Email}";
                     LocationTextBlock.Text = $"Location: {currentTrainer.Location}";
                     PriceTextBlock.Text = $"Price: {currentTrainer.Price}";
-                    MessageBox.Show($"User role: {UserSession.UserRole}", "User Role", MessageBoxButton.OK, MessageBoxImage.Information);
+                    //MessageBox.Show($"User role: {UserSession.UserRole}", "User Role", MessageBoxButton.OK, MessageBoxImage.Information);
                     DescriptionTextBlock.Text = $"Description: {currentTrainer.Description}";
                     string savedEmail = currentUser.Email;
 
@@ -63,7 +63,7 @@ namespace Fitfinder
                     trainerInfo.TrainerId = currentTrainer.TrainerId;
                     trainerId = currentTrainer.TrainerId;
                     
-                    MessageBox.Show(Convert.ToString(currentTrainer.TrainerId));
+                    //MessageBox.Show(Convert.ToString(currentTrainer.TrainerId));
 
                  
 
@@ -157,7 +157,7 @@ namespace Fitfinder
             {
                 string workoutName = GetWorkoutTypeNameById(workoutId);
                 stylesList.Add(workoutName);
-                MessageBox.Show(workoutName);
+                //MessageBox.Show(workoutName);
 
             }
 
@@ -407,6 +407,39 @@ namespace Fitfinder
                 {
                     MessageBox.Show("Error deleting profile: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+            }
+        }
+
+        private void Profile_button(object sender, RoutedEventArgs e)
+        {
+            TrainerProfile yourProfil = new TrainerProfile();
+            this.NavigationService.Navigate(yourProfil);
+        }
+
+        private void Requests_button(object sender, RoutedEventArgs e)
+        {
+            Request request = new Request();
+            this.NavigationService.Navigate(request);
+        }
+
+        private void YourWorkouts_button(object sender, RoutedEventArgs e)
+        {
+            YourWorkoutsTrainer yourWorkoutsTrainer = new YourWorkoutsTrainer();
+            this.NavigationService.Navigate(yourWorkoutsTrainer);
+        }
+
+        private void Calendar_button(object sender, RoutedEventArgs e)
+        {
+            // Show the week selection window
+            WeekSelectionWindow weekSelection = new WeekSelectionWindow();
+            if (weekSelection.ShowDialog() == true)
+            {
+                // Get the selected week number from the WeekSelection instance
+                int selectedWeek = weekSelection.SelectedWeek;
+
+                // Pass the selected week number to the CalendarTrainer constructor
+                CalendarTrainer calendarTrainer = new CalendarTrainer(selectedWeek);
+                this.NavigationService.Navigate(calendarTrainer);
             }
         }
     }

@@ -46,6 +46,20 @@
                 <RadioButton x:Name="Other" Content="Other" VerticalAlignment="Top" Margin="28,5,0,0"/>
             </StackPanel>
 
+            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Width="300">
+                <TextBlock Text="Please answer the following security questions. If you have forgotten your password, you will need to enter the same answers to reset your password!"></TextBlock>
+                <TextBlock Text="1. What is your favorite color?" Margin="0,10,0,0"/>
+                <TextBox x:Name="txtAnswer1" Margin="0,5,0,10"/>
+
+                <TextBlock Text="2. What is your dream destination?" Margin="0,10,0,0"/>
+                <TextBox x:Name="txtAnswer2" Margin="0,5,0,10"/>
+
+                <TextBlock Text="3. What is your favorite animal?" Margin="0,10,0,0"/>
+                <TextBox x:Name="txtAnswer3" Margin="0,5,0,10"/>
+
+
+            </StackPanel>
+
             <Button Content="Create Profile" Click="CreateTrainee_button" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </StackPanel>
     </Grid>

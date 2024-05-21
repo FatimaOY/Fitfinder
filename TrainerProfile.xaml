@@ -19,14 +19,26 @@
             <RowDefinition Height="Auto"/>
             <!-- Bottom button row -->
         </Grid.RowDefinitions>
-
         <!-- Top navigation bar -->
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Your Profile" Click="Profile_button" Grid.Column="0"/>
+            <Button Content="Your Requests" Click="Requests_button" Grid.Column="1"/>
+            <Button Content="Your Workouts" Click="YourWorkouts_button" Grid.Column="2"/>
+            <Button Content="Calendar" Click="Calendar_button" Grid.Column="3"/>
+        </Grid>
+        <!-- Top navigation bar --><!--
         <Grid Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button Content="Go Back" Click="Back_button" Grid.Column="0"/>
-        </Grid>
+        </Grid>-->
 
         <!-- Profile Section -->
         <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">

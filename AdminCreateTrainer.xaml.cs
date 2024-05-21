@@ -51,6 +51,9 @@ namespace Fitfinder
             string email = txtTrainerEmail.Text;
             string password = txtTrainerPassword.Password;
             string confirmPassword = txtTrainerConfirmPassword.Password;
+            string favoriteColor = (txtTrainerAnswer1.Text).ToLower().Trim();
+            string dreamDestination = (txtTrianerAnswer2.Text).ToLower().Trim();
+            string favoriteAnimal = (txtTrainerAnswer3.Text).ToLower().Trim();
             /*string location = txtTrainerLocation.Text; // ADD HERE GENDER ID WHEN READY
             int price = Convert.ToInt32(txtTraineePrice.Text);*/
 
@@ -76,7 +79,7 @@ namespace Fitfinder
             }
 
             // Create a Trainer object
-            Trainer trainer = new Trainer(0, name, surname, email, password, imageData, genderId, null, null, 0);
+            Trainer trainer = new Trainer(0, name, surname, email, password, imageData, genderId, null, null, 0, favoriteColor, dreamDestination, favoriteAnimal);
 
 
             // Insert into the database using the ViewModel

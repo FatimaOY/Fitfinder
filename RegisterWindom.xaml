@@ -55,6 +55,21 @@
                     <RadioButton x:Name="Other" Content="Other" VerticalAlignment="Top" Margin="28,5,0,0"/>
                 </StackPanel>
 
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,20,0,0">
+                    <TextBlock Text="Please answer the following security questions." FontWeight="Bold"></TextBlock>
+                    <TextBlock Text=" If you have forgotten your password, you will need to enter the same answers to reset your password!"></TextBlock>
+                    <TextBlock Text="1. What is your favorite color?" Margin="0,10,0,0"/>
+                    <TextBox x:Name="txtAnswer1" Margin="0,5,0,10" Width="300"/>
+
+                    <TextBlock Text="2. What is your dream destination?" Margin="0,10,0,0"/>
+                    <TextBox x:Name="txtAnswer2" Margin="0,5,0,10" Width="300"/>
+
+                    <TextBlock Text="3. What is your favorite animal?" Margin="0,10,0,0"/>
+                    <TextBox x:Name="txtAnswer3" Margin="0,5,0,10" Width="300"/>
+
+                    
+                </StackPanel>
+
                 <Button Content="Register" Click="TraineeRegisterButton_Click" Margin="0,10,0,0" HorizontalAlignment="Center"/>
             </StackPanel>
         </Border>
@@ -112,6 +127,20 @@
                                 <RadioButton x:Name="rbOther" Content="Other" VerticalAlignment="Top" Margin="0,5,0,0"/>
                             </StackPanel>
                         </StackPanel>
+                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,20,0,0">
+                        <TextBlock Text="Please answer the following security questions." FontWeight="Bold"></TextBlock>
+                        <TextBlock Text=" If you have forgotten your password, you will need to enter the same answers to reset your password!"></TextBlock>
+                        <TextBlock Text="1. What is your favorite color?" Margin="0,10,0,0"/>
+                        <TextBox x:Name="txtTrainerAnswer1" Margin="0,5,0,10"/>
+
+                        <TextBlock Text="2. What is your dream destination?" Margin="0,10,0,0"/>
+                        <TextBox x:Name="txtTrianerAnswer2" Margin="0,5,0,10"/>
+
+                        <TextBlock Text="3. What is your favorite animal?" Margin="0,10,0,0"/>
+                        <TextBox x:Name="txtTrainerAnswer3" Margin="0,5,0,10"/>
+
+                        
+                    </StackPanel>
                     <Button Content="Register" Click="Trainer_final_register_click" Margin="0,10,0,0" HorizontalAlignment="Center"/>
                 </StackPanel>
             </ScrollViewer>

@@ -55,5 +55,11 @@ namespace Fitfinder
             Request request = new Request(trainerId);
             this.NavigationService.Navigate(request);
         }
+
+        private void YourWorkouts_button(object sender, RoutedEventArgs e)
+        {
+            YourWorkoutsTrainer yourworkoutsTrainer = new YourWorkoutsTrainer();
+            this.NavigationService.Navigate(yourworkoutsTrainer);
+        }
     }
 }

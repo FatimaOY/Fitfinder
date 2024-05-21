@@ -42,7 +42,10 @@ namespace Fitfinder
             byte[] profilePic,
             int genderId,
             string description,
-            string goals) : base( name, surname,email, password, profilePic, genderId)
+            string goals,
+            string favoriteColor, 
+            string dreamDestination, 
+            string favoriteAnimal) : base( name, surname,email, password, profilePic, genderId, favoriteColor, dreamDestination,favoriteAnimal)
         {
             Description = description;
             Goals = goals;

@@ -108,7 +108,7 @@ namespace Fitfinder
                     command.ExecuteNonQuery();
                 }
 
-                MessageBox.Show("Selected workouts forwarded to the database successfully.");
+                //MessageBox.Show("Selected workouts forwarded to the database successfully.");
             }
             catch (Exception ex)
             {
@@ -144,7 +144,7 @@ namespace Fitfinder
             if (selectedWorkouts.Count > 0)
             {
                 string selectedWorkoutsMessage = "Selected Workouts: " + string.Join(", ", selectedWorkouts);
-                MessageBox.Show(selectedWorkoutsMessage, "Selected Workouts", MessageBoxButton.OK, MessageBoxImage.Information);
+                //MessageBox.Show(selectedWorkoutsMessage, "Selected Workouts", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
@@ -152,7 +152,7 @@ namespace Fitfinder
             }
 
             // Debug output: Print the parameters
-            MessageBox.Show($"Debug: TrainerId = {currentId}, Location = {location}, Price = {price}");
+            //MessageBox.Show($"Debug: TrainerId = {currentId}, Location = {location}, Price = {price}");
 
             // Construct connection string
             string connectionString = "Server=127.0.0.1;Port=3306;Database=fitfinder4;Uid=root;Pwd=;";
@@ -180,14 +180,14 @@ namespace Fitfinder
                         int rowsAffected = command.ExecuteNonQuery();
 
                         // Debug output: Print the number of rows affected
-                        Console.WriteLine($"Debug: Rows affected = {rowsAffected}");
+                        //Console.WriteLine($"Debug: Rows affected = {rowsAffected}");
 
                         // Check if any rows were affected
                         if (rowsAffected > 0)
                         {
                             ForwardSelectedWorkoutsToDatabase(selectedWorkouts);
                             // Handle successful update
-                            MessageBox.Show("Data updated successfully.");
+                            //MessageBox.Show("Data updated successfully.");
                             // Navigate to the login page again
                             this.NavigationService.Navigate(_loginPage);
                         }
